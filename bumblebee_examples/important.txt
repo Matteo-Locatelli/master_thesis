@@ -1,0 +1,5 @@
+The files had to be built with BumbleBee on the virtual machine, but for some reason they are on "read-only" permissions.
+I couldn't import the .o file that i made running with "bee run" command.
+
+To create a new example follow the steps of creating a program with Bumblebee.
+To see the behaviour of each program go in the "tutorial examples" folder.
