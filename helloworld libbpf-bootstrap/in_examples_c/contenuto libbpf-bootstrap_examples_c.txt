@@ -1,0 +1,4 @@
+In libbpf-bootstrap/examples/c ci sono
+- i file .bpf.c per il kernel
+- i file .c lato utente
+- un makefile unico per tutte le applicazioni
