@@ -3,5 +3,5 @@ In libbpf-bootstrap/build bisogna
 - fare make (nella stessa cartella)
 - lanciare le applicazioni con ./nome_file (il nome del file non richiede nessuna estensione)
 
-Per vedere il risultato dell'applicazione lancciare un'altra finestra e usare il comando (valido per quasi tutte le applciazioni)
+Per vedere il risultato dell'applicazione lancciare un'altra finestra e usare il comando (valido per quasi tutte le applicazioni)
 sudo cat /sys/kernel/debug/tracing/trace_pipe
