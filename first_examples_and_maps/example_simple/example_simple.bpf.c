@@ -1,6 +1,7 @@
 
 // example_simple.bpf.c
 
+
 #include "vmlinux.h"
 #include <bpf/bpf_helpers.h>
 #include <bpf/bpf_tracing.h>
@@ -38,12 +39,10 @@ int print_pid(tcp_v4_connect)
 
     number ++;
 
-/* ERROR
+/*  ERROR  
     e->pid = pid;
     e->time_stamp = time_stamp;
 */
-
-//    bpf_printk("Updated fields in event.");
 
 	return 0;
 }

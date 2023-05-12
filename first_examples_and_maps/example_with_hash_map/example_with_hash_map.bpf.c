@@ -1,5 +1,5 @@
 
-// example_with_array_map.bpf.c
+// example_with_hash_map.bpf.c
 
 
 #include "vmlinux.h"
@@ -21,15 +21,15 @@ struct event {
 
 // Define the array map
 struct {
-    __uint(type, BPF_MAP_TYPE_ARRAY);
+    __uint(type, BPF_MAP_TYPE_HASH);
     __uint(max_entries, 256 * 1024);
     __type(key, pid_t);
     __type(value, u64);
-} array_map SEC(".maps");
+} hash_map SEC(".maps");
 
 
-void array_map_use_not_working(pid_t pid, u64 time_stamp){
-    bpf_printk("### BEGIN ARRAY MAP NOT WORKING ###");
+void hash_map_use_not_working(pid_t pid, u64 time_stamp){
+    bpf_printk("### BEGIN HASH MAP NOT WORKING ###");
 
     u64 update = 0;
     u64 delete = 0;
@@ -42,13 +42,13 @@ void array_map_use_not_working(pid_t pid, u64 time_stamp){
 */
     bpf_printk("Found = %d - Deleted = %d.", found, deleted);   // -> 0 both
 
-    update = bpf_map_update_elem(&array_map, &pid, &time_stamp, BPF_ANY);
+    update = bpf_map_update_elem(&hash_map, &pid, &time_stamp, BPF_ANY);
 
     bpf_printk("UPDATE %d (update %d).", pid, update);
 
     bpf_printk("key pid %d - ts %d - &pid %d - update %d.", pid, time_stamp, &pid, update);
 
-    found = bpf_map_lookup_elem(&array_map, &pid);
+    found = bpf_map_lookup_elem(&hash_map, &pid);
 
     if (found) {
         bpf_printk("FOUND IN ARRAY (found %d).", found);
@@ -56,11 +56,11 @@ void array_map_use_not_working(pid_t pid, u64 time_stamp){
         bpf_printk("NOT FOUND IN ARRAY (found %d).", found);
     }
 
-//  bpf_printk("delete %d -> result %d", pid, bpf_map_delete_elem(&array_map, &pid));  
+//  bpf_printk("delete %d -> result %d", pid, bpf_map_delete_elem(&hash_map, &pid));  
 
 /*  Can't do like this -> error code -22 (element not found in map)
     
-    deleted = bpf_map_lookup_elem(&array_map, &pid);    -> ERROR
+    deleted = bpf_map_lookup_elem(&hash_map, &pid);    -> ERROR
 
     if (deleted) {
         bpf_printk("DELETED FROM ARRAY (deleted %d).", deleted);
@@ -69,25 +69,25 @@ void array_map_use_not_working(pid_t pid, u64 time_stamp){
     }
 */
 
-    bpf_printk("### END ARRAY MAP NOT WORKING ###\n\n");
+    bpf_printk("### END HASH MAP NOT WORKING ###\n\n");
 }
 
 
-void array_map_use_working(pid_t pid, u64 time_stamp){
-    bpf_printk("### BEGIN ARRAY MAP WORKING ###");
+void hash_map_use_working(pid_t pid, u64 time_stamp){
+    bpf_printk("### BEGIN HASH MAP WORKING ###");
 
     u64 update;
 //  u64 delete;
 
     void *found;
 
-    update = bpf_map_update_elem(&array_map, &pid, &time_stamp, BPF_ANY);
+    update = bpf_map_update_elem(&hash_map, &pid, &time_stamp, BPF_ANY);
 
     bpf_printk("UPDATE %d (update %d).", pid, update);
 
     bpf_printk("key pid %d - ts %d - &pid %d - update %d.", pid, time_stamp, &pid, update);
 
-    found = bpf_map_lookup_elem(&array_map, &pid);
+    found = bpf_map_lookup_elem(&hash_map, &pid);
 
     if (found) {
         bpf_printk("FOUND IN ARRAY (found %d).", found);
@@ -96,18 +96,18 @@ void array_map_use_working(pid_t pid, u64 time_stamp){
     }
 
 //  works (alone)
-//  bpf_map_delete_elem(&array_map, &pid);
+//  bpf_map_delete_elem(&hash_map, &pid);
     
 //  does not work (alone)
-//  bpf_printk("DELETED FROM ARRAY (deleted %d).", bpf_map_delete_elem(&array_map, &pid));
+//  bpf_printk("DELETED FROM ARRAY (deleted %d).", bpf_map_delete_elem(&hash_map, &pid));
 
 //  works (alone)
-//  delete = bpf_map_delete_elem(&array_map, &pid);
+//  delete = bpf_map_delete_elem(&hash_map, &pid);
 
 //  does not work (combo with previous instruction and with definition of delete variable)
 //  bpf_printk("DELETE %d (delete %d).", pid, delete);
 
-    bpf_printk("### END ARRAY MAP WORKING ###\n\n");
+    bpf_printk("### END HASH MAP WORKING ###\n\n");
 }
 
 
@@ -125,9 +125,9 @@ int print_pid(tcp_v4_connect)
 
 //  Execute only one of the 2 functions
 
-//  array_map_use_not_working(pid, time_stamp);
+//  hash_map_use_not_working(pid, time_stamp);
 
-    array_map_use_working(pid, time_stamp);
+    hash_map_use_working(pid, time_stamp);
 
 	return 0;
 }
