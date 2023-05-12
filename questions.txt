@@ -1,0 +1,11 @@
+Domande codice:
+- parametri formali nelle funzioni in .bpf.c ( SEC("...") e funzione associata)
+- funzioni per accedere alle mappe (tipi ritornati)
+	void* (lookup)
+	int (update e delete) 
+
+Domande tesi:
+- italiano o inglese? -> presentazione da proiettare per il giorno della discussione
+- numero pagine minimo?
+- controrelatore?
+- ci sarà la discussione?
