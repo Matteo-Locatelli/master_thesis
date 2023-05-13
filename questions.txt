@@ -1,12 +1,13 @@
 Domande codice:
-- parametri formali nelle funzioni in .bpf.c ( SEC("...") e funzione associata)
-- funzioni per accedere alle mappe (tipi ritornati)
-	void* (lookup)
-	int (update e delete) 
+- parametri formali nelle funzioni in .bpf.c ( SEC("...") e funzione associata ( (void *ctx), ...).
+- funzioni per accedere alle mappe (tipi ritornati):
+	void* (lookup): cosa ritorna? (un puntatore al valore della mappa associato alla chiave)
+	int (update e delete): con update funziona e con delete no (-> no assegnamento, ma funziona solo se chiamata da sola)
+  Possibilità di chiamare le funzioni anche senza assegnarle ad una variabile: la funzione esegue comunque e i suoi effetti ci sono.
 
 Domande tesi:
 - italiano o inglese? -> presentazione da proiettare per il giorno della discussione
-- frontespizio già esistente o devo crearlo da 0?
+- frontespizio già esistente o devo crearlo da zero?
 - numero pagine minimo?
 - controrelatore?
-- ci sarà la discussione?
+- ci sarà la discussione? power point da presentare?
