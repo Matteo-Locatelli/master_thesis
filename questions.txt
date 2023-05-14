@@ -1,8 +1,14 @@
 Domande codice:
 - parametri formali nelle funzioni in .bpf.c ( SEC("...") e funzione associata ( (void *ctx), ...).
 - funzioni per accedere alle mappe (tipi ritornati):
-	void* (lookup): cosa ritorna? (un puntatore al valore della mappa associato alla chiave)
-	int (update e delete): con update funziona e con delete no (-> no assegnamento, ma funziona solo se chiamata da sola)
+	void* (lookup): cosa ritorna? (un puntatore al valore della mappa associato alla chiave) -> puntatore a mappa o a elemento?
+		non è una mappa standard in sequenza in memoria? DA VERIFICARE AGGIUNGENDO 2 VALORI DIVERSI
+	int (update e delete): con update funziona e con delete no (se si fa un assegnamento, ma funziona solo se chiamata da sola)
+- valori diversi ritornati dal metodo di update:
+	update -7 se provo ad inserire un intero come in example_simple_map (e non trova l'elemento) -> update(u32, int)
+	update: -17 con BPF_NOEXIST in example_with_array_map (ma trova l'elemento) -> corretto che non trovi, ma perchè non inserisce?
+	update: 0 con BPF_ANY & BPF_EXIST in example_with_array_map (e trova l'elemento) -> corretto
+		
   Possibilità di chiamare le funzioni anche senza assegnarle ad una variabile: la funzione esegue comunque e i suoi effetti ci sono.
 
 Domande tesi:

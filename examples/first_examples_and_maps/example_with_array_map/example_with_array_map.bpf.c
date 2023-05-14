@@ -83,6 +83,11 @@ void array_map_use_working(pid_t pid, u64 time_stamp){
 
     update = bpf_map_update_elem(&array_map, &pid, &time_stamp, BPF_ANY);
 
+    /*
+    BPF_ANY & BPF_EXIST -> update = 0 & found
+    BPF_NOEXIST -> update = -17 & found
+    */
+
     bpf_printk("UPDATE %d (update %d).", pid, update);
 
     bpf_printk("key pid %d - ts %d - &pid %d - update %d.", pid, time_stamp, &pid, update);
@@ -129,5 +134,21 @@ int print_pid(tcp_v4_connect)
 
     array_map_use_working(pid, time_stamp);
 
+    pid_t pid2;
+    u64 time_stamp2;
+    //struct event *e;
+    
+    pid2 = bpf_get_current_pid_tgid() >> 32;
+    time_stamp2 = bpf_ktime_get_ns();    // from system boot
+
+    array_map_use_working(pid2, time_stamp2);
+
+//  Try to understand void* returned by lookup
+/*
+    Does not insert in array map for some reason
+    pid_t r = (pid_t)bpf_get_prandom_u32();
+    u64 time_stamp_2;
+    array_map_use_working((pid_t)r, time_stamp_2);    
+*/
 	return 0;
 }

@@ -51,9 +51,9 @@ void hash_map_use_not_working(pid_t pid, u64 time_stamp){
     found = bpf_map_lookup_elem(&hash_map, &pid);
 
     if (found) {
-        bpf_printk("FOUND IN ARRAY (found %d).", found);
+        bpf_printk("FOUND IN HASH MAP (found %d).", found);
     } else {
-        bpf_printk("NOT FOUND IN ARRAY (found %d).", found);
+        bpf_printk("NOT FOUND IN HASH MAP (found %d).", found);
     }
 
 //  bpf_printk("delete %d -> result %d", pid, bpf_map_delete_elem(&hash_map, &pid));  
@@ -90,9 +90,9 @@ void hash_map_use_working(pid_t pid, u64 time_stamp){
     found = bpf_map_lookup_elem(&hash_map, &pid);
 
     if (found) {
-        bpf_printk("FOUND IN ARRAY (found %d).", found);
+        bpf_printk("FOUND IN HASH MAP (found %d).", found);
     } else {
-        bpf_printk("NOT FOUND IN ARRAY (found %d).", found);
+        bpf_printk("NOT FOUND IN HASH MAP (found %d).", found);
     }
 
 //  works (alone)
