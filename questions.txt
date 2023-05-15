@@ -6,10 +6,15 @@ Domande codice:
 	int (update e delete): con update funziona e con delete no (se si fa un assegnamento, ma funziona solo se chiamata da sola)
 - valori diversi ritornati dal metodo di update:
 	update -7 se provo ad inserire un intero come in example_simple_map (e non trova l'elemento) -> update(u32, int)
-	update: -17 con BPF_NOEXIST in example_with_array_map (ma trova l'elemento) -> corretto che non trovi, ma perchè non inserisce?
+	update: -17 con BPF_NOEXIST in example_with_array_map (ma trova l'elemento) -> inserisce anche dopo il primo? perchè trova?
 	update: 0 con BPF_ANY & BPF_EXIST in example_with_array_map (e trova l'elemento) -> corretto
 		
   Possibilità di chiamare le funzioni anche senza assegnarle ad una variabile: la funzione esegue comunque e i suoi effetti ci sono.
+
+  Una volta che una mappa viene creata non viene più eliminata nemmeno se termina il programma?
+  Dove viene creata la mappa?
+
+
 
 Domande tesi:
 - italiano o inglese? -> presentazione da proiettare per il giorno della discussione
