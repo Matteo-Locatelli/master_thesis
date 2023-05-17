@@ -1,9 +1,15 @@
 Domande codice:
 - parametri formali nelle funzioni in .bpf.c ( SEC("...") e funzione associata ( (void *ctx), ...).
+	1)hook/nome_hook
+	2) prendere il nome della funzione all'interno del kernel e si può accedere anche ai suoi parametri 
+		per vedere come si comporta dal punto di vista del kernel.
 - funzioni per accedere alle mappe (tipi ritornati):
 	void* (lookup): cosa ritorna? (un puntatore al valore della mappa associato alla chiave) -> puntatore a mappa o a elemento?
 		non è una mappa standard in sequenza in memoria? DA VERIFICARE AGGIUNGENDO 2 VALORI DIVERSI
+		-> puntatore generico: fare cast 
+			risultato: punta all'elemento associato alla chiave: se dereferenziato ritorna il valore associato ad una chiave
 	int (update e delete): con update funziona e con delete no (se si fa un assegnamento, ma funziona solo se chiamata da sola)
+		-> delete non funziona con BPF_MAP_TYPE_ARRAY, ma con BPF_MAP_TYPE_HASH sì
 - valori diversi ritornati dal metodo di update:
 	update -7 se provo ad inserire un intero come in example_simple_map (e non trova l'elemento) -> update(u32, int)
 	update: -17 con BPF_NOEXIST in example_with_array_map (ma trova l'elemento) -> inserisce anche dopo il primo? perchè trova?
