@@ -13,12 +13,16 @@ Domande codice:
 
   Una volta che una mappa viene creata non viene più eliminata nemmeno se termina il programma?
   Dove viene creata la mappa?
+- rodata map in skel
 
 
 
 Domande tesi:
 - italiano o inglese? -> presentazione da proiettare per il giorno della discussione
-- frontespizio già esistente o devo crearlo da zero?
-- numero pagine minimo?
-- controrelatore?
+	flag in inglese per rendere pubblica la tesi
+- frontespizio già esistente o devo crearlo da zero?	-> template su https://github.com/micheleberetta98/ (copiare file in texstudio)
+	-> pacchetto per extra "texlive-full" su ubuntu
+	-> su windows MkTech per installare pacchetti
+- numero pagine minimo? 70 / 80
+- controrelatore? scelto dalla commissione, interno all'università
 - ci sarà la discussione? power point da presentare?
