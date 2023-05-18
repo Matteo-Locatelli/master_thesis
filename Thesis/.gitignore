@@ -1,0 +1,4 @@
+dist/*
+
+# Uncomment this if you want to keep the pdf
+# !dist/*.pdf
