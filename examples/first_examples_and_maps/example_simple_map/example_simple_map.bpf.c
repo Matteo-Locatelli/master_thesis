@@ -25,7 +25,7 @@ struct {
 } array_map SEC(".maps");
 
 
-void array_map_use(u32 key, int n){
+static void array_map_use(u32 key, int n){
     bpf_printk("### BEGIN ARRAY MAP ###");
 
     u64 update;
@@ -36,7 +36,7 @@ void array_map_use(u32 key, int n){
 
     bpf_printk("UPDATE %d (update %d).", key, update);
 
-    bpf_printk("key pid %d - ts %d - &pid %d - update %d.", key, n, &key, update);
+    bpf_printk("key pid %d - n %d - &pid %d - update %d.", key, n, &key, update);
 
     found = bpf_map_lookup_elem(&array_map, &key);
 
@@ -46,8 +46,18 @@ void array_map_use(u32 key, int n){
         bpf_printk("NOT FOUND IN ARRAY (found %d).", found);
     }
 
+    // can't do the delete in an array map
+
     bpf_printk("### END ARRAY MAP ###\n\n");
 }
+
+
+/*
+3 ways to write code:
+- inside the function in SEC
+- in a function that return int & return 0 at the end
+- in a function declared static 
+*/
 
 
 SEC("kprobe/tcp_v4_connect")
@@ -58,30 +68,7 @@ int print_pid(tcp_v4_connect)
     number ++;
 
     u32 r1 = bpf_get_prandom_u32();
-    //array_map_use(r1, 1);
-
-    bpf_printk("### BEGIN ARRAY MAP ###");
-
-    u64 update;
-
-    void *found;
-
-    update = bpf_map_update_elem(&array_map, &r1, &number, BPF_ANY);
-
-    bpf_printk("UPDATE %d (update %d).", r1, update);
-
-    bpf_printk("key pid %d - ts %d - &pid %d - update %d.", r1, number, &r1, update);
-
-    found = bpf_map_lookup_elem(&array_map, &r1);
-
-    if (found) {
-        bpf_printk("FOUND IN ARRAY (found %d).", found);
-    } else {
-        bpf_printk("NOT FOUND IN ARRAY (found %d).", found);
-    }
-
-    bpf_printk("### END ARRAY MAP ###\n\n");
-
+    array_map_use(r1, number);
 
 	return 0;
 }

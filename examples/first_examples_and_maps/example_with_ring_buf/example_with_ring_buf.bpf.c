@@ -26,7 +26,7 @@ struct {
 
 
 // In ring buffer: before reserve the space -> then set the event -> then submit
-void ring_buf_use(struct event* e, pid_t pid, u64 time_stamp) 
+static void ring_buf_use(struct event* e, pid_t pid, u64 time_stamp) 
 { 
     bpf_printk("### BEGIN RING BUFFER ###");
 
@@ -50,8 +50,23 @@ void ring_buf_use(struct event* e, pid_t pid, u64 time_stamp)
 
     bpf_printk("Submitted event in ring buffer.");
 
+    bpf_printk("Query the ring buffer.");
+
+    bpf_printk("Avaiable data: %d.", bpf_ringbuf_query(&ring_buf, BPF_RB_AVAIL_DATA));
+    bpf_printk("Ring buffer size: %d.", bpf_ringbuf_query(&ring_buf, BPF_RB_RING_SIZE));
+    bpf_printk("Consumer position: %d.", bpf_ringbuf_query(&ring_buf, BPF_RB_CONS_POS));
+    bpf_printk("Producer position: %d.", bpf_ringbuf_query(&ring_buf, BPF_RB_PROD_POS));
+
     bpf_printk("### END RING BUFFER ###\n\n");
 }
+
+
+/*
+3 ways to write code:
+- inside the function in SEC
+- in a function that return int & return 0 at the end
+- in a function declared static 
+*/
 
 
 SEC("kprobe/tcp_v4_connect")
