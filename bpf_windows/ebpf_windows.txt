@@ -1,9 +1,9 @@
 Link path to install ebpf on windows:
 - https://github.com/microsoft/ebpf-for-windows/tree/main										(Repository)
+- https://github.com/microsoft/ebpf-for-windows/blob/main/docs/vm-setup.md							(Install VM)
 - https://github.com/microsoft/ebpf-for-windows/blob/main/docs/GettingStarted.md 						(Getting started)
 - https://github.com/microsoft/ebpf-for-windows/blob/main/docs/GettingStarted.md#installing-ebpf-for-windows
-- https://github.com/microsoft/ebpf-for-windows/blob/main/docs/vm-setup.md							(install VM)
--https://github.com/microsoft/ebpf-for-windows/blob/main/docs/InstallEbpf.md 							(via MSI is quickest)
+- https://github.com/microsoft/ebpf-for-windows/blob/main/docs/InstallEbpf.md 						(Via MSI is quickest)
 
 
 eBPF for Windows documentations

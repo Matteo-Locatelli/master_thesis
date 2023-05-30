@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.21)  18 MAY 2023 12:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.21)  22 MAY 2023 20:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -826,26 +826,24 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 ] [2
 
-]
-No file main.lof.
+] (main.lof)
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
-[3] [4
+ [3]
+[4
 
-]
-No file main.lot.
+] (main.lot)
 \tf@lot=\write7
 \openout7 = `main.lot'.
 
-[5] [6
+ [5] [6
 
-]
-No file main.lol.
+] (main.lol)
 \tf@lol=\write8
 \openout8 = `main.lol'.
 
-[7]
+ [7]
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
@@ -888,8 +886,8 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21214 strings out of 476374
- 373926 string characters out of 5788854
+ 21220 strings out of 476374
+ 374085 string characters out of 5788854
  1855340 words of memory out of 5000000
  41339 multiletter control sequences out of 15000+600000
  521194 words of font info for 49 fonts, out of 8000000 for 9000
