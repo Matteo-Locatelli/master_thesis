@@ -3,11 +3,18 @@ Link path to install ebpf on windows:
 - https://github.com/microsoft/ebpf-for-windows/blob/main/docs/vm-setup.md							(Install VM)
 - https://github.com/microsoft/ebpf-for-windows/blob/main/docs/GettingStarted.md 						(Getting started)
 - https://github.com/microsoft/ebpf-for-windows/blob/main/docs/GettingStarted.md#installing-ebpf-for-windows
-- https://github.com/microsoft/ebpf-for-windows/blob/main/docs/InstallEbpf.md 						(Via MSI is quickest)
+	(Installing VM & eBPF)
+- https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/setting-up-network-debugging-of-a-virtual-machine-host 
+	(DEBUGGING)
+- https://github.com/microsoft/ebpf-for-windows/blob/main/docs/InstallEbpf.md 	
+	(Via MSI is quickest)
 
 
 eBPF for Windows documentations
-- https://microsoft.github.io/ebpf-for-windows/	(many links)
+- https://microsoft.github.io/ebpf-for-windows/	(many links for documentation)
+- https://github.com/iovisor/bcc/blob/master/docs/reference_guide.md
+- https://microsoft.github.io/ebpf-for-windows/bpf__helper__defs_8h.html
+- https://microsoft.github.io/ebpf-for-windows/ebpf__structs_8h.html
 
 
 eBPF for Windows tutorial
@@ -16,8 +23,13 @@ eBPF for Windows tutorial
 
 
 eBPF programming for Windows: 
-- https://blog.subcom.tech/ebpf-programming-on-windows/?utm_medium=email&_hsmi=258521338&_hsenc=p2ANqtz-9taEQ7sh0r7EigAVYIUQAWXILfklYjy4fqJZ7urIApSoRk2T4eO39lKrq4pOSOOtZtXrM2hdkTc27ocis3sALK2Fm23Q&utm_content=258521338&utm_source=hs_email
+- https://blog.subcom.tech/ebpf-programming-on-windows/		(TUTORIAL)
 
 
 eBPF extras
 - https://github.com/libbpf/libbpf
+
+- https://www.youtube.com/watch?v=5koIhn3qlk4
+- https://www.youtube.com/watch?v=CEl29L2IDEo 
+- https://www.infoworld.com/article/3625229/programming-the-windows-kernel-with-ebpf.html (IMPORTANT INTRO)
+- https://lwn.net/Articles/857215/

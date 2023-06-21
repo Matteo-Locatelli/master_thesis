@@ -9,6 +9,8 @@ int my_xdp_parser(xdp_md_t* ctx)
 {
     int length = (char *)ctx->data_end - (char *)ctx->data;
 
+    bpf_printk("Lunghezza %d.", length);
+
     if (length > 1) {
         return XDP_PASS;
     }
