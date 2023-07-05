@@ -23,7 +23,7 @@ eBPF for Windows tutorial
 
 
 eBPF programming for Windows: 
-- https://blog.subcom.tech/ebpf-programming-on-windows/		(TUTORIAL)
+- https://blog.subcom.tech/ebpf-programming-on-windows/		(TUTORIAL LIKE libbpf-bootstrap)
 
 
 eBPF extras
