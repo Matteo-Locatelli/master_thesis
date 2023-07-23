@@ -19,7 +19,7 @@ struct event {
 };
 
 
-// Define the array map
+// Define the hash map
 struct {
     __uint(type, BPF_MAP_TYPE_HASH);
     __uint(max_entries, 256 * 1024);
@@ -58,12 +58,12 @@ static void hash_map_use(pid_t pid, u64 time_stamp){
     deleted = (u64 *)bpf_map_lookup_elem(&hash_map, &pid);
 
     if (!deleted) {
-        bpf_printk("DELETED IN ARRAY (*deleted %llu & deleted %p).", *deleted, deleted);
+        bpf_printk("DELETED IN HASH MAP (*deleted %llu & deleted %p).", *deleted, deleted);
     } else {
-        bpf_printk("NOT POSSIBLE TO DELETE IN ARRAY");
+        bpf_printk("NOT POSSIBLE TO DELETE IN HASH MAP");
     }
 
-    bpf_printk("### END ARRAY MAP WORK ###\n\n");
+    bpf_printk("### END HASH MAP WORK ###\n\n");
 
 }
 
