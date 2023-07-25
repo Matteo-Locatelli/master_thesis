@@ -1,0 +1,68 @@
+\chapter{Introduction}
+
+In the ever-evolving landscape of computer science and networking, the demand for efficient, flexible and secure packet filtering technologies has been dominant. 
+The Berkeley Packet Filter (BPF), an innovative technology developed in the Unix environment, has emerged as a powerful tool for network monitoring, traffic analysis and security enforcement. 
+Over the years, BPF has undergone significant advancements, culminating in the birth of Extended Berkeley Packet Filter (eBPF), a groundbreaking extension that has revolutionized network engineering and performance analysis.
+
+\section{Background}
+
+Computer networks establish the backbone of modern communication, enabling the seamless exchange of information across the globe. 
+
+The rapid growth of network traffic, the rise of complex cyber threats and the increasing need for real-time monitoring have motivated researchers and engineers to explore innovative solutions to enhance network performance and to build robust security mechanisms.
+Packet filtering, a fundamental networking technique, serves as a first line of defense in safeguarding networks and optimizing data transmission.
+
+Originally conceived in the 1990s, the Berkeley Packet Filter (BPF) was designed as a mechanism to filter packets at the kernel level for the Berkeley Software Distribution (BSD) operating system (a discontinued operating system based on the early versions of the Unix operating system). 
+However, its potential, consisting of its lightweightand versatile design, far exceeded its initial purpose and it evolved into a versatile technology with applications across various networking domains.
+
+Over the years, BPF has undergone significant developments and adaptations, until it resulted in the advent of eBPF: with the introduction of a new virtual machine and bytecode, eBPF allowed for the dynamic execution of custom programs within the kernel context, extending its applicability beyond traditional packet filtering to areas such as network monitoring, tracing and deep packet inspection.
+
+\section{Motivation}
+
+Despite the extensive use of eBPF in Unix-based systems, its incorporation into Windows environments has remained a challenge. 
+As Windows continues to be a prominent operating system in both personal and enterprise computing, unlocking the potential of eBPF on this platform becomes crucial for achieving cross-platform network engineering and security solutions.
+
+This thesis will focus on the historical progression of BPF and its adaptation on the Windows platform.
+In addition to that, we will explore the advancements introduced to eBPF on both operative systems and study the current state of art of eBPF on Windows to show its differences with the Linux environment. 
+
+\section{Objectives}
+
+This master's thesis aims to provide an in-depth analysis of eBPF's architecture, installation and functionalities in both operating systems, while showing the history, development and impact of eBPF in the world of computer science and network engineering. 
+
+The primary objectives of this research are as follows:
+
+\begin{itemize}
+	\item Tell the history of eBPF: by understanding the origins of BPF, we gain insights into the 		
+		motivations that led to the creation of eBPF and we can identify the key challenges faced during its integration into Windows and the innovative solutions designed to overcome them. 
+		A look into the historical context provides a solid foundation for exploring eBPF's potential, from a simple packet filtering mechanism to a versatile technology with broader network real-world applications;
+	\item Installation and integration of eBPF on Linux and Windows: we will investigate the process of
+		installing eBPF into both Linux and Windows operating systems. 
+		By understanding the differences in installation procedure and requirements on these platforms, we are enabled to leverage the cross-platform capabilities of this technology;
+	\item Development of eBPF programs on Linux and Windows: this thesis will cover the development
+		process of eBPF programs on both Linux and Windows platforms. 
+		We will explore the process of creating, loading and executing eBPF programs.
+		Furthermore, by studying the eBPF API, we will:
+		\begin{itemize}
+			\item Demonstrate the creation of custom programs to achieve specific networking tasks;
+			\item Show how far they have come in the development of the technology in the two operating
+				systems;
+			\item Examine the methods used to safely load eBPF programs into the kernel. 
+		\end{itemize}
+\end{itemize}
+
+\section{Organization of the Thesis}
+
+TODO: BETTER ORGANIZATION -> TEXT OR LIST
+
+The subsequent chapters of this thesis will be organized as follows:
+
+\begin{itemize}
+	\item Chapter 2: the history of eBPF (with real-world examples);
+	\item Chapter 3: eBPF on Linux (installation and programs development);
+	\item Chapter 4: eBPF on Windows (installation and programs development);
+	\item Chapter 5: Future prospects of eBPF on Windows;
+	\item Chapter 6: Conclusion.
+\end{itemize}
+
+Through this master's thesis, we hope to offer a comprehensive understanding of eBPF's significance, capabilities and potential in modern networking environments.
+We also have the ambition to contribute to the field of computer engineering by closing the gap between Unix and Windows-based network technologies and security measures.
+By exploring the installation and development processes on both Linux and Windows, we present a comparative analysis of eBPF's cross-platform capabilities.

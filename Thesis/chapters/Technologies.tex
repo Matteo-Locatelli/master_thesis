@@ -1,0 +1,62 @@
+\chapter{Technologies used}
+
+Since we already announced that we are going to work on both Linux and Windows, before diving into the installation process of eBPF on both Linux and Windows, it is important to describe the technologies that allowed us to develop programs using eBPF.
+
+\section{The host environment}
+
+The project started with a single Windows 11 PC serving as the host environment for all research and development activities. 
+The computer has a 64 bit operating system with a processor based on x64, a 16 GB RAM and a Solid-State Drive (SSD) with a capacity of 1TB as for storage.
+Windows 11, with its user-friendly interface and vast software ecosystem, combined with the power given by the four cores of the Intel Core i7 processor, provided an efficient platform for general computing requirements.
+Given the fact that other operating systems were required for this project, the integration of virtualization was crucial to create isolated environments alongside the Windows host.
+
+\section{Virtual machine for Linux development}
+
+For installing and developing programs with eBPF on Linux, a virtual machine running Ubuntu 22.04 was set up within VirtualBox (the version of the operating system is not important).
+
+VirtualBox is a type 2 hypervisor
+VirtualBox is a type 2 or hosted hypervisor. It is a software application that runs on top of an existing operating system (host OS) and provides the capability to create and manage virtual machines. VirtualBox allows you to run multiple guest operating systems within your host operating system.
+As a type 2 hypervisor, VirtualBox relies on the host operating system's kernel to manage hardware resources. It uses device drivers and services from the host OS to interact with the physical hardware, which can introduce some overhead and may affect performance compared to a type 1 hypervisor.
+While VirtualBox provides a good level of isolation between the host and guest operating systems, its reliance on the host OS for certain operations can lead to performance differences and potential resource conflicts.
+VirtualBox is an excellent choice for individuals or developers who want a straightforward and user-friendly virtualization solution to run virtual machines on their personal computers. It is well-suited for testing, development, and running a few VMs simultaneously.
+VirtualBox is a user-friendly type 2 hypervisor suitable for individual use and small-scale virtualization scenarios.
+
+INSERT PHOTO
+
+The installation process involved creating a virtual disk, configuring memory and CPU allocation and selecting the Ubuntu 22.04 ISO file previously downloaded (LINK) for installation. 
+The virtual machine provided a native Linux platform for eBPF program development, compilation and testing.
+
+\section{Virtual machine for Windows development}
+
+Since the main focus is the analysis of eBPF state of art on Windows, the project also demanded the capability to develop eBPF programs specific to the Windows platform. 
+For this purpose, the Hyper-V Console Manager, a native Windows feature, was used to create a separate Windows 11 virtual machine (LINK TO GETTING STARTED).
+
+LINK TO ISO IMAGE
+
+Hyper-V is a type 1 hypervisor
+A hypervisor, also known as a virtual machine monitor (VMM), is a type 1 or bare-metal virtualization software that runs directly on the physical hardware without the need for a host operating system. It is the core software responsible for managing the virtual machines and allocating hardware resources to each VM.
+A type 1 hypervisor runs directly on the hardware, eliminating the need for an underlying host operating system. It has direct access to the physical hardware, allowing it to allocate resources more efficiently and generally providing better performance and scalability compared to type 2 hypervisors like VirtualBox.
+Hypervisors offer superior performance and isolation since they directly manage hardware resources. Each virtual machine is isolated from other VMs and the host OS, leading to better security and resource utilization.
+Hypervisors are commonly used in enterprise environments and data centers where scalability, high performance, and efficient resource allocation are critical. They are designed to run multiple VMs on servers, making them ideal for virtualizing large-scale applications and services.
+While hypervisors are more robust and scalable type 1 solutions preferred for enterprise and data center virtualization needs.
+
+INSERT PHOTO
+
+The virtual machine was configured with adequate resources to support development tasks effectively. 
+The isolated Windows 11 development environment provided a controlled space for testing and optimizing eBPF programs on the Windows platform.
+
+\section{Repository of the project}
+
+GitHub is a platform and cloud-based service for software development and collaborative version control using Git, a distributed version control system that tracks changes in any set of computer files, allowing developers to store and manage their code. 
+It provides the distributed version control of Git plus access control, bug tracking, software feature requests, task management, continuous integration and wikis for every project.
+It is commonly used to host open source software development projects.
+
+INSERT LOGO
+
+GitHub has been an invaluable platform for sharing the progress of my work with my co-advisors and facilitating collaboration during the entire development process. 
+Its version control system allowed me to keep track of changes, maintain a detailed history of my project and collaborate consistently with my co-advisors, ensuring a smooth and efficient development workflow. 
+By regularly pushing updates to the repository, my co-advisors were able to monitor the evolution of my work, review code changes, provide timely feedback and offer valuable suggestions for improvement.
+
+LINK REPO
+
+Beyond the immediate scope of my thesis, the public visibility of the GitHub repository opens up the possibility of sharing my work with the broader community. 
+By making the repository public, we hope that others can benefit from the knowledge and insights gained during the project, encouraging collaboration and contributions from future researchers and developers.

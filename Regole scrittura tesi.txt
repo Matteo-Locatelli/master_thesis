@@ -5,5 +5,4 @@ Regole scrittura tesi:
 - \usepackage[hidelinks]{hyperref}
 - \url{...}
 - \cite{…}
-- Environment lstlistings per codice in latex
-- https://www.overleaf.com/learn/latex/Code_listing
+- Environment lstlistings per codice in latex -> https://www.overleaf.com/learn/latex/Code_listing
