@@ -6,8 +6,8 @@
 \contentsline {section}{\numberline {1.4}Organization of the Thesis}{3}{section.1.4}%
 \contentsline {chapter}{\numberline {2}Technologies used}{5}{chapter.2}%
 \contentsline {section}{\numberline {2.1}The host environment}{5}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Virtual machine for Linux development}{5}{section.2.2}%
+\contentsline {section}{\numberline {2.2}Virtual machine for Linux development}{6}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Virtual machine for Windows development}{6}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Repository of the project}{7}{section.2.4}%
-\contentsline {chapter}{\numberline {3}The history of eBPF}{9}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Acknowledgments}{11}{chapter.4}%
+\contentsline {section}{\numberline {2.4}Repository of the project}{8}{section.2.4}%
+\contentsline {chapter}{\numberline {3}The history of eBPF}{11}{chapter.3}%
+\contentsline {chapter}{Bibliography}{13}{chapter*.11}%

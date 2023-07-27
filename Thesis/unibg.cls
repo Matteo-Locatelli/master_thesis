@@ -22,10 +22,10 @@
 
 \LoadClass[a4paper,12pt,twoside,openright]{report}
 
-\RequirePackage[backend=biber]{biblatex}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[backend=bibtex]{biblatex}
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage[T1]{fontenc}
-\RequirePackage[utf8]{inputenc}
 \RequirePackage[\@lang]{babel}
 \RequirePackage{caption}
 \RequirePackage{csquotes}
@@ -87,7 +87,7 @@
 \def\advisor#1{\gdef\@advisor{#1}}
 \def\coadvisor#1{\gdef\@coadvisor{#1}}
 \def\studentid#1{\gdef\@studentid{#1}}
-\def\year#1{\gdef\@year{#1}}
+\def\academicyear#1{\gdef\@academicyear{#1}}
 \def\@coadvisor{}
 \def\@subtitle{}
 
@@ -150,7 +150,7 @@
         \vfill
     
         \begin{center}
-          \@trAnnoAccademico~\@year
+          \@trAnnoAccademico~\@academicyear
         \end{center}
       }
       {
@@ -197,7 +197,7 @@
           \vfill
 
           \@trAnnoAccademico \\
-          \@year
+          \@academicyear
 
         \end{changemargin}
       }

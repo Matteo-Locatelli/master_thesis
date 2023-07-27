@@ -1,7 +1,9 @@
 \documentclass[english,master]{unibg}
 
+\usepackage{todonotes}
+
 \title{eBPF for Windows}
-\subtitle{A Seclab Subtitle}
+% \subtitle{A Seclab Subtitle}
 \advisor{Chiar.mo Prof.~Stefano Paraboschi}
 % \coadvisor{Chiar.mo Prof.~Ed Smith}
 
@@ -11,7 +13,7 @@
 
 \author{Matteo Locatelli}
 \studentid{1059210}
-\year{2022/2023}
+\academicyear{2022/2023}
 
 \begin{document}
 \maketitle
@@ -20,6 +22,9 @@
 \include{chapters/abstract.tex}
 
 \emptypage
+
+\include{chapters/Acknowledgments.tex}
+
 \toc[figures,tables,listings]
 \emptypage
 
@@ -29,7 +34,6 @@
 \input{chapters/Introduction.tex}
 \input{chapters/Technologies.tex}
 \input{chapters/History.tex}
-\input{chapters/Acknowledgments.tex}
 
 \nocite{*}
 \printbibliography[heading=bibintoc]
