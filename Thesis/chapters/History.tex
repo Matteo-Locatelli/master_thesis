@@ -1,1 +1,273 @@
 \chapter{The history of eBPF}
+
+This chapter digs in the historical journey of extended Berkeley Packet Filter (eBPF), starting from the first ideas of packet filtering to its current state as a powerful and versatile technology. 
+By exploring the foundations of packet filtering and the development of traditional BPF, we lay the groundwork for understanding the motivations behind eBPF's emergence. 
+We will uncover how eBPF has revolutionized networking, observability and security in contemporary computing environments, from its initial applications in Unix-based systems to its widespread adoption in modern computing.
+
+\section{The beginning of packet filtering}
+
+The acronym BPF was first used in December 1992 in a document written by Steven McCanne and Van Jacobson while at Lawrence Berkeley Laboratory (Berkeley, California), titled \textit{The BSD Packet Filter: a New Architecture for User-level Packet Capture} \cite{BSDPacketFilter}.
+Fun fact, at the beginning of its story, the \textit{B} in BPF standed for Berkeley Software Distribution (BSD), a discontinued operating system based on the early version of Unix, which was developed and distributed by the Computer Systems Research Group at the University of California in Berkeley.
+
+In this article they talk about the packet-capture techniques existing at the time and they describe the BSD packet filter (BPF), ``a new kernel architecture for packet capture''.
+The authors first start to describe the need to manage network traffic efficiently and how it was performed with the facilities implemented to those days.
+Then, they present the design of BPF, showing its model and a pseudo-machine that would work as a filter with BPF.
+In the end, they do some examples of packet filtering with BPF and with other technologies and compare their performances on the same hardware, showing how and why BPF performs substantially better than other approaches.
+
+\section{The characteristics of BPF}
+
+While the previous article was the first to cover BPF, it offers a broad view of the improvements this technology would bring to the world of network monitoring:
+
+\begin{itemize}
+	\item It outperforms other facilities of that time in their filtering mechanisms;
+	\item It has a programmable pseudo-machine model that demonstrated to be general 
+		and extensible;
+	\item It is portable and runs on most BSD systems which, due to 
+		their Unix-like basis, were a synonym of high quality networking back then;
+	\item It can interact with various data-link layers.
+\end{itemize}
+
+Given these characteristics, it can be understood how BPF was ahead of its time: it was used to speed up packet filtering and analyze network traffic, since packets rates could be very high, even for the computers at the time when McCanne and Jacobson wrote their article. 
+In fact, the original BPF was designed for capturing and filtering network packets that matched specific rules: to do so, a user-space process was allowed to supply a filter program that specifies which packets it wants to receive.
+This program would be run on a register-based virtual machine inside the kernel, once they were compiled in the most efficient instructions.
+
+The fact that BPF worked in a way similar to a virtual machine in the kernel was the most interesting part about this new technology: the filter programs were in the form of instructions for a virtual machine, which were interpreted or compiled into machine code by a just-in-time (JIT, the process of compiling a program during its execution) mechanism and executed in the kernel.
+
+The features of this virtual machine are described in the document mentioned above: it was a 32-bit machine with fixed-length instructions, one accumulator and one index register. 
+Programs in that language could perform different types of operations, like fetching data from the packet, performing arithmetic operations on data from the packet and comparing the results against constants or against data in the packet or test bits in the results, accepting or rejecting the packet based on the results of those tests.
+
+How can traditional Unix-like BPF implementations be used in user-space, despite being written for kernel-space? 
+This is accomplished using preprocessor conditions.
+A preprocessor is a program that receives an input and produces an output that it will be used as an input for an other program.
+This is a typical features of compilers, computer programs that translate computer code written in one programming language (the source language) into another language (the target language). 
+This name is primarily used for programs that translate source code from a high-level programming language to a low-level programming language (e.g. assembly language, object code, or machine code) to create an executable program.
+We brought the example of compilers because we are going to see later that the process of loading a BPF program inside the kernel requires, among many things, a compiler.
+
+An other interesting feature about BPF was the fact that it provided a raw interface to various data-link layers, permitting layer 2 packets to be sent and received.
+Sometimes, BPF is used specifically in reference to its filtering capabilities, rather than encompassing the entire interface. 
+Across various systems, like Linux, other raw interfaces to the data link layer exist and they utilize BPF's filtering mechanisms for their own purposes. 
+In fact, the BPF filtering mechanism is not only available on a select few systems, but is extensively found in most Unix-like operating systems and, in recent times,  in the latest versions of Windows.
+
+\section{Limitations of BPF}
+
+The decision to run user-supplied programs within the kernel proved to be highly advantageous, but certain aspects of the original BPF design faced difficult challenges over time:
+
+\begin{itemize}
+	\item The virtual machine and its fixed-length instruction set architecture (ISA, 
+		a part of the abstract model of a computer that defines how the CPU is controlled by the software) were outpaced as modern processors transitioned to 64-bit registers and introduced new instructions for multiprocessor systems, such as the atomic exchange-and-add instruction (XADD),compromising its ability to efficiently handle complex tasks on contemporary hardware;
+	\item The initial focus on offering a limited number of Reduced Instruction Set
+		Computer (RISC, a computer architecture designed to simplify the individual instructions given to the computer to accomplish tasks in order to achieve higher performances) instructions no longer aligned with the demands of contemporary processors because it did not provide a sufficient instruction set to handle advanced filtering and analysis task effectively;
+	\item As new networking functionalities emerge, incorporating them into the 
+		traditional BPF framework became challenging, because it lacked robust mechanisms for extensions and overloading of instructions, making very difficult its adaptability to ever-evolving network architectures;
+	\item Since BPF was primarily designed for execution within the kernel space,
+		its use in certain user-space scenarios and in other potential applications was limited due to its lack of versatility;
+	\item As modern networks handle higher data rates and voluminous traffic,
+		processing and filtering massive amounts of packets in real-time with BPF could cause performance bottlenecks, impacting overall system responsiveness, because it might not scale efficiently;
+	\item BPF was missing built-in safety mechanisms, making it vulnerable to errors
+		or malicious code which could lead to system crashes or security breaches;
+	\item BPF was not designed to handle efficiently complex packet structures or
+		protocols, limiting its ability in analyzing and filtering non-standard or highly intricate network traffic;
+	\item As networking technologies continue to evolve rapidly, BPF's rigidity 
+		may create challenges in adapting to emerging protocols, data formats and network architectures, potentially making it less suitable for future innovations.
+\end{itemize} 
+
+It is essential to consider these limitations when evaluating the appropriateness of  BPF for modern networking requirements. 
+In fact, all of the problems about BPF described above can be referred to the fact that in the IT world things evolve really quickly and at its beginning BPF was not flexible and extensible to the innovations that would be introduced in the years to come.
+
+Recognizing its historical significance and contributions, it is clear that BPF was not enough to keep up with the technological advancements that would be done in modern hardware.
+To try to address many of the described limitations, in 2014 Extended BPF (eBPF), a more versatile and future-ready technology for advanced networking and observability needs, was introduced by Alexei Starovoitov and Daniel Borkmann, creators and current maintainers of this project.
+
+\section{Introduction to eBPF}
+
+eBPF is a technology that can run sandboxed programs in a privileged context such as the operating system kernel.
+It has first appeared in the Linux Kernel 3.18 after the extension of the inner BPF virtual machine and makes the original version, which has been retroactively renamed to \textit{classic} BPF (cBPF), mostly obsolete.
+In Table \ref{table:cBPF_vs_eBPF} we can see the main differences that were brought with the introduction of eBPF.
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|| l | l | l ||} 
+		\hline
+		& Classic BPF & Extended BPF \\
+		\hline
+		\hline
+		Word size & 32-bit & 64-bit \\
+		\hline
+		Registers & 2 & 10+1 \\
+		\hline
+		Storage & 16 slots & 512 byte stack + infinite map storage \\	
+		\hline
+		Events & packets & many event sources \\
+		\hline
+	\end{tabular}
+	\caption{Comparison between cBPF and eBPF main features.}
+	\label{table:cBPF_vs_eBPF}
+\end{table}
+
+Moving to 64-bit registers and an increasing the number of registers from two to ten (since modern architectures have far more than two registers), allowed parameters to be passed to functions in eBPF virtual machine registers just like on native hardware and virtually gave the virtual machine unlimited storage.
+While these changes were introduced in eBPF due to of progresses made in computer hardware, there have also been several revolutions regarding the technology itself:
+
+\begin{itemize}
+	\item The most important one is the fact that an eBPF program, instead of only
+		being attached to packets, it can now be attached to many different event sources and run many programs within the kernel, making this technology very powerful and allowing it to start being used in a wide variety of applications, including networking and tracing;
+	\item At the lowest level, beyond the use of ten 64-bit registers, eBPF
+		introduced different jump semantics, a new \textit{BPF\_CALL} instruction to call in-kernel functions cheaply and corresponding register passing convention, new instructions and a different encoding for these instructions;
+	\item The ease of mapping eBPF to native instructions made it suitable for
+		JIT compilation, which was supported by many architectures, bringing an improvement in the performance (``The original patch that added support for eBPF in the 3.15 kernel showed that eBPF was up to four times faster on x86-64 than the old cBPF implementation for some network filter microbenchmarks, and most were 1.5 times faster'' \cite{eBPFThroughIntroduction});
+	\item eBPF was made more flexible and as the Linux Kernel evolved in versions
+		after 3.18, new functionalities (that we will discuss later) were subsequently added, such as the use of loops.
+\end{itemize}
+
+The described changes made eBPF appear to the world as a revolution.
+Originally, eBPF was only used internally by the kernel and loaded cBPF bytecode was transparently translated into an eBPF representation in the kernel before program execution.
+Finally, in 2014 the eBPF virtual machine was exposed directly to user space and nowadays the Linux kernel runs eBPF only.
+Moreover, in 2021, due to its success in Linux, the eBPF runtime has been ported to other operating systems such as Windows.
+cBPF, instead, passed to history as being the packet filter language used by \textit{tcpdump}, a data-network packet analyzer computer program that runs under a command line interface and allows the user to display TCP/IP and other packets being transmitted or received over a network to which the computer is attached. 
+Funny enough, tcpdump is free software written in 1988 by a team of people including Van Jacobson and Steven McCanne who were, at the time, working in the Lawrence Berkeley Laboratory.
+We could say that these two people were the parents of eBPF and conceived and developed it in the same house for over thirty years. 
+
+\section{What is eBPF?}
+
+Even though the name Extended Berkeley Packet Filter hints at a packet filtering specific purpose, the instruction set was made generic and flexible enough that nowadays there are many use cases for eBPF apart from networking. 
+In fact, eBPF is a highly flexible and efficient virtual machine-like construct in the Linux kernel allowing to execute bytecode at various hook points in a safe manner: it is used in a number of Linux kernel subsystems, most prominently networking, tracing and security (e.g. sandboxing).
+
+The mind-blowing feature about eBPF is the fact that, at its core, it allows a user (in some cases privileged) to inject near general-purpose code in the kernel. 
+Such code will then be executed at some point in time, usually after certain events of interest happen in the kernel. 
+In theory, this sounds really similar to Loadable Kernel Modules (LKM), the traditional way with which users could extend the features of the kernel.
+In fact, LKM consist of a compiled general purpose C code loaded at run time inside the kernel and the code of a kernel module usually hooks into various kernel subsystems so that it gets automatically called upon the occurrence of certain events.
+This has been useful for developers who want to implement support for new hardware devices or tracing functions, for example.
+Even though both approaches want to extend the capabilities of the kernel at runtime, the big difference between them is the fact that, unlike LKM, eBPF will only run code that has been evaluated completely safe to run.
+This means that it will never lead to a kernel crash or kernel instability, which is something currently difficult to achieve with other technologies without giving up some serious flexibility. 
+We could say that eBPF does the same job as LKM, but it does not require to change kernel source code or load kernel modules and does it in a safe and efficient manner.
+
+How could this safety be achieved? It is provided through an in-kernel verifier which performs static code analysis and rejects programs which crash, hang or otherwise interfere with the kernel negatively (e.g. programs without strong exit guarantees like loops without exiting conditions, programs dereferencing pointers without safety-checks, ...).
+Programs that pass the verifier are loaded in the kernel where they will be either interpreted or JIT compiled for native execution performance.
+Once again, the interpreted or compiled eBPF program is verified before running to prevent denial-of-service attacks.
+Due to the fact that the execution model is event-driven, programs can be attached to various hook points in the operating system kernel and are run upon triggering of a specific event.
+
+\section{eBPF in modern architecture}
+
+\subsection{Name and logo}
+
+Nowadays, BPF is a technology name and no longer just an acronym because, even though it evolved from BPF as an extended version, its use case outgrew networking.
+Some people still call it eBPF to really make the point that it's new: however kernel engineers tend to stick to BPF, meaning a generic internal execution environment for running programs in the kernel.
+Consistently with the research aim of this thesis, we are going to distinguish eBPF from cBPF to make more clear what we are referring to, even if from this point on we are going to talk exclusively about eBPF.
+
+eBPF was also provided with an official logo: at the first eBPF Summit there was a vote taken and they decided to use the bee.
+So, Vadim Shchekoldin created what is named ``eBee'', which we can see in Figure \ref{fig:eBPF_logo}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/History/eBPF_logo.png}
+	\caption{eBPF logo.}
+	\label{fig:eBPF_logo}
+\end{figure}
+
+\subsection{eBPF Foundation}
+
+Since its introduction in the infrastructure software world, the number of eBPF-based projects has exploded in recent years and more and more companies announced their intent to start adopting this technology.
+As such, there was the need to collaborate between projects to ensure that the core of eBPF would be well maintained and equipped with a clear path and vision for the bright future ahead of eBPF.
+
+To respond to this demanding need, in August 2021, some companies, including Meta, Google, Microsoft, Isovalent and Netflix, founded the ``eBPF Foundation'', establishing an eBPF steering committee (BSC) to take care of the technical direction and vision of eBPF.
+As one might expect, among the few members of the committee, there are Alexei Starovoitov and Daniel Borkmann.
+The logo of this institution can be seen in Figure \ref{fig:eBPF_foundation_logo}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/History/lf-stacked-color.png}
+	\caption{eBPF Foundation logo.}
+	\label{fig:eBPF_foundation_logo}
+\end{figure}
+
+The purposes of this foundation were various and numerous:
+
+\begin{itemize}
+	\item Expand the contributions being made to extend the powerful capabilities of
+		eBPF and grow beyond Linux (as we already mentioned before, eBPF is now also available on Windows);
+	\item Raise funds in support of various open source, open data and/or open
+		standards projects relating to eBPF technologies to further drive the growth and adoption of the eBPF ecosystem;
+	\item Defining the minimal requirements of eBPF runtimes and maintain eBPF
+		technical project lifecycle procedures to ensure a smooth and efficient progress of eBPF initiatives;
+	\item Create a strong community that would collaborate among projects, attend
+		technical workshops and conferences to discuss ongoing research, development efforts and use cases around eBPF, so that as many people as possible are involved in the project.
+\end{itemize} 
+
+\subsection{Use cases of eBPF}
+
+We understood that eBPF programs are verified within the kernel to avoid various risks: therefore eBPF programs pose less risk compared to an arbitrary loadable LKM and they also impose less overhead for many observation tasks compared to related tools.
+For this reasons, throughout the years, many more companies have joined this project and stated using eBPF.
+Nowadays, eBPF has been adopted by a number of large-scale production users, like Google, Meta, Netflix, Apple, Android, Microsoft,... mostly for network observability, security enforcement and layer 4 (in the ISO/OSI model) load balancing.
+
+However, due to the fact that eBPF is very versatile, performing and programmable, people have found innovative solutions in various areas:
+
+\begin{itemize}
+	\item Thanks to the networking and security revolution, eBPF allows administrators
+		to create custom filters and access controls at the kernel level, offering powerful packet filtering and firewall capabilities while minimizing performance overhead (firewalls, intrusion detection systems and DDoS protection.);
+	\item Given eBPF's real-time observability capabilities, achieved by attaching
+		programs to kernel hooks, enable developers to gain deep insights into system calls, network activity and resource utilization, empowering efficient monitoring with low-latency and non-intrusive measurements in the dynamic environment of many systems and applications;
+	\item In containerized environments, eBPF emerges as a game-changer, allowing
+		administrators to efficiently control and optimize network traffic between containers, improving isolation, security and performance while, thanks to its programmability, consistently aligning with the dynamic nature of container orchestration platforms, like Kubernetes;
+	\item In the middle of the evolving cloud landscape, eBPF assumes a central role,
+		enabling efficient load balancing, traffic shaping and service discovery within the cloud infrastructure, ensuring optimal resource utilization and networking agility;
+	\item Developers are enabled to look into application behavior and system
+		performance through event capture and analysis at the kernel level using tracing tools that serve as instrumental support for diagnosing	performance issues and debugging complex systems;
+	\item eBPF is also used for real-time protection against malicious network
+		activities due to the fact that it allows Intrusion Prevention Systems (IPS) to quickly inspect and filter packets, enabling rapid threat detection and prevention, while applying custom security policies and filtering rules;
+	\item To reduce latency and increase efficiency for critical networking functions,
+		eBPF uses custom in-kernel processing, efficiently offloading specific tasks to eBPF programs.
+\end{itemize}
+
+The modern use of eBPF continues to expand, as developers and organizations explore its capabilities and integrate it into various innovative applications. 
+With its ever-growing ecosystem of tools, libraries and frameworks, eBPF is at the vanguard of driving efficiency, security and observability in contemporary computing environments.
+
+\section{Future and potential of eBPF}
+
+During our discussion, we mentioned the fact that eBPF tools surround functionalities in both kernel and user space, which aim at providing stable interfaces, such as kernel and user space tracepoints. 
+However, it's essential to note that eBPF tools can also refer to functionality like functions or field names that may lack stability. 
+For this reason, eBPF programs may not be portable across different kernels. Furthermore, certain older kernels might not incorporate the required functionality and some kernels may lack the necessary configuration to support eBPF. 
+As a result, it becomes evident that BPF cannot be universally considered portable or universally available.
+In fact, even if eBPF is now supported on multiple platforms, as the beginning of 2023 there is no standard specification to formally define its components. 
+
+However, the world of eBPF evolves quickly and distributions appear to regularly support BPF and provide a package of BPF tools for easy installation. 
+Furthermore, there is currently some work in progress to define and publish a standard for the instruction set, under the auspices of the eBPF Foundation.
+
+So, for now, if you are running a recent version of the kernel and you can invoke eBPF as a privileged user, you should have eBPF functionality available.
+But if some eBPF tools do not work with your kernel, do not get disappointed: there are many people that are joining forces to make BPF programs more portable.
+For example, one of the natural challenges for tools that use kernel data structures (like eBPF) is that the offsets for fields can vary based on kernel version and configuration.
+We will see later how this problem has been solved.
+
+Despite the need to standardize the technology and integrate it into as many platforms as possible, making it more accessible to developers and organizations worldwide, the future of eBPF is bright, due to its potential to twist the world of modern computing.
+This innovative technology is ready to unlock new frontiers and revolutionize various domains thanks to some key aspects:
+
+\begin{itemize}
+	\item As network requirements keep evolving, with the help of eBPF's 
+		programmability, administrators have to implement newer custom network protocols, load balancing algorithms and traffic shaping mechanisms;
+	\item As cloud adoption continues to rise, eBPF's indispensability in the
+		cloud-native ecosystem will grow further, offering fine-grained control over container networking for optimal isolation, advanced security and efficient resource utilization, making agility and scalability essential for modern cloud infrastructure;
+	\item The future of debugging and optimization for complex and distributed systems
+		belongs to eBPF's real-time observability and tracing capabilities which allow developers to exploit its potential for capturing, analyzing and visualizing diverse system events with the purpose of providing unparalleled insights into application behavior, performance bottlenecks and resource utilization;
+	\item As cyber threats become increasingly sophisticated, eBPF will persist in
+		strengthening security measures, expanding its role in intrusion detection systems and security applications, providing real-time packet inspection, protocol analysis and advanced filtering capabilities;
+	\item In a world where Artificial Intelligence and machine learning are
+		increasingly in the spotlight, eBPF's programmability prepares to integrate them within the kernel, promoting a powerful synergy that drives intelligent decision-making, automated resource management and dynamic adaptation to satisfy shifting workloads and network conditions;
+	\item With the help of the thriving eBPF community, new tools, libraries and
+		frameworks are developed rapidly, pushing the boundaries of eBPF's potential and encouraging the creation of innovative solutions.
+	\item As the world of Internet of Things and edge computing expands, eBPF's
+		lightweight and efficient nature makes it an ideal match for devices with limited resources, finding applications in intelligent edge gateways for data filtering, analysis and real-time decision-making;
+\end{itemize}
+
+The future and potential of eBPF are full with possibilities. 
+As it evolves, eBPF is set to reshape networking, observability and security paradigms, enabling developers to build efficient, secure and adaptable systems in the always evolving world of computing. 
+With its impact and large adoption, eBPF is ready to become a landmark of next-generation software-defined infrastructures and beyond.
+
+\todo{FROM THIS POINT ON}
+
+\section{eBPF in the world}
+
+eBPF use cases include (but are not limited to) networking such as XDP, tracing and security subsystems. Given eBPF's efficiency and flexibility opened up new possibilities to solve production issues, Brendan Gregg famously coined eBPF as "superpowers for Linux". Linus Torvalds expressed that "BPF has actually been really useful, and the real power of it is how it allows people to do specialized code that isn't enabled until asked for". 
+Due to its success in Linux, the eBPF runtime has been ported to other operating systems such as Windows.
+
+% https://www.linuxjournal.com/content/bpf-observability-getting-started-quickly
+
+% https://ebpf.io/what-is-ebpf/
+
+% https://www.ferrisellis.com/tags/ebpf/

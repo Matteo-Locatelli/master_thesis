@@ -1,34 +1,4 @@
-Domande codice:
-- parametri formali nelle funzioni in .bpf.c ( SEC("...") e funzione associata ( (void *ctx), ...).
-	1)hook/nome_hook
-	2) prendere il nome della funzione all'interno del kernel e si può accedere anche ai suoi parametri 
-		per vedere come si comporta dal punto di vista del kernel.
-- funzioni per accedere alle mappe (tipi ritornati):
-	void* (lookup): cosa ritorna? (un puntatore al valore della mappa associato alla chiave) -> puntatore a mappa o a elemento?
-		non è una mappa standard in sequenza in memoria? DA VERIFICARE AGGIUNGENDO 2 VALORI DIVERSI
-		-> puntatore generico: fare cast 
-			risultato: punta all'elemento associato alla chiave: se dereferenziato ritorna il valore associato ad una chiave
-	int (update e delete): con update funziona e con delete no (se si fa un assegnamento, ma funziona solo se chiamata da sola)
-		-> delete non funziona con BPF_MAP_TYPE_ARRAY, ma con BPF_MAP_TYPE_HASH sì
-- valori diversi ritornati dal metodo di update:
-	update -7 se provo ad inserire un intero come in example_simple_map (e non trova l'elemento) -> update(u32, int)
-	update: -17 con BPF_NOEXIST in example_with_array_map (ma trova l'elemento) -> inserisce anche dopo il primo? perchè trova?
-	update: 0 con BPF_ANY & BPF_EXIST in example_with_array_map (e trova l'elemento) -> corretto
-		
-  Possibilità di chiamare le funzioni anche senza assegnarle ad una variabile: la funzione esegue comunque e i suoi effetti ci sono.
-
-  Una volta che una mappa viene creata non viene più eliminata nemmeno se termina il programma?
-  Dove viene creata la mappa?
-- rodata map in skel
-
-
-
-Domande tesi:
-- italiano o inglese? -> presentazione da proiettare per il giorno della discussione
-	flag in inglese per rendere pubblica la tesi
-- frontespizio già esistente o devo crearlo da zero?	-> template su https://github.com/micheleberetta98/ (copiare file in texstudio)
-	-> pacchetto per extra "texlive-full" su ubuntu
-	-> su windows MkTech per installare pacchetti
-- numero pagine minimo? 70 / 80
-- controrelatore? scelto dalla commissione, interno all'università
-- ci sarà la discussione? power point da presentare?
+Code:
+- syscalls in windows and linux (list)
+- problem with test sign the virtual network adapter of virtual machine runned in test mode (windows development environment)
+- problem with main.cpp in user space program (windows)

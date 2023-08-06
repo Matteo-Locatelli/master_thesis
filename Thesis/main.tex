@@ -2,8 +2,8 @@
 
 \usepackage{todonotes}
 
-\title{eBPF for Windows}
-% \subtitle{A Seclab Subtitle}
+\title{Exploring eBPF for Windows}
+\subtitle{Implementation analysis and comparison with Linux}
 \advisor{Chiar.mo Prof.~Stefano Paraboschi}
 % \coadvisor{Chiar.mo Prof.~Ed Smith}
 
@@ -31,9 +31,13 @@
 \clearpage
 \pagenumbering{arabic}
 
+% https://ebpf.io/ -> COMMUNITY TALKS FOR DEEPER INSIGHTS
+
 \input{chapters/Introduction.tex}
 \input{chapters/Technologies.tex}
 \input{chapters/History.tex}
+\input{chapters/HowItWorks.tex}
+\input{chapters/ApplicationsAndInfrastructure.tex}
 
 \nocite{*}
 \printbibliography[heading=bibintoc]

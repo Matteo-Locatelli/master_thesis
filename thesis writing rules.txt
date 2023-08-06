@@ -1,8 +1,6 @@
-Regole scrittura tesi:
 - frontespizio by seclab
 - https://didattica-rubrica.unibg.it/sites/default/files/student-documents/29-09-2022/norme_redazioni_per_prova_finale.pdf
 
-- \usepackage[hidelinks]{hyperref}
 - \url{...}
 - \cite{…}
 - Environment lstlistings per codice in latex -> https://www.overleaf.com/learn/latex/Code_listing
