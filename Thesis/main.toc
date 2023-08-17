@@ -11,23 +11,34 @@
 \contentsline {section}{\numberline {2.4}Repository of the project}{8}{section.2.4}%
 \contentsline {chapter}{\numberline {3}The history of eBPF}{11}{chapter.3}%
 \contentsline {section}{\numberline {3.1}The beginning of packet filtering}{11}{section.3.1}%
-\contentsline {section}{\numberline {3.2}The characteristics of BPF}{12}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Limitations of BPF}{14}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Introduction to eBPF}{15}{section.3.4}%
-\contentsline {section}{\numberline {3.5}What is eBPF?}{17}{section.3.5}%
-\contentsline {section}{\numberline {3.6}eBPF in modern architecture}{18}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Name and logo}{18}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}eBPF Foundation}{19}{subsection.3.6.2}%
-\contentsline {subsection}{\numberline {3.6.3}Use cases of eBPF}{20}{subsection.3.6.3}%
-\contentsline {section}{\numberline {3.7}Future and potential of eBPF}{22}{section.3.7}%
-\contentsline {section}{\numberline {3.8}eBPF in the world}{24}{section.3.8}%
-\contentsline {chapter}{\numberline {4}How eBPF works}{25}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Writing an eBPF program}{25}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Architecture}{25}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Tools}{25}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Compiling and loading an eBPF program}{25}{section.4.4}%
-\contentsline {section}{\numberline {4.5}The bpf() system call}{25}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Helpers}{25}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Maps}{25}{section.4.7}%
-\contentsline {chapter}{\numberline {5}Applications and infrastructure of eBPF}{27}{chapter.5}%
-\contentsline {chapter}{Bibliography}{29}{chapter*.15}%
+\contentsline {section}{\numberline {3.2}The characteristics of BPF}{13}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Limitations of BPF}{15}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Introduction to eBPF}{16}{section.3.4}%
+\contentsline {section}{\numberline {3.5}What is eBPF?}{19}{section.3.5}%
+\contentsline {section}{\numberline {3.6}eBPF in modern architecture}{20}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Name and logo}{20}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}eBPF Foundation}{21}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}Use cases of eBPF}{22}{subsection.3.6.3}%
+\contentsline {section}{\numberline {3.7}The portability of eBPF}{24}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}The problem of portability}{25}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}The temporary solution: BCC}{26}{subsection.3.7.2}%
+\contentsline {subsection}{\numberline {3.7.3}The solution: BPF CO-RE}{26}{subsection.3.7.3}%
+\contentsline {subsection}{\numberline {3.7.4}BPF CO-RE as today}{28}{subsection.3.7.4}%
+\contentsline {section}{\numberline {3.8}Future and potential of eBPF}{28}{section.3.8}%
+\contentsline {chapter}{\numberline {4}How eBPF works}{31}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Writing an eBPF program}{31}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Architecture}{32}{section.4.2}%
+\contentsline {section}{\numberline {4.3}The instruction set}{34}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Hook points}{35}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Compiling and loading an eBPF program}{35}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Compilation}{36}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Verification}{36}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Hardening}{38}{subsection.4.5.3}%
+\contentsline {subsection}{\numberline {4.5.4}JIT compilation}{39}{subsection.4.5.4}%
+\contentsline {subsection}{\numberline {4.5.5}Loading and execution}{39}{subsection.4.5.5}%
+\contentsline {section}{\numberline {4.6}The bpf() system call}{40}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Tail and function calls}{40}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Helper functions}{42}{section.4.8}%
+\contentsline {section}{\numberline {4.9}Maps}{45}{section.4.9}%
+\contentsline {chapter}{\numberline {5}Applications and infrastructure of eBPF}{47}{chapter.5}%
+\contentsline {chapter}{Bibliography}{49}{chapter*.14}%

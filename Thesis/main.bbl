@@ -29,6 +29,135 @@
     \field{urlyear}{2023}
   \endentry
 
+  \entry{ANBlog}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{title}{Andrii Nakryiko blog}
+    \verb{url}
+    \verb https://nakryiko.com/
+    \endverb
+    \field{urlmonth}{04}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{BCCGitHub}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{BCC GitHub repo}
+    \verb{url}
+    \verb https://github.com/iovisor/bcc/
+    \endverb
+    \field{urlmonth}{04}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{ANCOREPost}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{BPF CO-RE post}
+    \verb{url}
+    \verb https://nakryiko.com/posts/bpf-portability-and-co-re/
+    \endverb
+    \field{urlmonth}{04}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{BPFDoc}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{BPF documentation}
+    \verb{url}
+    \verb https://elixir.bootlin.com/linux/latest/source/kernel/bpf/syscall.c
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{BPFManPage}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{BPF Linux manual page}
+    \verb{url}
+    \verb https://man7.org/linux/man-pages/man2/bpf.2.html
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{BPFToolsBookGitHubRepo}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{Brendan Gregg BPF performance tools book GitHub repo}
+    \verb{url}
+    \verb https://github.com/brendangregg/bpf-perf-tools-book
+    \endverb
+  \endentry
+
+  \entry{BPFToolsBookWebsite}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{Brendan Gregg BPF performance tools book website}
+    \verb{url}
+    \verb https://www.brendangregg.com/bpf-performance-tools-book.html
+    \endverb
+  \endentry
+
+  \entry{cBPFvseBPF}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{title}{cBPF vs eBPF}
+    \verb{url}
+    \verb https://www.kernel.org/doc/html/latest/bpf/classic_vs_extended.html
+    \endverb
+    \field{urlmonth}{04}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{eBPFLinuxJournal}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{title}{eBPF Linux journal}
+    \verb{url}
+    \verb https://www.linuxjournal.com/content/bpf-observability-getting-starte
+    \verb d-quickly
+    \endverb
+    \field{urlmonth}{04}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{eBPFLinuxMaps}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{title}{eBPF Linux maps documentation}
+    \verb{url}
+    \verb https://docs.kernel.org/bpf/maps.html
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{eBPFioWebsite}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{title}{eBPF.io website}
+    \verb{url}
+    \verb https://ebpf.io/
+    \endverb
+    \field{urlmonth}{04}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{GitHubLogo}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{G}
@@ -52,6 +181,40 @@
     \endverb
     \field{urlmonth}{07}
     \field{urlyear}{2023}
+  \endentry
+
+  \entry{libbpfGitHub}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{libbpf GitHub repo}
+    \verb{url}
+    \verb https://github.com/libbpf/libbpf
+    \endverb
+    \field{urlmonth}{04}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{LinuxHelpers}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{Linux helpers manual page}
+    \verb{url}
+    \verb https://man7.org/linux/man-pages/man7/bpf-helpers.7.html
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{LLVMWebsite}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{LLVM project website}
+    \verb{url}
+    \verb https://llvm.org/
+    \endverb
   \endentry
 
   \entry{MasterThesisRepo}{online}{}
@@ -96,6 +259,18 @@
     \field{year}{1992}
   \endentry
 
+  \entry{SubComWebsite}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{Subconscious Compute website}
+    \verb{url}
+    \verb https://www.subcom.tech/
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{UbuntuISOImage}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{U}
@@ -105,6 +280,30 @@
     \verb https://www.ubuntu-it.org/download
     \endverb
     \field{urlmonth}{04}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{UnibgSeclabWebsite}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{U}
+    \field{sortinithash}{U}
+    \field{title}{Unibg Seclab website}
+    \verb{url}
+    \verb https://seclab.unibg.it/
+    \endverb
+    \field{urlmonth}{02}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{UnibgWebsite}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{U}
+    \field{sortinithash}{U}
+    \field{title}{Unibg website}
+    \verb{url}
+    \verb https://www.unibg.it/
+    \endverb
+    \field{urlmonth}{06}
     \field{urlyear}{2023}
   \endentry
 
@@ -121,16 +320,27 @@
     \field{urlyear}{2023}
   \endentry
 
-  \entry{WindowseBPFStarterRepo}{online}{}
+  \entry{WindowsHelpers}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{W}
     \field{sortinithash}{W}
-    \field{title}{Windows eBPF Starter}
+    \field{title}{Windows helpers manual page}
     \verb{url}
-    \verb https://github.com/SubconsciousCompute/windows-ebpf-starter
+    \verb https://microsoft.github.io/ebpf-for-windows/bpf__helper__defs_8h.htm
+    \verb l
     \endverb
     \field{urlmonth}{06}
     \field{urlyear}{2023}
+  \endentry
+
+  \entry{XDPWebsite}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{X}
+    \field{sortinithash}{X}
+    \field{title}{XDP website}
+    \verb{url}
+    \verb https://www.iovisor.org/technology/xdp
+    \endverb
   \endentry
 \enddatalist
 \endinput

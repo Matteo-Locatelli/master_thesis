@@ -1,14 +1,32 @@
 \chapter{Applications and infrastructure of eBPF}
 
+Integrating eBPF into modern applications and infrastructures can involve various levels of experience. 
+Analyzing Linux kernel issues with eBPF, for instance, might demand significant kernel expertise, identifying relevant kernel functions and understanding their arguments.
+While running an eBPF tool can be easy, understanding its output and choosing the right things to look at can present considerable challenges.
+
+In this chapter we will address these challenges by reviewing a list of applications, in the for of their GitHub projects, that I have personally used to enter the world of eBPF, as they were either important to its evolution or were designed to make the development of programs easier.
+
+For the curious people, on the eBPF.io website \cite{eBPFioWebsite}, under the section \textit{Project landscape}, many other applications can be found and there is also a list of projects that represent the major infrastructure of eBPF.
+
+If anyone is interested in the raw observability tools to get started with eBPF, in addition to the applications of eBPF, you can check the book \textit{BPF Performance Tools: Linux System and Application Observability} \cite{BPFToolsBookWebsite}, written by Brendan Gregg in 2019, and the official GitHub repository of the book \cite{BPFToolsBookGitHubRepo}: by presenting the utility, the capabilities and the value of different eBPF tools, the author hopes that the book can help the reader to improve performance, reduce costs and solve software issues of systems and applications.
+
+% Your Progression Of BPF Sophistication  &&  Tools to get started with 
+% FROM LINUX JOURNAL -> as introduction
+% https://www.linuxjournal.com/content/bpf-observability-getting-started-quickly
+
 % APPLICATIONS AND INFRASTRUCTURE (USED)
 %
 % https://ebpf.io/applications/
+% https://ebpf.io/what-is-ebpf/ -> development toolchains
 %
 % https://github.com/iovisor/bcc
-%
+% https://nakryiko.com/posts/bpf-portability-and-co-re/ -> BCC
+% https://sysdig.com/blog/sysdig-and-falco-now-powered-by-ebpf/ -> eBPF ecosystem
+% bcc and bpftrace -> 2 main front ends for BPF performance tools
 % https://github.com/iovisor/bpftrace
 %
 % https://github.com/libbpf/libbpf
+% https://nakryiko.com/posts/ -> LIBBPF 
 %
 % https://www.kernel.org/doc/html/latest/bpf/libbpf/libbpf_overview.html
 %
