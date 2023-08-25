@@ -65,13 +65,14 @@
     \field{urlyear}{2023}
   \endentry
 
-  \entry{BPFDoc}{online}{}
+  \entry{BPFHeader}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{B}
     \field{sortinithash}{B}
-    \field{title}{BPF documentation}
+    \field{title}{BPF header for user-space use}
     \verb{url}
-    \verb https://elixir.bootlin.com/linux/latest/source/kernel/bpf/syscall.c
+    \verb https://github.com/torvalds/linux/blob/master/include/uapi/linux/bpf.
+    \verb h
     \endverb
     \field{urlmonth}{06}
     \field{urlyear}{2023}
@@ -84,6 +85,18 @@
     \field{title}{BPF Linux manual page}
     \verb{url}
     \verb https://man7.org/linux/man-pages/man2/bpf.2.html
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{BPFKernelCode}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{BPF syscall Linux kernel related code}
+    \verb{url}
+    \verb https://github.com/torvalds/linux/blob/master/kernel/bpf/syscall.c
     \endverb
     \field{urlmonth}{06}
     \field{urlyear}{2023}
@@ -202,6 +215,18 @@
     \field{title}{Linux helpers manual page}
     \verb{url}
     \verb https://man7.org/linux/man-pages/man7/bpf-helpers.7.html
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{LinuxKernelRepo}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{Linux kernel repository}
+    \verb{url}
+    \verb https://github.com/torvalds/linux/tree/master
     \endverb
     \field{urlmonth}{06}
     \field{urlyear}{2023}

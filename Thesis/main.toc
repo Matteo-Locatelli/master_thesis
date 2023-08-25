@@ -37,8 +37,14 @@
 \contentsline {subsection}{\numberline {4.5.4}JIT compilation}{39}{subsection.4.5.4}%
 \contentsline {subsection}{\numberline {4.5.5}Loading and execution}{39}{subsection.4.5.5}%
 \contentsline {section}{\numberline {4.6}The bpf() system call}{40}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Tail and function calls}{40}{section.4.7}%
-\contentsline {section}{\numberline {4.8}Helper functions}{42}{section.4.8}%
-\contentsline {section}{\numberline {4.9}Maps}{45}{section.4.9}%
-\contentsline {chapter}{\numberline {5}Applications and infrastructure of eBPF}{47}{chapter.5}%
-\contentsline {chapter}{Bibliography}{49}{chapter*.14}%
+\contentsline {section}{\numberline {4.7}Tail and function calls}{42}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Helper functions}{44}{section.4.8}%
+\contentsline {section}{\numberline {4.9}Maps}{46}{section.4.9}%
+\contentsline {chapter}{\numberline {5}Applications and infrastructure of eBPF}{49}{chapter.5}%
+\contentsline {section}{\numberline {5.1}BCC}{50}{section.5.1}%
+\contentsline {section}{\numberline {5.2}bpftrace}{50}{section.5.2}%
+\contentsline {section}{\numberline {5.3}libbpf}{50}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Bumblebee}{50}{section.5.4}%
+\contentsline {section}{\numberline {5.5}libbpf-bootstrap}{50}{section.5.5}%
+\contentsline {section}{\numberline {5.6}ebpf for Windows}{50}{section.5.6}%
+\contentsline {chapter}{Bibliography}{51}{chapter*.15}%
