@@ -53,6 +53,30 @@
     \field{urlyear}{2023}
   \endentry
 
+  \entry{BCCRepo}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{BCC repository}
+    \verb{url}
+    \verb https://github.com/iovisor/bcc
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{BCCTolibbpfGuide}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{BCC to libbpf practical guide}
+    \verb{url}
+    \verb https://nakryiko.com/posts/bcc-to-libbpf-howto-guide/
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{ANCOREPost}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{B}
@@ -97,6 +121,18 @@
     \field{title}{BPF syscall Linux kernel related code}
     \verb{url}
     \verb https://github.com/torvalds/linux/blob/master/kernel/bpf/syscall.c
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{bpftraceRepo}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{bpftrace repository}
+    \verb{url}
+    \verb https://github.com/iovisor/bpftrace
     \endverb
     \field{urlmonth}{06}
     \field{urlyear}{2023}
@@ -196,6 +232,18 @@
     \field{urlyear}{2023}
   \endentry
 
+  \entry{libbpfDocumentation}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{libbpf documentation}
+    \verb{url}
+    \verb https://libbpf.readthedocs.io/en/latest/api.html
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{libbpfGitHub}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{L}
@@ -208,6 +256,30 @@
     \field{urlyear}{2023}
   \endentry
 
+  \entry{libbpfJourney}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{libbpf journey Andrii Nakryiko post}
+    \verb{url}
+    \verb https://nakryiko.com/posts/libbpf-v1/
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{libbpfRepo}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{libbpf repository}
+    \verb{url}
+    \verb https://github.com/libbpf/libbpf
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{LinuxHelpers}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{L}
@@ -215,6 +287,18 @@
     \field{title}{Linux helpers manual page}
     \verb{url}
     \verb https://man7.org/linux/man-pages/man7/bpf-helpers.7.html
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{libbpfPageLinuxKernelDOc}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{Linux kernel documentation libbpf page}
+    \verb{url}
+    \verb https://www.kernel.org/doc/html/latest/bpf/libbpf/index.html
     \endverb
     \field{urlmonth}{06}
     \field{urlyear}{2023}

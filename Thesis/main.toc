@@ -41,10 +41,11 @@
 \contentsline {section}{\numberline {4.8}Helper functions}{44}{section.4.8}%
 \contentsline {section}{\numberline {4.9}Maps}{46}{section.4.9}%
 \contentsline {chapter}{\numberline {5}Applications and infrastructure of eBPF}{49}{chapter.5}%
-\contentsline {section}{\numberline {5.1}BCC}{50}{section.5.1}%
-\contentsline {section}{\numberline {5.2}bpftrace}{50}{section.5.2}%
-\contentsline {section}{\numberline {5.3}libbpf}{50}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Bumblebee}{50}{section.5.4}%
-\contentsline {section}{\numberline {5.5}libbpf-bootstrap}{50}{section.5.5}%
-\contentsline {section}{\numberline {5.6}ebpf for Windows}{50}{section.5.6}%
-\contentsline {chapter}{Bibliography}{51}{chapter*.15}%
+\contentsline {section}{\numberline {5.1}eBPF tools}{50}{section.5.1}%
+\contentsline {section}{\numberline {5.2}bpftrace}{51}{section.5.2}%
+\contentsline {section}{\numberline {5.3}BCC}{52}{section.5.3}%
+\contentsline {section}{\numberline {5.4}libbpf}{53}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Bumblebee}{55}{section.5.5}%
+\contentsline {section}{\numberline {5.6}libbpf-bootstrap}{55}{section.5.6}%
+\contentsline {section}{\numberline {5.7}ebpf for Windows}{55}{section.5.7}%
+\contentsline {chapter}{Bibliography}{57}{chapter*.15}%
