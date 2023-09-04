@@ -171,7 +171,7 @@ Even though both approaches want to extend the capabilities of the kernel at run
 This means that it will never lead to a kernel crash or kernel instability, which is something currently difficult to achieve with other technologies without giving up some serious flexibility. 
 We could say that eBPF does the same job as LKM, but it does not require to change kernel source code or load kernel modules and does it in a safe and efficient manner.
 
-How could this safety be achieved? It is provided through an in-kernel verifier which performs static code analysis and rejects programs which crash, hang or otherwise interfere with the kernel negatively (e.g. programs without strong exit guarantees like loops without exiting conditions, programs dereferencing pointers without safety-checks, ...).
+How could this safety be achieved? It is provided through an in-kernel verifier which performs static code analysis and rejects programs which crash, hang or otherwise interfere with the kernel negatively (e.g. programs without strong exit guarantees like loops without exiting conditions, programs dereferencing pointers without safety-checks, and so forth).
 Programs that pass the verifier are loaded in the kernel where they will JIT compiled for native execution performance.
 Once again, the compiled eBPF program is verified before running to prevent denial-of-service attacks.
 Due to the fact that the execution model is event-driven, programs can be attached to various hook points in the operating system kernel and are run upon triggering of a specific event.
@@ -233,7 +233,7 @@ Throughout the years eBPF has been surrounded with an open community and everybo
 
 We understood that eBPF programs are verified within the kernel to avoid various threats: therefore eBPF programs pose less risk compared to an arbitrary loadable LKM and they also impose less overhead for many observation tasks compared to related tools.
 For this reasons, throughout the years, many more companies have joined this project and stated using eBPF.
-Nowadays, eBPF has been adopted by a number of large-scale production users, like Google, Meta, Netflix, Apple, Android, Microsoft,... mostly for network observability, security enforcement and layer 4 (in the ISO/OSI model) load balancing.
+Nowadays, eBPF has been adopted by a number of large-scale production users, like Google, Meta, Netflix, Apple, Android, Microsoft and many more, mostly for network observability, security enforcement and layer 4 (in the ISO/OSI model) load balancing.
 
 However, due to the fact that eBPF is very versatile, performing and programmable, people have found innovative solutions in various areas:
 
@@ -254,7 +254,7 @@ However, due to the fact that eBPF is very versatile, performing and programmabl
 		eBPF uses custom in-kernel processing, efficiently offloading specific tasks to eBPF programs.
 \end{itemize}
 
-To summarize what we have seen until now, eBPF has only been in the Linux kernel since 2014, but has already worked its way into a number of different uses in the kernel for efficient event processing (socket filtering, capturing information, analyzing performances, attaching programs to hook points or probes,...). 
+To summarize what we have seen until now, eBPF has only been in the Linux kernel since 2014, but has already worked its way into a number of different uses in the kernel for efficient event processing (socket filtering, capturing information, analyzing performances, attaching programs to hook points or probes, etc.). 
 However, the modern use of eBPF continues to expand, as developers and organizations explore its capabilities and integrate it into various innovative applications. 
 With its ever-growing ecosystem of tools, libraries and frameworks, eBPF is at the vanguard of driving efficiency, security and observability in contemporary computing environments.
 
@@ -264,8 +264,8 @@ During our discussion, we mentioned the fact that eBPF tools surround functional
 However, it's essential to note that eBPF tools can also refer to functionality like functions or field names in the kernel that may lack stability. 
 For this reason, eBPF programs may not be portable across different kernels.
 
-In fact, the main priority of the eBPF community since its creation was to make the development od eBPF application as simple as possible, making it a similar experience to developing any application in user-space.
-Even though there were many usability improvements during the years, the aspect of portability has always been forsaken (mostly for technical reasons).
+In fact, the main priority of the eBPF community since its creation was to make the development of eBPF application as simple as possible, making it a similar experience to developing any application in user-space.
+Even though there were many usability improvements during the years, the aspect of portability was considered just an afterthought (mostly for technical reasons).
 
 ``BPF portability is the ability to write a BPF program that will successfully compile, pass kernel verification, and will work correctly across different kernel versions without the need to recompile it for each particular kernel'', says Andrii Nakryiko, a kernel engineer at Meta and member of the BSC, in a post \cite{ANCOREPost} published on his blog \cite{ANBlog}.
 For example, one of the natural challenges for tools that use kernel data structures (like eBPF) is that the offsets for fields can vary based on kernel version and configuration.
@@ -276,7 +276,7 @@ So far we understood that the power of eBPF is the fact that a piece of user-pro
 However, at the beginning of eBPF this powerful capability also created some portability problems: eBPF programs do not control memory layout of a surrounding kernel environment. 
 This means that they have to work with what they get from independently developed, compiled and deployed kernels.
 
-Moreover, new kernel versions are continuously released (as of September 2023 the Linux kernel is at version 6.5, far from the 3.18 of December 2014): so, kernel types and data structures are in constant flux.
+Moreover, new kernel versions are continuously released (as of September 2023 the Linux kernel is at version 6.5, far from the 3.18 of December 2014): so, kernel types and data structures are in constant evolution.
 The problem is that kernel version may differ under various architectural aspects: struct fields are shuffled around inside a struct or even moved into a new inner struct, fields can be renamed or removed, their types changed, either into some compatible ones or completely different ones, structs and other types can get renamed or just plain removed.
 
 Even if not all eBPF programs need to look into internal kernel data structures and eBPF machinery inside kernel provides a limited set of stable interfaces that eBPF programs can rely on to be stable between kernels (in reality, underlying structures and mechanisms do change, but these eBPF-provided stable interfaces abstract such details from user programs), things change all the time between kernel releases and yet BPF application developers are expected to address this problem in some way. 
@@ -290,9 +290,9 @@ To make sure that the running kernel's memory layout is the same as the one expe
 Additionally, you can define and rename any optional stuff not available on the kernel configuration that you are using and the Clang will adapt your eBPF program code to the specific kernel.
 
 While this workflows work, it has some problems.
-Firstly, the Clang/LLVM combo is a big library and resource heavy: this means that you have to install big binaries when you distribute your application and the process of compilation can require a lot of time.
-Secondly, you have to hope that the system on which you are going to install your application has the kernel headers present, because BCC-based application do not work on kernels that have been custom built.
-Lastly, working in an agile method is quite difficult because you will get compilation errors only at runtime and you have to recompile and restart your application every time.
+First, the Clang/LLVM combo is a big library and resource heavy: this means that you have to deploy large binaries when you distribute your application and the process of compilation can require a lot of time.
+Second, it must be verified that the system on which the application is going to be installed has the kernel headers present, because BCC-based application do not work on kernels that have been custom built.
+Last but not least, working in an agile method is quite difficult because compilation errors will appear only at runtime and the application will have to be recompiled and restarted every time.
 
 Although BCC is a great tool for experimenting small tools, when we look at some example of widely deployed, complex and real-world eBPF application we have to think of an other solution.
 
@@ -300,7 +300,8 @@ Although BCC is a great tool for experimenting small tools, when we look at some
 
 \textit{BPF Compile Once - Run Everywhere} (BPF CO-RE) is a feature in the eBPF ecosystem that aims to solve the problem of portability of eBPF programs across different versions and architectures of the Linux kernel which was presented at the ``Linux Storage, Filesystem and Memory Management (LSF/MM) Summit for 2019''.
 
-BPF CO-RE allows to easily write portable eBPF programs: to do so, it requires the integration and the cooperation of different components:
+BPF CO-RE allows to easily write portable eBPF programs.
+To do so, it requires the integration and the cooperation of different components:
 
 \begin{itemize}
 	\item \textit{BPF Type Format} (BTF), a compact, but expressive enough format to
@@ -309,7 +310,7 @@ BPF CO-RE allows to easily write portable eBPF programs: to do so, it requires t
 		allow the capture of field offset, existence and size, type size and relocation and enum values and existence;
 	\item A loader, named \textit{libbpf} \cite{libbpfGitHub}, that takes the BPF
 		object file (the program after its compilation) and triggers the phases of loading and verification;
-	\item The kernel, which does not need many changes to support BPF CO-RE.
+	\item The CO-RE compliant kernel.
 \end{itemize}
 
 With BPF CO-RE, eBPF programs are compiled into a more compact, intermediate representation that can be loaded and executed by various kernel versions.
@@ -323,13 +324,13 @@ Once we have the object file of the compiled eBPF program, the Clang relocations
 The result is that it looks like the program was compiled specifically for the kernel of that machine, but this happened without distributing Clang with your application and performing compilation in runtime on target host.
 In fact, thanks to a good separation of concerns, after the loader has processed the eBPF program, from the kernel perspective you see a valid eBPF program code (and everything is done without worrying about the kernel version).
 
-\subsection{BPF CO-RE as today}
+\subsection{BPF CO-RE}
 
-BPF CO-RE is now a mature technology used across a wide variety of projects: it is used for the development of many eBPF-based applications, due to its capability to handle, in a single compiled-once eBPF, application both simple cases of changing field offsets and much more advanced cases of kernel data structures being removed, renamed or completely changed.
+BPF CO-RE is now a mature technology used across a wide variety of projects due to its capability to handle both simple cases of changing field offsets and much more advanced cases of kernel data structures being removed, renamed or completely changed in a single compiled-once eBPF application.
 
 We understood how BPF CO-RE helped the developers to solve the portability issues of eBPF.
 We do not have to forget that it also provides a good usability and familiar workflow of compiling C code into binary and distributing lightweight binaries around. 
-This eliminated the need to install a heavy-weight compiler library together with your application and the cost of precious runtime resources for runtime compilation. 
+This eliminates the need to install a heavy-weight compiler library together with your application and the cost of precious runtime resources for runtime compilation. 
 Furthermore, there is no more need to catch sneaky compilation errors at runtime.
 
 There are other complex things that BPF CO-RE makes easier for the user for dealing with different kernel versions and configuration differences: the curious ones can read more about this topic on Nakryiko's post \cite{ANCOREPost}.
@@ -370,11 +371,8 @@ This innovative technology is ready to unlock new frontiers and revolutionize va
 It’s highly likely that the trend of using eBPF for safe and efficient event handling will continue.
 Thanks to its restrictive and simple implementation, eBPF offers a highly portable and performant way to process events. 
 More than that, however, eBPF makes a change in how problems are solved: instead of using objects and stateful code, it exploits just functions and efficient data structures to store state. 
-By doing so, the possibilities of a program’s design are reduced, but allows eBPF to be used with nearly any method of program design (synchronously, asynchronously, in parallel, distributed, ... depending on the coordination needs with the data store).
+By doing so, the possibilities of a program’s design are reduced, but allows eBPF to be used with nearly any method of program design (synchronously, asynchronously, in parallel, distributed, etc. depending on the coordination needs with the data store).
 
 In conclusion, the future and potential of eBPF are full with possibilities. 
 As it evolves, eBPF is set to reshape networking, observability and security paradigms, enabling developers to build efficient, secure and adaptable systems in the always evolving world of computing. 
 With its impact and large adoption, eBPF is ready to become a landmark of next-generation software-defined infrastructures and beyond.
-
-\todo{https://www.ferrisellis.com/tags/ebpf/ -> PART 1 -> KERNEL-SPACE VM ?}
-\todo{NEW COMMANDS}

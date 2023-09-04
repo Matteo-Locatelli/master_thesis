@@ -1,6 +1,6 @@
-\chapter{How eBPF works}
+\chapter{The eBPF subsystem}
 
-From what we have learned from the previous chapter we can try to give a definition to eBPF: it is a ``verified-to-be-safe, fast to switch-to, mechanism, for running code in Linux kernel space to react to events such as function calls, function returns, and trace points in kernel or user space'' \cite{eBPFLinuxJournal}.
+From what we have learned from the previous chapter we can try to give a definition to eBPF: it is a ``verified-to-be-safe, fast to switch-to mechanism, for running code in Linux kernel space to react to events such as function calls, function returns, and trace points in kernel or user space'' \cite{eBPFLinuxJournal}.
 In a few words, eBPF is very powerful because it is fast and it is safe. 
 
 Given also eBPF's efficiency and flexibility, Brendan Gregg, an internationally famous expert in computing performance,  famously coined eBPF as ``superpowers for Linux''.
@@ -10,37 +10,22 @@ Once again, we mention the fact that due to its success in Linux, the eBPF runti
 Like all superheroes are shocked when they first come across their superpowers, eBPF too can seem overwhelming at first glance.
 To fully appreciate it, the goal of this chapter is to explain everything you need to know about eBPF.
 
-% https://sysdig.com/blog/sysdig-and-falco-now-powered-by-ebpf/
-% https://sysdig.com/blog/the-art-of-writing-ebpf-programs-a-primer/
-%
-% https://docs.cilium.io/en/latest/bpf/
-%
-% https://www.kernel.org/doc/html/latest/bpf/index.html
-%
-% https://lwn.net/Articles/740157/
-%
-% https://www.ferrisellis.com/tags/ebpf/
-%
-% https://www.linuxjournal.com/content/bpf-observability-getting-started-quickly
-%
-% https://ebpf.io/
-
 \section{Writing an eBPF program}
 
 In the previous chapter we understood the fact that, to achieve safety guarantee, eBPF is essentially implemented as a process virtual machine in the kernel which runs safe programs on behalf of the user.
 eBPF exposes to the user a virtual processor, with a custom set of RISC-like instructions and also provides a set of virtual CPU registers and a stack memory area.
-Thanks to this features, developers can write programs in eBPF bytecode (the form in which the Linux kernel expects eBPF programs) and pass them to the virtual machine to make them run in this environment.
+Thanks to this features, developers can write programs in eBPF bytecode (the form in which the Linux kernel expects eBPF programs) and pass them to the virtual machine to be evaluated.
 
 While it is of course possible to write bytecode directly, developers do not have to create eBPF bytecode from scratch when writing a new program.
 It has been implemented an eBPF back-end for Low-Level Virtual Machine (LLVM, ``a collection of modular and reusable compiler and toolchain technologies'' \cite{LLVMWebsite}): as a result Clang, the LLVM front-end compiler for C-derived programming languages, can be used to compile a subset of standard C code in an eBPF object file.
 While the C to eBPF translation must be done in a very cautious way, it massively expands the use cases of eBPF due to the fact that it makes relatively easy to write new eBPF code in a familiar programming language such as C.
 
-At this point it is important to mention that in a lot of scenarios, eBPF is used indirectly via projects like Cilium, bcc, bpftrace,... 
+At this point it is important to mention that in a lot of scenarios, eBPF is used indirectly via projects like Cilium, bcc, bpftrace and many more. 
 The peculiarity of these projects is the fact that they provide an abstraction on top of eBPF and do not require writing programs directly: instead, they offer the ability to specify intent-based definitions which are then implemented with eBPF.
 If no higher-level abstraction exists, programs need to be written directly. 
 We are going to look at some of this projects in the next chapter of this paper.
 
-For now, in the next paragraphs of this chapter, we are going to look at the  components mentioned above and how they work in practice, including how the program safety verification is done.
+In the following we are going to look at the  components mentioned above and how they work in practice, including how the program safety verification is done.
 
 \section{Architecture}
 
@@ -85,12 +70,12 @@ There are several advantages for pushing these instruction into the kernel:
 	\item eBPF provides a stable Application Binary Interface (ABI, the machine
 		language interface between the operative system and its applications) towards user space and does not require any third party kernel modules because it is a core part of the Linux kernel that is shipped everywhere, making eBPF programs portable across different architectures;
 	\item eBPF programs work with the kernel, making use of existing kernel
-		infrastructure (e.g. drivers, netdevices, sockets, ...) and tooling (e.g. iproute2) as well as the safety guarantees which the kernel provides.
+		infrastructure (e.g. drivers, netdevices, sockets, etc.) and tooling (e.g. iproute2) as well as the safety guarantees which the kernel provides.
 \end{itemize}
 
 \section{Hook points}
 
-eBPF programs are event-driven by design and are run when the kernel or an application passes a certain \textit{hook point}. 
+eBPF programs are event-driven by design and are run when the kernel or an application triggers a certain \textit{hook point}. 
 When the designated code path is traversed, any eBPF program attached to that point is executed.
 In the kernel there are some pre-defined hooks, including system calls, function entry/exit, kernel tracepoints, network events and several others.
 It is also possible to create custom hook points to attach eBPF programs almost anywhere in kernel or user applications by creating a kernel probe (kprobe) or user probe (uprobe).
@@ -125,7 +110,7 @@ There are security and stability risks with allowing user-space code to run insi
 So, a number of checks are performed on every eBPF program before it is loaded. 
 The generated eBPF bytecode undergoes verification by a safety tool, the eBPF \textit{verifier}, within the kernel to ensure that the eBPF program is safe to run.
 It is not a security tool inspecting what the programs are doing.
-The verifier checks the bytecode for safety, ensuring that it sticks to certain constraints and security rules to prevent potential security vulnerabilities.
+The verifier checks the bytecode for safety, ensuring that it satisfies all the constraints and security rules to prevent potential security vulnerabilities.
 The safety of the eBPF program is determined in two steps.
 
 The first test ensures that the eBPF program terminates and does not contain any loops that could cause the kernel to lock up. 
@@ -180,7 +165,7 @@ This process of hardening helps prevent potential security vulnerabilities and e
 
 \subsection{JIT compilation}
 
-Once the bytecode has been verified and hardened, the eBPF JIT compiler takes over. 
+Once the bytecode has been verified and hardened, the eBPF JIT compiler is executed. 
 It translates the verified eBPF bytecode into native machine code that corresponds to the target CPU architecture which can be directly executed by the processor. 
 This native code is generated on-the-fly and is specific to the underlying hardware, ensuring optimal execution of eBPF programs by eliminating the overhead of interpreting bytecode.
 The JIT compilation step makes eBPF programs run as efficiently as natively compiled kernel code or as code loaded as a kernel module.
@@ -188,7 +173,7 @@ The JIT compilation step makes eBPF programs run as efficiently as natively comp
 In fact, JIT compilers speed up execution of the eBPF program significantly since they reduce the per instruction cost compared to the interpreter used in cBPF. 
 Most of the times, instructions can be mapped one-to-one with native instructions of the underlying architecture. 
 This also reduces the resulting executable image size of the program and is therefore more instruction cache friendly to the CPU.
-Moreover, during JIT compilation, the compiler can apply various optimization techniques to enhance the efficiency of the generated machine code, which aim to reduce redundant operations, improve memory access patterns and optimize CPU registers usage.
+Moreover, during JIT compilation, the compiler can apply various optimization techniques to enhance the efficiency of the generated machine code, which aim to reduce redundant operations, improve memory access patterns and optimize CPU registers allocation.
 
 \subsection{Loading and execution}
 
@@ -257,7 +242,7 @@ Moreover, it is a good practice to put \textit{static} in the signature of all m
 Tail calls, however, are a mechanism within the eBPF programming framework that enables one eBPF program to efficiently invoke another eBPF program and replace the execution context, similar to how the \textit{execve()} system call operates for regular processes, without returning back to the old program.
 This second mechanism has minimal overhead (unlike function calls) and it is implemented as a long jump, reusing the same stack frame: this allows the modularization and reuse of eBPF logic, promoting code organization, maintainability and performance.
 
-When an eBPF program encounters a tail call instruction, it effectively transfers control to another eBPF program specified by the instruction.
+When an eBPF program encounters a tail call instruction, it effectively transfers control to the specified eBPF program.
 The key characteristic of a tail call is that it replaces the current program's execution context with the context of the called program. 
 This replacement avoids the need for an additional return from the called program, which can help reduce execution overhead and improve overall performance.
 
@@ -273,7 +258,7 @@ Tail calls are particularly useful in scenarios where multiple eBPF programs sha
 Instead of duplicating code across multiple programs, developers can create a single eBPF program that encapsulates the shared logic and other programs can invoke it using tail calls. 
 This approach improves code reuse, simplifies maintenance and reduces the potential for errors.
 
-How is a tail call performed? 
+The following describes what happens when a tail call is performed. 
 There are two components:
 
 \begin{itemize}
@@ -309,7 +294,7 @@ Without this, eBPF programs will run on a stack size of 512 bytes, resulting in 
 \section{Helper functions}
 
 eBPF programs cannot call into arbitrary kernel functions. 
-If this was allowed, eBPF programs would be tied to particular kernel versions and would complicate compatibility of programs. 
+If this was allowed, eBPF programs would depend on particular kernel versions and would make the compatibility of programs more difficult. 
 Instead, eBPF programs can use helper functions, which are implemented inside the kernel in C and are thus hardcoded and part of the kernel ABI. 
 
 These helpers are one of the major things that makes eBPF different from cBPF: they are a set of predefined functions provided by the eBPF runtime environment to assist eBPF programs in performing various tasks and interacting with the kernel.
