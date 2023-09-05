@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.21)  4 SEP 2023 23:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.21)  5 SEP 2023 23:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1024,6 +1024,7 @@ File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 \c@@todonotes@numberoftodonotes=\count457
 )
+\dunder=\skip87
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
@@ -1031,24 +1032,24 @@ Package csquotes Info: Redefining alias 'default' -> 'english'.
  (main.aux (chapters/abstract.aux) (chapters/Acknowledgments.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
 
@@ -1067,9 +1068,9 @@ Package biblatex Info: Data encoding 'utf8' specified.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
  (main.bbl)
-Package biblatex Info: Reference section=0 on input line 48.
-Package biblatex Info: Reference segment=0 on input line 48.
-Package hyperref Info: Link coloring OFF on input line 48.
+Package biblatex Info: Reference section=0 on input line 52.
+Package biblatex Info: Reference segment=0 on input line 52.
+Package hyperref Info: Link coloring OFF on input line 52.
  (main.out) (main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
@@ -1160,7 +1161,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.56 \include{chapters/Acknowledgments.tex}
+l.60 \include{chapters/Acknowledgments.tex}
                                             [1
 
 
@@ -1184,7 +1185,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.56 \include{chapters/Acknowledgments.tex}
+l.60 \include{chapters/Acknowledgments.tex}
                                             [3] (main.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 3.
@@ -1225,7 +1226,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.61 \clearpage
+l.65 \clearpage
                 [1
 
 ] (chapters/Introduction.tex
@@ -1341,21 +1342,21 @@ File: lstlang1.sty 2020/03/24 1.8d listings language file
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 )
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 2
-02.
+00.
 
 (C:\Users\matte\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
 File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
 [40] [41] [42]
-Overfull \hbox (45.13074pt too wide) in paragraph at lines 265--267
+Overfull \hbox (45.13074pt too wide) in paragraph at lines 263--265
 []\T1/cmr/m/n/12 A spe-cial map (key-value data struc-ture), called \T1/cmr/m/i
 t/12 BPF_MAP_TYPE_PROG_ARRAY\T1/cmr/m/n/12 ,
  []
 
-[43] [44] [45] [46] [47]) (chapters/ApplicationsAndInfrastructure.tex [48]
+[43] [44] [45] [46] [47]) (chapters/Toolchains.tex [48]
 Chapter 5.
 
-Underfull \vbox (badness 7963) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [49
 
@@ -1363,34 +1364,34 @@ Underfull \vbox (badness 7963) has occurred while \output is active []
 [50] [51] [52] [53] [54] [55] [56] [57]) (chapters/LinuxDevelopment.tex
 [58]
 Chapter 6.
-) (chapters/WindowsDevelopment.tex [59
+[59
 
-] [60
-
-]
+]) (chapters/WindowsDevelopment.tex [60]
 Chapter 7.
-) (chapters/Conclusions.tex [61] [62
+) (chapters/Conclusions.tex [61
+
+] [62
 
 ]
 Chapter 8.
 ) [63] [64
 
 ]
-Overfull \hbox (6.7309pt too wide) in paragraph at lines 76--76
+Overfull \hbox (6.7309pt too wide) in paragraph at lines 80--80
 []\T1/cmr/m/it/12 BCC repos-i-tory\T1/cmr/m/n/12 . \T1/cmr/m/sc/12 url\T1/cmr/m
 /n/12 : []$\T1/cmtt/m/n/12 https : / / github . com / iovisor / bcc$[] \T1/cmr/
 m/n/12 (vis-ited on 06/2023). 
  []
 
 [65]
-Overfull \hbox (22.89084pt too wide) in paragraph at lines 76--76
+Overfull \hbox (22.89084pt too wide) in paragraph at lines 80--80
 []\T1/cmr/m/it/12 Hypervisors ar-chi-tec-tures im-ages\T1/cmr/m/n/12 . \T1/cmr/
 m/sc/12 url\T1/cmr/m/n/12 : []$\T1/cmtt/m/n/12 https : / / medium . com / teamr
 esellerclub /
  []
 
 [66]
-Overfull \hbox (21.06628pt too wide) in paragraph at lines 76--76
+Overfull \hbox (21.06628pt too wide) in paragraph at lines 80--80
 []\T1/cmr/m/it/12 Virtual ma-chine in-stal-la-tion in-struc-tions\T1/cmr/m/n/12
  . \T1/cmr/m/sc/12 url\T1/cmr/m/n/12 : []$\T1/cmtt/m/n/12 https : / / github . 
 com / microsoft /
@@ -1398,22 +1399,22 @@ com / microsoft /
 
 [67] (main.aux (chapters/abstract.aux) (chapters/Acknowledgments.aux))
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F35C141F41E5423EE3287758254F1261;8624.
+(rerunfilecheck)             Checksum: F48A21A57AC91D243F1A907CA58D6438;8416.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 33478 strings out of 476374
- 639724 string characters out of 5788854
- 1876340 words of memory out of 5000000
- 53144 multiletter control sequences out of 15000+600000
+ 33499 strings out of 476374
+ 639723 string characters out of 5788854
+ 1896340 words of memory out of 5000000
+ 53162 multiletter control sequences out of 15000+600000
  525820 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,12n,94p,1889b,2985s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt
+ <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc
 1200.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
-0\eccc1200.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
+0\ectt1200.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
 /dpi600\ectt1000.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
 pen/ec/dpi600\ecrm0600.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour
 /jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/
@@ -1425,10 +1426,12 @@ a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk> <C:\Users\matte\
 AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\
 matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\
 Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk
->
-Output written on main.pdf (83 pages, 496680 bytes).
+><C:/Users/matte/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
+mmi12.pfb><C:/Users/matte/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmr12.pfb>
+Output written on main.pdf (83 pages, 524806 bytes).
 PDF statistics:
- 1348 PDF objects out of 1440 (max. 8388607)
- 187 named destinations out of 1000 (max. 500000)
+ 1384 PDF objects out of 1440 (max. 8388607)
+ 190 named destinations out of 1000 (max. 500000)
  494 words of extra memory for PDF output out of 10000 (max. 10000000)
 

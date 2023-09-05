@@ -40,19 +40,19 @@
 \contentsline {section}{\numberline {4.7}Tail and function calls}{42}{section.4.7}%
 \contentsline {section}{\numberline {4.8}Helper functions}{44}{section.4.8}%
 \contentsline {section}{\numberline {4.9}Maps}{47}{section.4.9}%
-\contentsline {chapter}{\numberline {5}Applications and infrastructure of eBPF}{49}{chapter.5}%
+\contentsline {chapter}{\numberline {5}eBPF toolchains}{49}{chapter.5}%
 \contentsline {section}{\numberline {5.1}eBPF tools}{50}{section.5.1}%
 \contentsline {section}{\numberline {5.2}bpftrace}{51}{section.5.2}%
 \contentsline {section}{\numberline {5.3}BCC}{52}{section.5.3}%
 \contentsline {section}{\numberline {5.4}libbpf}{53}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Building the needed things}{55}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.1}Requirements}{55}{subsection.5.4.1}%
 \contentsline {subsection}{\numberline {5.4.2}Program lifecycle}{56}{subsection.5.4.2}%
 \contentsline {subsection}{\numberline {5.4.3}Skeleton files}{57}{subsection.5.4.3}%
 \contentsline {chapter}{\numberline {6}Linux development}{59}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Bumblebee}{59}{section.6.1}%
-\contentsline {section}{\numberline {6.2}libbpf-bootstrap}{59}{section.6.2}%
+\contentsline {section}{\numberline {6.2}libbpf-bootstrap}{60}{section.6.2}%
 \contentsline {chapter}{\numberline {7}Windows development}{61}{chapter.7}%
 \contentsline {section}{\numberline {7.1}ebpf for Windows}{61}{section.7.1}%
 \contentsline {section}{\numberline {7.2}windows ebpf starter}{61}{section.7.2}%
 \contentsline {chapter}{\numberline {8}Conclusions}{63}{chapter.8}%
-\contentsline {chapter}{Bibliography}{65}{chapter*.15}%
+\contentsline {chapter}{Bibliography}{65}{chapter*.13}%

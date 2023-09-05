@@ -189,8 +189,6 @@ Furthermore, while the program is running, the JIT compilation process allows fo
 
 \section{The bpf() system call}
 
-% https://www.ferrisellis.com/content/ebpf_syscall_and_maps/
-
 The creation of the eBPF program as byte code and attaching the loaded program to a system in the kernel are two steps in the process of using an eBPF program that vary by use case.
 However, the step in between these two, that is loading the program into the kernel and creating necessary eBPF-maps, is the core of eBPF and it is what all eBPF applications have in common.
 In Linux, this step is done by the \textit{bpf()} system call, which was introduced in the Linux kernel version 3.18, released on the 7th of December 2014, along with the underlying machinery in the kernel: it is an interface provided by the Linux kernel that allows user programs to interact with and utilize eBPF functionality. 

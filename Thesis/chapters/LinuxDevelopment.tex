@@ -1,18 +1,46 @@
 \chapter{Linux development}
 
 In the previous chapters we went through the evolution of eBPF throughout the years and we analyzed all the components of its ecosystem.
-Now we are ready to jump into some coding and write out first eBPF program.
+Now we are ready to jump into some coding and write our first eBPF program.
 
 We are going to start to talk about the development process on Linux, since historically it was the first operating system where eBPF was introduced and there is a greater and more complete documentation.
-In fact, on the internet there are various tutorials and guides on writing your first eBPF program: however, we are going to present just a couple of projects that in our opinion are the best for starting with eBPF because they set up as much things as possible for beginner users to let them dive straight into writing BPF programs and not get frustrated with various initials setup tasks.
+In fact, on the internet there are various tutorials and guides on writing your first eBPF program: however, we are going to present just a couple of projects that in our opinion are the best for starting with eBPF because they set up as many things as possible for beginner users to let them dive straight into writing eBPF programs and not get frustrated with various initials setup tasks.
+Moreover, at the beginning of the history of eBPF it was necessary to work a lot from the Linux terminal for verifying, loading into the kernel and tearing down an eBPF program: however, the projects that we are going to present also simplify this procedure.
 
-Previously all from command line, but now there is the introduction of projects.
+% https://docs.kernel.org/bpf/libbpf/program_types.html#program-types-and-elf
 
 \section{Bumblebee}
 
 % https://github.com/solo-io/bumblebee
 
+Every time anyone interfaces for the first time with something new, it is always nice to have anything ready with an explanation of what has been done in order to understand the new thing as quickly as possible.
+
 Create example to help develop in future.
+
+\begin{itemize}
+	\item sudo -s
+	\item apt install curl
+	\item apt install docker.io 
+	\item curl -sL https://run.solo.io/bee/install | sh to install command line interface
+	\item export PATH=$HOME/.bumblebee/bin:$PATH to add bee CLI to path
+	\item bee init
+	\item CTRL + C for exiting at any point
+	\item ? What language do you wish to use for the filter: 
+		C
+		Rust soon available
+	\item ? What type of program to initialize: 
+		Network
+	File system (end initialization)
+	\item ? What type of map should we initialize: 
+		RingBuffer
+		HashMap
+	\item ? What type of output would you like from your map: 
+		print
+		counter
+		gauge
+	\item BPF Program File Location: name of file
+\end{itemize}
+
 
 \section{libbpf-bootstrap}
 
