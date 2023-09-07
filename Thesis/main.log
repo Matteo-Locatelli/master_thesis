@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.21)  5 SEP 2023 23:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.21)  7 SEP 2023 22:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1251,7 +1251,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [5
 
 ]
-<images/Technologies/type_2_hypervisor.png, id=411, 315.579pt x 319.1925pt>
+<images/Technologies/type_2_hypervisor.png, id=457, 315.579pt x 319.1925pt>
 File: images/Technologies/type_2_hypervisor.png Graphic file (type png)
 <use images/Technologies/type_2_hypervisor.png>
 Package pdftex.def Info: images/Technologies/type_2_hypervisor.png  used on inp
@@ -1262,7 +1262,7 @@ ut line 26.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [6]
-<images/Technologies/type_1_hypervisor.png, id=422, 325.215pt x 240.9pt>
+<images/Technologies/type_1_hypervisor.png, id=468, 325.215pt x 240.9pt>
 File: images/Technologies/type_1_hypervisor.png Graphic file (type png)
 <use images/Technologies/type_1_hypervisor.png>
 Package pdftex.def Info: images/Technologies/type_1_hypervisor.png  used on inp
@@ -1273,7 +1273,7 @@ ut line 49.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [7 <./images/Technologies/type_2_hypervisor.png>]
-<images/Technologies/GitHub_logo.png, id=433, 677.53125pt x 188.20313pt>
+<images/Technologies/GitHub_logo.png, id=479, 677.53125pt x 188.20313pt>
 File: images/Technologies/GitHub_logo.png Graphic file (type png)
 <use images/Technologies/GitHub_logo.png>
 Package pdftex.def Info: images/Technologies/GitHub_logo.png  used on input lin
@@ -1304,12 +1304,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [14]
 [15] [16] [17] [18] [19] [20]
-<images/History/eBPF_logo.png, id=503, 302.12875pt x 167.62625pt>
+<images/History/eBPF_logo.png, id=549, 302.12875pt x 167.62625pt>
 File: images/History/eBPF_logo.png Graphic file (type png)
 <use images/History/eBPF_logo.png>
 Package pdftex.def Info: images/History/eBPF_logo.png  used on input line 194.
 (pdftex.def)             Requested size: 298.75264pt x 165.75352pt.
-<images/History/lf-stacked-color.png, id=505, 1003.75pt x 330.23375pt>
+<images/History/lf-stacked-color.png, id=551, 1003.75pt x 330.23375pt>
 File: images/History/lf-stacked-color.png Graphic file (type png)
 <use images/History/lf-stacked-color.png>
 Package pdftex.def Info: images/History/lf-stacked-color.png  used on input lin
@@ -1341,6 +1341,8 @@ File: lstlang1.sty 2020/03/24 1.8d listings language file
 (C:\Users\matte\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 )
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 200.
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 2
 00.
 
@@ -1361,20 +1363,36 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [49
 
 ]
-[50] [51] [52] [53] [54] [55] [56] [57]) (chapters/LinuxDevelopment.tex
-[58]
+[50] [51] [52] [53] [54] [55] [56]
+(C:\Users\matte\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+(C:\Users\matte\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+)
+[57]) (chapters/LinuxDevelopment.tex [58]
 Chapter 6.
 [59
 
-]) (chapters/WindowsDevelopment.tex [60]
-Chapter 7.
-) (chapters/Conclusions.tex [61
+] [60]
+Overfull \hbox (61.64076pt too wide) in paragraph at lines 54--54
+[][][]\T1/cmr/m/n/12 config_debug_info_btf=y[]  
+ []
 
-] [62
+
+Overfull \hbox (61.64076pt too wide) in paragraph at lines 54--54
+[][][]\T1/cmr/m/n/12 config_debug_info_btf=y[]  
+ []
+
+[61] [62] [63] [64]) (chapters/WindowsDevelopment.tex [65] [66
+
+]
+Chapter 7.
+) (chapters/Conclusions.tex [67] [68
 
 ]
 Chapter 8.
-) [63] [64
+) [69] [70
 
 ]
 Overfull \hbox (6.7309pt too wide) in paragraph at lines 80--80
@@ -1383,35 +1401,35 @@ Overfull \hbox (6.7309pt too wide) in paragraph at lines 80--80
 m/n/12 (vis-ited on 06/2023). 
  []
 
-[65]
+[71]
 Overfull \hbox (22.89084pt too wide) in paragraph at lines 80--80
 []\T1/cmr/m/it/12 Hypervisors ar-chi-tec-tures im-ages\T1/cmr/m/n/12 . \T1/cmr/
 m/sc/12 url\T1/cmr/m/n/12 : []$\T1/cmtt/m/n/12 https : / / medium . com / teamr
 esellerclub /
  []
 
-[66]
+[72]
 Overfull \hbox (21.06628pt too wide) in paragraph at lines 80--80
 []\T1/cmr/m/it/12 Virtual ma-chine in-stal-la-tion in-struc-tions\T1/cmr/m/n/12
  . \T1/cmr/m/sc/12 url\T1/cmr/m/n/12 : []$\T1/cmtt/m/n/12 https : / / github . 
 com / microsoft /
  []
 
-[67] (main.aux (chapters/abstract.aux) (chapters/Acknowledgments.aux))
+[73] (main.aux (chapters/abstract.aux) (chapters/Acknowledgments.aux))
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F48A21A57AC91D243F1A907CA58D6438;8416.
+(rerunfilecheck)             Checksum: 6BBF600E5AD25B26A6A97D6701B9FE64;8974.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 33499 strings out of 476374
- 639723 string characters out of 5788854
+ 33806 strings out of 476374
+ 644254 string characters out of 5788854
  1896340 words of memory out of 5000000
- 53162 multiletter control sequences out of 15000+600000
+ 53413 multiletter control sequences out of 15000+600000
  525820 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,12n,94p,1889b,2985s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,12n,96p,1889b,2985s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc
 1200.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
 0\ectt1200.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
@@ -1426,12 +1444,10 @@ a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk> <C:\Users\matte\
 AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\
 matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\
 Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk
-><C:/Users/matte/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
-mmi12.pfb><C:/Users/matte/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
-onts/cm/cmr12.pfb>
-Output written on main.pdf (83 pages, 524806 bytes).
+>
+Output written on main.pdf (89 pages, 543928 bytes).
 PDF statistics:
- 1384 PDF objects out of 1440 (max. 8388607)
- 190 named destinations out of 1000 (max. 500000)
- 494 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1528 PDF objects out of 1728 (max. 8388607)
+ 242 named destinations out of 1000 (max. 500000)
+ 526 words of extra memory for PDF output out of 10000 (max. 10000000)
 

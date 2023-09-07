@@ -170,6 +170,43 @@
     \endverb
   \endentry
 
+  \entry{BumbleBeeRepo}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{BumbleBee repository}
+    \verb{url}
+    \verb https://github.com/solo-io/bumblebee/tree/main
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{BumblebeeVagrant}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{Bumblebee Vagrant development}
+    \verb{url}
+    \verb https://github.com/solo-io/bumblebee/blob/main/docs/contributing.md#D
+    \verb evelopment
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{BumbleBeeWebsite}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{BumbleBee website}
+    \verb{url}
+    \verb https://bumblebee.io/EN
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{cBPFvseBPF}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{C}
@@ -292,6 +329,18 @@
     \field{urlyear}{2023}
   \endentry
 
+  \entry{libbpfRustGithubRepo}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{libbpf Rust GitHub repository}
+    \verb{url}
+    \verb https://github.com/libbpf/libbpf-rs
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{LinuxHelpers}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{L}
@@ -378,6 +427,30 @@
     \endverb
     \field{month}{12}
     \field{year}{1992}
+  \endentry
+
+  \entry{OCIRepo}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{O}
+    \field{sortinithash}{O}
+    \field{title}{OCI repository}
+    \verb{url}
+    \verb https://github.com/opencontainers/image-spec
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{soloioWebsite}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{solo.io website}
+    \verb{url}
+    \verb https://www.solo.io/
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
   \endentry
 
   \entry{SubComWebsite}{online}{}

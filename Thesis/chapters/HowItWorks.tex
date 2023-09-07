@@ -1,7 +1,7 @@
 \chapter{The eBPF subsystem}
 
 From what we have learned from the previous chapter we can try to give a definition to eBPF: it is a ``verified-to-be-safe, fast to switch-to mechanism, for running code in Linux kernel space to react to events such as function calls, function returns, and trace points in kernel or user space'' \cite{eBPFLinuxJournal}.
-In a few words, eBPF is very powerful because it is fast and it is safe. 
+In a few words, eBPF is very powerful because it is fast and safe. 
 
 Given also eBPF's efficiency and flexibility, Brendan Gregg, an internationally famous expert in computing performance,  famously coined eBPF as ``superpowers for Linux''.
 Linus Torvalds, the author of the first version of the Linux kernel, expressed that ``BPF has actually been really useful, and the real power of it is how it allows people to do specialized code that isn't enabled until asked for''.
@@ -197,7 +197,7 @@ This system call allows for the byte code to be loaded along with a declaration 
 
 Below we can see the necessary syntax of this system call:
 
-\begin{lstlisting}[language=C]
+\begin{lstlisting}[language=C, caption={bpf() system call signature}]
 	#include <linux/bpf.h>
 	int bpf(int cmd, union bpf_attr *attr, unsigned int size);
 \end{lstlisting}

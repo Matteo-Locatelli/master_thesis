@@ -5,46 +5,204 @@ Now we are ready to jump into some coding and write our first eBPF program.
 
 We are going to start to talk about the development process on Linux, since historically it was the first operating system where eBPF was introduced and there is a greater and more complete documentation.
 In fact, on the internet there are various tutorials and guides on writing your first eBPF program: however, we are going to present just a couple of projects that in our opinion are the best for starting with eBPF because they set up as many things as possible for beginner users to let them dive straight into writing eBPF programs and not get frustrated with various initials setup tasks.
-Moreover, at the beginning of the history of eBPF it was necessary to work a lot from the Linux terminal for verifying, loading into the kernel and tearing down an eBPF program: however, the projects that we are going to present also simplify this procedure.
-
-% https://docs.kernel.org/bpf/libbpf/program_types.html#program-types-and-elf
+Moreover, at the beginning of the history of eBPF it was necessary to work a lot from the Linux terminal for verifying, loading into the kernel and tearing down an eBPF program: however, the projects that we are going to present also simplify this procedure as well.
 
 \section{Bumblebee}
 
 % https://github.com/solo-io/bumblebee
 
-Every time anyone interfaces for the first time with something new, it is always nice to have anything ready with an explanation of what has been done in order to understand the new thing as quickly as possible.
+% https://www.solo.io/blog/solo-announces-bumblebee/
 
-Create example to help develop in future.
+% https://www.solo.io/blog/get-started-with-ebpf-using-bumblebee/
+
+% https://bumblebee.io/EN
+
+% word documents in documentation: FIRST PROGRAM TUTORIAL & HOW TO CREATE PROGRAM
+
+Every time anyone interfaces for the first time with something new, it is always nice to have anything ready with an explanation of what has been done in order to understand the new thing as quickly as possible.
+This is exactly what happened when we came across \textit{BumbleBee} \cite{BumbleBeeWebsite} by \textit{solo.io}, a company known for its work in the field of cloud-native technologies, service mesh and API gateway solutions \cite{soloioWebsite}.
+
+\textit{BumbleBee} is an open-source project focused on simplifying the user experience around building eBPF tools \cite{BumbleBeeRepo}. 
+It helps developers to build, run and distribute eBPF programs using Open Container Initiative (OCI) images, a standardized and portable way to package, distribute and run containerized applications across different container runtimes and platforms typically used in the DevOps and cloud-native ecosystem \cite{OCIRepo}.
+
+By doing so, it allows the developer to focus on writing eBPF code, while taking care of the user space components.
+We are going to see later that data is automatically exposed data as metrics or logs.
+
+\subsection{Why BumbleBee}
+
+In the previous chapters we understood that eBPF can run sandboxed programs in an operating system kernel to enhance the kernel capabilities with rapidly evolving network and security (to name a few) technologies.
+Moreover, we went through its subsystem and the solution that was introduce to make eBPF programs portable across different kernel versions, i.e. BTF, a common type descriptor format.
+However, nowadays packaging and sharing these binary programs is not very well specified. 
+In fact, developers usually write the user-space code and the eBPF program, but they usually do have to figure out on their own how to distribute their application.
+
+This is where \textit{BumbleBee} comes into play: the idea is to use the same BTF typing to auto-generate all user-space code.
+In fact, it is a tool that brings a Docker-like experience for automating critical steps in this process: its focus is on packaging, distribution and automatically generating user-space code for any eBPF program. 
+By using a few and simple Command Line Interface (CLI, a text-based user interface
+used to run programs, manage computer files and interact with the computer) commands it makes developing, running and distributing eBPF programs really simple.
+
+\textit{BumbleBee} is built using libbpf and allows the developer to focus on writing the eBPF code while automatically taking care of the user space components. 
+Moreover, it detects and displays maps in the program that allow data sharing between user-space and kernel-space programs. 
+Everything is done in complete autonomy by \textit{BumbleBee}: the trick found in the use of special eBPF conventions and keywords, i.e. maps and functions, the two things that make up ebpf programs.
+
+\subsection{Installation}
+
+In chapter 2 we explained that for the development of eBPF programs in Linux we were going to use a Virtual machine running Ubuntu 22.04 that was created thanks to VirtualBox.
+However, for non-Linux users, the project offers a Vagrant box \cite{BumblebeeVagrant} (with Docker, one of the main software for the portable deployment of application development environments) to help getting started with a Linux environment.
+For the purpose of this thesis we are going to stick to the use of a virtual machine running the Linux operating system.
+Being a Linux technology, eBPF should work in any Linux kernel.
+However, the developers of \textit{BumbleBee} suggest to run kernel 5.4 or newer.
+\todo{config\_debug\_info\_btf=y}
+
+Once the virtual machine is running we have to install the \verb|bee| tool on our machine.
+The easiest way to do so is to use the installation script provided by the project which does not even require to clone the repository on the machine.
+Therefore, we have to open a terminal on our machine and write the following commands:
+
+\begin{lstlisting}[language=bash, caption={bee installation commands}]
+	sudo apt install curl
+	sudo apt install docker.io 
+	sudo -s
+	curl -sL https://run.solo.io/bee/install | sh 
+	export PATH=$HOME/.bumblebee/bin:$PATH
+\end{lstlisting}
+
+The first two commands must be performed only the first time the virtual machine is turned on and are important because they install the command \verb|curl| and the package \verb|docker.io|.
+Instead, from line 3 to 5 there are three commands that must be executed every time the virtual machine is started up.
+In particular:
 
 \begin{itemize}
-	\item sudo -s
-	\item apt install curl
-	\item apt install docker.io 
-	\item curl -sL https://run.solo.io/bee/install | sh to install command line interface
-	\item export PATH=$HOME/.bumblebee/bin:$PATH to add bee CLI to path
-	\item bee init
-	\item CTRL + C for exiting at any point
-	\item ? What language do you wish to use for the filter: 
-		C
-		Rust soon available
-	\item ? What type of program to initialize: 
-		Network
-	File system (end initialization)
-	\item ? What type of map should we initialize: 
-		RingBuffer
-		HashMap
-	\item ? What type of output would you like from your map: 
-		print
-		counter
-		gauge
-	\item BPF Program File Location: name of file
+	\item Line 3 is the standard way to give the user elevated privileges (these will 
+		be needed to run the \verb|bee| command);
+	\item Line 4 installs the CLI;
+	\item Line 5 adds the \verb|bee| CLI to \textit{PATH} (an environment variable 
+		that instructs a Linux system in which directories to search for executables and enables the user to run a command without specifying a path).
 \end{itemize}
 
+\subsection{Write an eBPF program}
+
+Now that we have set up all the things that we need, we are ready to create our eBPF program.
+The first thing that we have to do is to open a terminal and give the user elevated privileges.
+Then we have to run the interactive command to bootstrap a new eBPF program.
+
+\begin{lstlisting}[language=bash, caption={bee init command}]
+	bee init
+\end{lstlisting}
+
+It will start a process of creating a program through a series of questions about the eBPF program you plan to build and will auto-generate the code template..
+If, for any reason, the process has to be interrupted, it is enough to press \verb|CTRL+C| at any moment.
+
+The first choice that has to be done is about the language with which the program will be developed:
+
+\begin{lstlisting}[language=bash, caption={bee language selection}]
+	? What language do you wish to use for the filter: 
+	  - C
+\end{lstlisting}
+
+Currently only C is supported, but the company has planned the support for Rust as well.
+In fact, a \textit{libbpf} library for building eBPF applications in Rust which is called \textit{Libbpf-rs} \cite{libbpfRustGithubRepo}.
+We will not enter in the details of this library since we have not used it: it is enough to know that it wraps eBPF functionality Rust-idiomatic interfaces and provides \textit{libbpf-cargo} plugin to handle eBPF code compilation and skeleton generation.
+This library makes the building of the user-space part of the eBPF application in Rust easier.
+However, the eBPF program themselves must still be written in plain C.
+
+Selected the language, the process asks the type of program that is wanted.
+\verb|bee| has currently two hook points for the program: network or file system.
+However, since eBPF enables developers to hook a program into any kernel functionality, we can expect that more of them will be added in the future.
+
+\begin{lstlisting}[language=bash, caption={bee type of program selection}]
+	? What type of program to initialize: 
+	  - Network
+	    File system
+\end{lstlisting}
+
+Network programs will primarily target integration with various functions within the kernel networking stack, whereas file-system programs will interface with file operations, including \textit{open()} calls.
+
+Then, the interface questions about the desired type of global map for the eBPF program that is being built.
+Once again, eBPF has several types of map, but \verb|bee| currently implements only two of them: \verb|Ringbuffer| and \verb|HasMap|.
+
+\begin{lstlisting}[language=bash, caption={bee map type selection}]
+	? What type of map should we initialize: 
+	  - RingBuffer
+	    HashMap
+\end{lstlisting}
+
+\verb|RingBuffer| is a generic map type that works as a queue and is usually used for the storage of many arbitrary data types.
+However, to allow \verb|bee| to take care of all the user-space code, it has been imposed that only one type of data can be stored in a \verb|Ringbuffer|: in fact we will see that a type is stored in the map definition, but this parameter is used by \verb|bee| to correctly parse the data and it is not used in the kernel map definition. 
+\verb|Hashmap|, instead, works as a traditional map with both keys and values.
+Another substantial difference between the two types of maps is that \verb|Ringbuffer| handles the data only once, while the \verb|Hashmap| keeps its data until it is removed manually.
+
+The last decision that has to be done is about the output format.
+This is what makes \textit{BumbleBee} really interesting: normally, to develop an eBPF application, a developer has to write a user-space and a kernel-space program, but \verb|bee| handles automatically the maps data and requires only to write kernel-space code.
+
+\begin{lstlisting}[language=bash, caption={bee output format selection}]
+	? What type of output would you like from your map: 
+	  - print
+	    counter
+	    gauge
+\end{lstlisting}
+
+\verb|print| tells that the data in the maps will be displayed as text and \verb|print| can be event based (if \verb|RingBuffer| is used as map) or timer based (if \verb|HashMap| is used).
+On the other hand, \verb|counter| and \verb|gauge| are two types of metrics that are currently supported (as before, new ones could be introduced with the evolution of \textit{BumbleBee}): the first one is pretty self-explanatory and is used to count the number of times an event occurs, qhile the second one is used to track numeric values that can change over time.
+
+In the end the last thing to do is to give a name to the file.
+
+\begin{lstlisting}[language=bash, caption={bee file location}]
+	BPF Program File Location: file_name.c
+\end{lstlisting}
+
+Instead of \verb|file_name| put the name of the file: it will be saved in the directory from which the commands were executed.
+
+Now we have created our eBPF program.
+It must be specified that once the program has been created it is possible to modify it to add a specific functionality to the kernel: however, after the generation of the program, the file will have read-only permissions.
+So, the first thing that has to be done is to give all permissions to the file using the \verb|chmod| tool.
+
+Once the eBPF program is created, the next step is to compile it.
+To do so, once again we have to use the \verb|bee| tool.
+
+\begin{lstlisting}[language=bash, caption={bee built command}]
+	bee build file_name.c name:v1
+\end{lstlisting}
+
+This command compiles the program and creates an OCI packaged eBPF image thanks to a \textit{docker} build container that simplifies the building of the code.
+Then, the OCI image ca be shared to popular OCI image repositories (Docker registry, GitHub Container Repository, or Google Container Repository, etc.), put in a workflow or deployed in a working environment.
+Once an OCI image is downloaded from somewhere, it will be unpacked into an OCI Runtime filesystem bundle which will be run by an OCI Runtime, according to the Runtime Specification.
+
+Once the process of compilation ends, the following messages will appear on the terminal: 
+
+\begin{lstlisting}[language=bash, caption={bee built command}]
+	Successfully compiled "file_name.c" and wrote it to "file_name.o"
+	Saved BPF OCI image to name:v1
+\end{lstlisting}
+
+Now, under the same directory, we will have the eBPF program and the corresponding object file generated by the process of compilation.
+The OCI image, instead, will be saved somewhere in the machine.
+
+We want to point out that the name of the eBPF program \verb|file_name| and the one of the OCI image \verb|name| do not have to be the same: however, if the two names correspond, it is easier to understand from which programs different images originated.
+Another important thing to say is the fact that if a program is modified after it has been compiled, the program has to go through a second process of compilation using the same command show above.
+However, if the changes to the file are not accepted by the compiler, the compilation gets interrupted and the OCI image of the program before the changes is deleted.
+
+With the following command it is possible to look at all the OCI images stored locally that are ready to be run.
+
+\begin{lstlisting}[language=bash, caption={bee list command}]
+	bee list
+\end{lstlisting}
+
+Finally, we can run our program with a simple command.
+
+\begin{lstlisting}[language=bash, caption={bee run command}]
+	bee run name:v1
+\end{lstlisting}
+
+
+\subsection{Some examples}
 
 \section{libbpf-bootstrap}
 
+% https://www.kernel.org/doc/html/latest/bpf/libbpf/libbpf_overview.html
+
+% https://nakryiko.com/posts/bcc-to-libbpf-howto-guide/
+
 % https://github.com/libbpf/libbpf-bootstrap/tree/master
+
+% https://docs.kernel.org/bpf/libbpf/program_types.html#program-types-and-elf
 
 % https://nakryiko.com/posts/libbpf-bootstrap/
 
