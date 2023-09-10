@@ -24,7 +24,7 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-Reallocating 'field_info' (item size: 4) to 11020 items.
+Reallocating 'field_info' (item size: 4) to 11300 items.
 Database file #1: main-blx.bib
 Database file #2: bibliography.bib
 I was expecting a `,' or a `}'---line 109 of file bibliography.bib
@@ -50,45 +50,45 @@ I'm skipping whatever remains of this entry
 Biblatex version: 3.18
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-You've used 43 entries,
+You've used 45 entries,
             6399 wiz_defined-function locations,
-            1381 strings with 13159 characters,
-and the built_in function-call counts, 120759 in all, are:
-= -- 2519
-> -- 9418
-< -- 1017
-+ -- 8776
-- -- 8452
-* -- 4048
-:= -- 11638
+            1389 strings with 13410 characters,
+and the built_in function-call counts, 126614 in all, are:
+= -- 2621
+> -- 9930
+< -- 1067
++ -- 9250
+- -- 8918
+* -- 4230
+:= -- 12219
 add.period$ -- 0
-call.type$ -- 43
-change.case$ -- 174
-chr.to.int$ -- 702
-cite$ -- 84
-duplicate$ -- 12008
-empty$ -- 12794
+call.type$ -- 45
+change.case$ -- 182
+chr.to.int$ -- 738
+cite$ -- 88
+duplicate$ -- 12573
+empty$ -- 13398
 format.name$ -- 67
-if$ -- 19654
+if$ -- 20558
 int.to.chr$ -- 0
-int.to.str$ -- 43
+int.to.str$ -- 45
 missing$ -- 0
-newline$ -- 539
+newline$ -- 564
 num.names$ -- 41
-pop$ -- 13682
+pop$ -- 14330
 preamble$ -- 1
-purify$ -- 138
+purify$ -- 144
 quote$ -- 0
-skip$ -- 3612
+skip$ -- 3780
 stack$ -- 0
-substring$ -- 3638
-swap$ -- 4007
-text.length$ -- 884
-text.prefix$ -- 42
+substring$ -- 3790
+swap$ -- 4202
+text.length$ -- 926
+text.prefix$ -- 44
 top$ -- 1
-type$ -- 1450
+type$ -- 1518
 warning$ -- 0
-while$ -- 790
+while$ -- 824
 width$ -- 0
-write$ -- 497
+write$ -- 520
 (There were 4 error messages)

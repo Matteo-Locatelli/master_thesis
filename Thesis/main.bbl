@@ -170,6 +170,19 @@
     \endverb
   \endentry
 
+  \entry{BTFKernelConfig}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{BTF kernel configuration}
+    \verb{url}
+    \verb https://github.com/libbpf/libbpf#bpf-co-re-compile-once--run-everywhe
+    \verb re
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{BumbleBeeRepo}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{B}
@@ -278,6 +291,18 @@
     \verb t-makes-them-different-6a1755d6ae2c
     \endverb
     \field{urlmonth}{07}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{libbpfbootstrapGithubRepo}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{libbpf-bootstrap GitHub repository}
+    \verb{url}
+    \verb https://github.com/libbpf/libbpf-bootstrap
+    \endverb
+    \field{urlmonth}{06}
     \field{urlyear}{2023}
   \endentry
 

@@ -24,39 +24,43 @@
 \contentsline {subsection}{\numberline {3.7.2}The temporary solution: BCC}{26}{subsection.3.7.2}%
 \contentsline {subsection}{\numberline {3.7.3}The solution: BPF CO-RE}{26}{subsection.3.7.3}%
 \contentsline {subsection}{\numberline {3.7.4}BPF CO-RE}{28}{subsection.3.7.4}%
-\contentsline {section}{\numberline {3.8}Future and potential of eBPF}{28}{section.3.8}%
-\contentsline {chapter}{\numberline {4}The eBPF subsystem}{31}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Writing an eBPF program}{31}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Architecture}{32}{section.4.2}%
-\contentsline {section}{\numberline {4.3}The instruction set}{34}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Hook points}{35}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Compiling and loading an eBPF program}{35}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Compilation}{36}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}Verification}{36}{subsection.4.5.2}%
-\contentsline {subsection}{\numberline {4.5.3}Hardening}{38}{subsection.4.5.3}%
-\contentsline {subsection}{\numberline {4.5.4}JIT compilation}{39}{subsection.4.5.4}%
-\contentsline {subsection}{\numberline {4.5.5}Loading and execution}{39}{subsection.4.5.5}%
-\contentsline {section}{\numberline {4.6}The bpf() system call}{40}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Tail and function calls}{42}{section.4.7}%
-\contentsline {section}{\numberline {4.8}Helper functions}{44}{section.4.8}%
-\contentsline {section}{\numberline {4.9}Maps}{47}{section.4.9}%
-\contentsline {chapter}{\numberline {5}eBPF toolchains}{49}{chapter.5}%
-\contentsline {section}{\numberline {5.1}eBPF tools}{50}{section.5.1}%
-\contentsline {section}{\numberline {5.2}bpftrace}{51}{section.5.2}%
-\contentsline {section}{\numberline {5.3}BCC}{52}{section.5.3}%
-\contentsline {section}{\numberline {5.4}libbpf}{53}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Requirements}{55}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Program lifecycle}{56}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Skeleton files}{57}{subsection.5.4.3}%
-\contentsline {chapter}{\numberline {6}Linux development}{59}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Bumblebee}{59}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Why BumbleBee}{60}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Installation}{61}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}Write an eBPF program}{62}{subsection.6.1.3}%
-\contentsline {subsection}{\numberline {6.1.4}Some examples}{65}{subsection.6.1.4}%
-\contentsline {section}{\numberline {6.2}libbpf-bootstrap}{65}{section.6.2}%
-\contentsline {chapter}{\numberline {7}Windows development}{67}{chapter.7}%
-\contentsline {section}{\numberline {7.1}ebpf for Windows}{67}{section.7.1}%
-\contentsline {section}{\numberline {7.2}windows ebpf starter}{67}{section.7.2}%
-\contentsline {chapter}{\numberline {8}Conclusions}{69}{chapter.8}%
-\contentsline {chapter}{Bibliography}{71}{chapter*.14}%
+\contentsline {subsection}{\numberline {3.7.5}Getting rid of kernel header dependency}{28}{subsection.3.7.5}%
+\contentsline {section}{\numberline {3.8}Future and potential of eBPF}{30}{section.3.8}%
+\contentsline {chapter}{\numberline {4}The eBPF subsystem}{33}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Writing an eBPF program}{33}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Architecture}{34}{section.4.2}%
+\contentsline {section}{\numberline {4.3}The instruction set}{36}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Hook points}{37}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Compiling and loading an eBPF program}{37}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Compilation}{38}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Verification}{38}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Hardening}{40}{subsection.4.5.3}%
+\contentsline {subsection}{\numberline {4.5.4}JIT compilation}{41}{subsection.4.5.4}%
+\contentsline {subsection}{\numberline {4.5.5}Loading and execution}{41}{subsection.4.5.5}%
+\contentsline {section}{\numberline {4.6}The bpf() system call}{42}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Tail and function calls}{44}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Helper functions}{46}{section.4.8}%
+\contentsline {section}{\numberline {4.9}Maps}{49}{section.4.9}%
+\contentsline {chapter}{\numberline {5}eBPF toolchains}{51}{chapter.5}%
+\contentsline {section}{\numberline {5.1}eBPF tools}{52}{section.5.1}%
+\contentsline {section}{\numberline {5.2}bpftrace}{53}{section.5.2}%
+\contentsline {section}{\numberline {5.3}BCC}{54}{section.5.3}%
+\contentsline {section}{\numberline {5.4}libbpf}{55}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Requirements}{57}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Program lifecycle}{58}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Skeleton files}{59}{subsection.5.4.3}%
+\contentsline {chapter}{\numberline {6}Linux development}{61}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Bumblebee}{61}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Why BumbleBee}{62}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Installation}{63}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Write an eBPF program}{64}{subsection.6.1.3}%
+\contentsline {subsection}{\numberline {6.1.4}Some examples}{68}{subsection.6.1.4}%
+\contentsline {section}{\numberline {6.2}libbpf-bootstrap}{77}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Installation and overview}{77}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Hello World with eBPF}{78}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}A more complex program}{78}{subsection.6.2.3}%
+\contentsline {chapter}{\numberline {7}Windows development}{79}{chapter.7}%
+\contentsline {section}{\numberline {7.1}ebpf for Windows}{79}{section.7.1}%
+\contentsline {section}{\numberline {7.2}windows ebpf starter}{79}{section.7.2}%
+\contentsline {chapter}{\numberline {8}Conclusions}{81}{chapter.8}%
+\contentsline {chapter}{Bibliography}{83}{chapter*.16}%

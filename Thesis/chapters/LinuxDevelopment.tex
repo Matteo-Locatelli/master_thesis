@@ -9,16 +9,6 @@ Moreover, at the beginning of the history of eBPF it was necessary to work a lot
 
 \section{Bumblebee}
 
-% https://github.com/solo-io/bumblebee
-
-% https://www.solo.io/blog/solo-announces-bumblebee/
-
-% https://www.solo.io/blog/get-started-with-ebpf-using-bumblebee/
-
-% https://bumblebee.io/EN
-
-% word documents in documentation: FIRST PROGRAM TUTORIAL & HOW TO CREATE PROGRAM
-
 Every time anyone interfaces for the first time with something new, it is always nice to have anything ready with an explanation of what has been done in order to understand the new thing as quickly as possible.
 This is exactly what happened when we came across \textit{BumbleBee} \cite{BumbleBeeWebsite} by \textit{solo.io}, a company known for its work in the field of cloud-native technologies, service mesh and API gateway solutions \cite{soloioWebsite}.
 
@@ -44,6 +34,8 @@ used to run programs, manage computer files and interact with the computer) comm
 Moreover, it detects and displays maps in the program that allow data sharing between user-space and kernel-space programs. 
 Everything is done in complete autonomy by \textit{BumbleBee}: the trick found in the use of special eBPF conventions and keywords, i.e. maps and functions, the two things that make up ebpf programs.
 
+On the GitHub repository of the project there are a few examples of programs, but now we are going through all the process of developing a working eBPF program from scratch with the help of \textit{BumbleBee} so we can more deeply understand how this projects works and how it makes the developer's life easier while interfacing for the first time with an eBPF program.
+
 \subsection{Installation}
 
 In chapter 2 we explained that for the development of eBPF programs in Linux we were going to use a Virtual machine running Ubuntu 22.04 that was created thanks to VirtualBox.
@@ -51,7 +43,8 @@ However, for non-Linux users, the project offers a Vagrant box \cite{BumblebeeVa
 For the purpose of this thesis we are going to stick to the use of a virtual machine running the Linux operating system.
 Being a Linux technology, eBPF should work in any Linux kernel.
 However, the developers of \textit{BumbleBee} suggest to run kernel 5.4 or newer.
-\todo{config\_debug\_info\_btf=y}
+Moreover,the Linux kernel of the machine must be built with \verb|CONFIG_DEBUG_INFO_BTF=y| configuration because the projects relies on BPF CO-RE and BTF support.
+A list of all the kernels that already support this configuration and a tutorial on how to build a custom kernel can be found on the \textit{libbpf} GitHub repository \cite{BTFKernelConfig}.
 
 Once the virtual machine is running we have to install the \verb|bee| tool on our machine.
 The easiest way to do so is to use the installation script provided by the project which does not even require to clone the repository on the machine.
@@ -65,14 +58,15 @@ Therefore, we have to open a terminal on our machine and write the following com
 	export PATH=$HOME/.bumblebee/bin:$PATH
 \end{lstlisting}
 
-The first two commands must be performed only the first time the virtual machine is turned on and are important because they install the command \verb|curl| and the package \verb|docker.io|.
+The first two commands must be performed only the first time the virtual machine is turned on and are important because they install the \verb|curl| command (to make some browser calls from command line) and the package \verb|docker.io|.
 Instead, from line 3 to 5 there are three commands that must be executed every time the virtual machine is started up.
 In particular:
 
 \begin{itemize}
 	\item Line 3 is the standard way to give the user elevated privileges (these will 
 		be needed to run the \verb|bee| command);
-	\item Line 4 installs the CLI;
+	\item Line 4 installs the CLI and, in particular, downloads the latest \verb|bee|
+		version which is currently the 0.0.14 (if, for any reason, somebody wants to install a specific version \verb|x|, it has to be specified \verb|BUMBLEBEE_VERSION=v0.0.8 sh| in the command instead of just \verb|sh|);
 	\item Line 5 adds the \verb|bee| CLI to \textit{PATH} (an environment variable 
 		that instructs a Linux system in which directories to search for executables and enables the user to run a command without specifying a path).
 \end{itemize}
@@ -150,6 +144,12 @@ In the end the last thing to do is to give a name to the file.
 
 Instead of \verb|file_name| put the name of the file: it will be saved in the directory from which the commands were executed.
 
+If everything was done as explained, the following message will appear on the terminal:
+
+\begin{lstlisting}[language=bash, caption={bee successful program creation message}]
+	Successfully wrote skeleton BPF program
+\end{lstlisting}
+
 Now we have created our eBPF program.
 It must be specified that once the program has been created it is possible to modify it to add a specific functionality to the kernel: however, after the generation of the program, the file will have read-only permissions.
 So, the first thing that has to be done is to give all permissions to the file using the \verb|chmod| tool.
@@ -162,12 +162,12 @@ To do so, once again we have to use the \verb|bee| tool.
 \end{lstlisting}
 
 This command compiles the program and creates an OCI packaged eBPF image thanks to a \textit{docker} build container that simplifies the building of the code.
-Then, the OCI image ca be shared to popular OCI image repositories (Docker registry, GitHub Container Repository, or Google Container Repository, etc.), put in a workflow or deployed in a working environment.
+Then, the OCI image ca be shared to popular OCI compliant registries (Docker registry, GitHub Container Repository, or Google Container Repository, etc.), put in a workflow or deployed in a working environment.
 Once an OCI image is downloaded from somewhere, it will be unpacked into an OCI Runtime filesystem bundle which will be run by an OCI Runtime, according to the Runtime Specification.
 
 Once the process of compilation ends, the following messages will appear on the terminal: 
 
-\begin{lstlisting}[language=bash, caption={bee built command}]
+\begin{lstlisting}[language=bash, caption={bee successful OCI creation messages}]
 	Successfully compiled "file_name.c" and wrote it to "file_name.o"
 	Saved BPF OCI image to name:v1
 \end{lstlisting}
@@ -191,10 +191,274 @@ Finally, we can run our program with a simple command.
 	bee run name:v1
 \end{lstlisting}
 
-
 \subsection{Some examples}
 
+Now that we understood how to create an eBPF program using \textit{BumbleBee}, it is time to look at some code.
+There are seven possible programs that can be created with the process described above:
+
+\begin{itemize}
+	\item Six for the \verb|Network| program type (three output formats for each of 
+		the two map types gives in total six possible combinations);
+	\item One for the \verb|File system| program type because it will not ask to
+		choose the map type and the output format.
+\end{itemize}
+
+We are going to show just one example of an eBPF program as it is created by the \verb|bee| tool and use it to discuss the various selection options.
+The program that we are going to present  is created after doing the following choices:
+
+\begin{lstlisting}[language=bash, caption={bee choices for first program}]
+	INFO  Selected Language: C
+	INFO  Selected Program Type: Network
+	INFO  Selected Map Type: RingBuffer
+	INFO  Selected Output Type: print
+	INFO  Selected Output Type: BPF Program File Location my_prog.c
+\end{lstlisting}
+
+This is what the program will look like:
+
+\begin{lstlisting}[language=C, caption={bee first program}]
+	#include "vmlinux.h"
+	#include "bpf/bpf_helpers.h"
+	#include "bpf/bpf_core_read.h"
+	#include "bpf/bpf_tracing.h"
+	#include "solo_types.h"
+	
+	// 1. Change the license if necessary 
+	char __license[] SEC("license") = "Dual MIT/GPL";
+	
+	struct event_t {
+		// 2. Add ringbuf struct data here.
+	} __attribute__((packed));
+	
+	// This is the definition for the global map which both our
+	// bpf program and user space program can access.
+	// More info and map types can be found here: https://www.man7.org/linux/man-pages/man2/bpf.2.html
+	struct {
+		__uint(max_entries, 1 << 24);
+		__uint(type, BPF_MAP_TYPE_RINGBUF);
+		__type(value, struct event_t);
+	} events SEC(".maps.print");
+	
+	SEC("kprobe/tcp_v4_connect")
+	int BPF_KPROBE(tcp_v4_connect, struct sock *sk)
+	{
+		// Init event pointer
+		struct event_t *event;
+		
+		// Reserve a spot in the ringbuffer for our event
+		event = bpf_ringbuf_reserve(&events, sizeof(struct event_t), 0);
+		if (!event) {
+			return 0;
+		}
+		
+		// 3. set data for our event,
+		// For example:
+		// event->pid = bpf_get_current_pid_tgid();
+		
+		bpf_ringbuf_submit(event, 0);
+		
+		return 0;
+	}
+\end{lstlisting}
+
+Even though this program can appear really simple, there are many things to look at.
+First, we have to appreciate how our decisions have structured the code:
+
+\begin{itemize}
+	\item \verb|event_t| is an empty struct (for now);
+	\item \verb|events| is our \verb|RingBuffer| eBPF map;
+	\item \verb|".maps.print"| tells that we have chosen the \verb|print| output 
+		format;
+	\item \verb|SEC("kprobe/tcp_v4_connect")| indicates the \verb|Network| program 
+		type;
+	\item \verb|BPF_KPROBE| is our eBPF program..
+\end{itemize}
+
+Second, we have to understand some things about a generic eBPF program:
+
+\begin{itemize}
+	\item The first five lines are just includes for using eBPF technology
+		(\verb|bpf_helpers.h|, \verb|bpf_core_read.h| and \verb|bpf_tracing.h|), kernel symbols (\verb|vmlinux.h|) and types that bee can automatically interpret and display (\verb|solo_types.h|);
+	\item \verb|SEC("...")| is a macro that puts variables and functions into the
+		specified sections;
+	\item \verb|__license| is a variable that defines the license of our eBPF code
+		which is mandatory and enforced by the kernel (some eBPF functionality is unavailable to non-GPL-compatible code);
+	\item The program is attached to \verb|tcp_v4_connect| through a kprobe, which
+		means that every time we do a browser call (by searching anything in the browser or through the \verb|curl| command) the function is triggered;
+	\item The second parameter of the function is a pointer to the struct which
+		contains the information of the packet received when the program triggers the hook point and it must be done in this way because the program can only access valid memory spaces.
+		The only way to do so is to define through pointers all the header areas of the package which we intend to access with the written code.
+\end{itemize}
+
+Last, we have to look at the tricks that \verb|bee| uses to take care of the user-space code.
+In fact, this program is not what we will have to write if we were not working with \verb|bee|.
+There are a couple of things that are only present in programs generated with this tool: \verb|__type| attribute in the map and \verb|".maps.print"|.
+In fact, we already said that \verb|RingBuffer| is a map that can contain different types of data, but \verb|bee| forces it to storage just one type of data.
+Moreover, \verb|bee| has to understand what type of output we want and to do so it adds \verb|.print| inside the \verb|SEC| macro of the eBPF map.
+If we decided to use another output format, we will have \verb|counter| or \verb|gauge| in the place of \verb|print|.
+
+Despite all the efforts that we have made so far for creating and understanding this eBFP program, it does nothing.
+In fact, if we compile and run the program we will see just a cool interface, but we will not display any information, as shown in Figure \ref{fig:bee_first_program_output}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/LinuxDevelopment/n_rb_p_display.png}
+	\caption{\textit{BumbleBee} first program output.}
+	\label{fig:bee_first_program_output}
+\end{figure}
+
+This is due to the fact that in out program the part where we have to set the data for the event (line 37) is commented.
+To make things work we have to:
+
+\begin{itemize}
+	\item Uncomment line 37 of our code;
+	\item Add \lstinline[language=C]|u32 pid;| inside the \verb|event_t| struct;
+\end{itemize}
+
+\verb|u32| is one of many variable types that is used by \verb|bee| to take care of the user-space code in automatic: in practice, it is just a redefinition of the classical \verb|int| type.
+
+If we re-compile the program and re-run it, we should look at a terminal as displayed in Figure \ref{fig:bee_modified_first_program_output}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/LinuxDevelopment/n_rb_p_working_display.png}
+	\caption{\textit{BumbleBee} modified first program output.}
+	\label{fig:bee_modified_first_program_output}
+\end{figure}
+
+Now we can see how the program really works: every time something happens in the kernel networking stack (e.g we search something on any browser), the eBPF program gets the ID (\textit{pid}) of the process and puts it in the \verb|RingBuffer| with the use of just a few eBPF helpers.
+Then, the ``magic'' behind \verb|bee| shows it on the terminal.
+
+With just a couple of changes in the script created by the \verb|bee| tool we managed to develop a working eBPF program that shows us something interesting about the processes in the kernel networking stack.
+
+Many things can be done with the following approach.
+Now we are going to present a more complete example that contains more things of what we have presented.
+
+\begin{lstlisting}[language=C, caption={bee complete program}]
+	#include "vmlinux.h"
+	#include "bpf/bpf_helpers.h"
+	#include "bpf/bpf_core_read.h"
+	#include "bpf/bpf_tracing.h"
+	#include "solo_types.h"
+	
+	// 1. Change the license if necessary 
+	char __license[] SEC("license") = "Dual MIT/GPL";
+	
+	struct event_t {
+		// 2. Add ringbuf struct data here.
+		ipv4_addr daddr;
+		u32 pid;
+	} __attribute__((packed));
+	
+	struct dimensions_t {
+		ipv4_addr daddr;
+	} __attribute__((packed));
+	
+	struct {
+		__uint(type, BPF_MAP_TYPE_HASH);
+		__uint(max_entries, 8192);
+		__type(key, struct dimensions_t);
+		__type(value, u64);
+	} connection_count SEC(".maps.counter");
+	
+	// This is the definition for the global map which both our
+	// bpf program and user space program can access.
+	// More info and map types can be found here: https://www.man7.org/linux/man-pages/man2/bpf.2.html
+	struct {
+		__uint(max_entries, 1 << 24);
+		__uint(type, BPF_MAP_TYPE_RINGBUF);
+		__type(value, struct event_t);
+	} events SEC(".maps.print");
+	
+	
+	SEC("kprobe/tcp_v4_connect")
+	int BPF_KPROBE(tcp_v4_connect, struct sock *sk, struct sockaddr *uaddr) {
+		struct event_t *event;
+		struct dimensions_t hash_key = {};
+		__u32 daddr;
+		u64 counter;
+		u64 *counterp;
+		
+		// read in the destination address
+		struct sockaddr_in *usin = (struct sockaddr_in *)uaddr;
+		daddr = BPF_CORE_READ(usin, sin_addr.s_addr);
+		
+		// Reserve a spot in the ringbuffer for our event
+		event = bpf_ringbuf_reserve(&events, sizeof(struct event_t), 0);
+		if (!event) {
+			return 0;
+		}
+		// 3. set data for our event
+		event->pid = bpf_get_current_pid_tgid();
+		event->daddr = daddr;
+		// submit the event (this makes it available for consumption)
+		bpf_ringbuf_submit(event, 0);
+		
+		// increment the counter for this address
+		hash_key.daddr = daddr;
+		counterp = bpf_map_lookup_elem(&connection_count, &hash_key);
+		if (counterp) {
+			__sync_fetch_and_add(counterp, 1);
+		} else {
+			// we may miss N events, where N is number of CPUs. We may want to 
+			// fix this for prod, by adding another lookup/update calls here.
+			// we skipped these for brevity
+			counter = 1;
+			bpf_map_update_elem(&connection_count, &hash_key, &counter, BPF_NOEXIST);
+		}
+		
+		return 0;
+	}
+\end{lstlisting}
+
+The starting point of this program is the same of the previous one, but we have written a few more lines of code to develop a more advanced (but still simple) logic:
+
+\begin{itemize}
+	\item There are two structs that are used for storing two different types of data
+		in two different maps;
+	\item The program uses both a \verb|RingBuffer| and an \verb|HashMap| with two
+		different output formats, respectively \verb|print| and \verb|counter|;
+\end{itemize}
+
+The \verb|RingBuffer| stores \verb|event_t| data which contains the process ID and the destination address (of type \verb|ipv4_addr|) of the network call.
+The \verb|HashMap|, instead, is a key-value store: the key consists of \verb|dimensions_t| data (which is just the destination address) and the value is a classic \verb|long| variable (redefined as \verb|u64|).
+The idea of the program is that get the id of the process that makes the browser call and its destination address and you store it in the \verb|RingBuffer|.
+Then, we increase the number of times that destination address has been searched.
+To do so, we have to work with the \verb|HashMap| and make use of a few more helpers to interact with a different eBPF map. 
+
+\begin{itemize}
+	\item We check in the map if that destination address already exists;
+	\item If so, we increase the value associated to that address by 1;
+	\item If not, we put the new destination address as a new key in the map and its
+		corresponding value is set to 1.
+\end{itemize}
+
+In Figure \ref{fig:bee_compelte_program_output} we can see the output that will appear on our terminal after we compile and run the program that we just showed and we make a few browser calls.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/LinuxDevelopment/bee_repo_tut_display.png}
+	\caption{\textit{BumbleBee} complete program output.}
+	\label{fig:bee_compelte_program_output}
+\end{figure}
+
+Now that we can see the output, things get much more clear.
+There are two sections delimited by two white rectangles: \textit{connection\_count} and \textit{events}, which correspond respectively to the \verb|HashMap| and the \verb|RingBuffer|.
+In each box we can find the information contained in each map:
+
+\begin{itemize}
+	\item In \textit{connection\_count} we find the destination address of the network
+		call and the number of times this address has been reached;
+	\item In \textit{events} we fin the destination address and the id of the process 
+		that made the browser call.
+\end{itemize}
+
+This is just a quick sample of what can be written in a program generated with the \verb|bee| tool.
+Obviously the possibilities are much more than those shown, but we think that this is a good starting point to delve into the eBPF world.
+
 \section{libbpf-bootstrap}
+
+% https://nakryiko.com/posts/libbpf-bootstrap/
 
 % https://www.kernel.org/doc/html/latest/bpf/libbpf/libbpf_overview.html
 
@@ -204,8 +468,44 @@ Finally, we can run our program with a simple command.
 
 % https://docs.kernel.org/bpf/libbpf/program_types.html#program-types-and-elf
 
-% https://nakryiko.com/posts/libbpf-bootstrap/
+% https://www.kernel.org/doc/html/latest/bpf/btf.html
 
-% https://www.grant.pizza/blog/vmlinux-header/
+We have seen that \textit{BumbleBee} greatly simplifies the development of an eBPF application since it takes care of many things: it generates all the code on which the eBPF program can be built and it manages the user-space part all by itself.
+However, for the purpose of this thesis, we need to study the development of an eBPF program more thoroughly by writing from scratch both the kernel-side and the user-side code.
 
-% https://blog.aquasec.com/vmlinux.h-ebpf-programs
+Although this may seem difficult, luckily for us it comes to our aid \textit{libbpf-bootstrap}, a project created, among other people, by Andrii Nakryiko.
+The source code of this project can be found on GitHub \cite{libbpfbootstrapGithubRepo}.
+The idea behind this project is to provide an environment where as many things as possible are set up for beginner users to let them dive straight into writing eBPF programs in C without worrying about the initial setup.
+In fact, at this point we might have understood that to give developers lots of power to extend the kernel functionalities without much kernel experience, eBPF requires the setup of a workflow through a series of steps that a new user has to unnecessarily know.
+
+\textit{libbpf-bootstrap} provides a convenient workflow with the best eBPF user experience to date.
+
+\subsection{Installation and overview}
+
+Being a GitHub repository, to install this project on out Virtual Machine that runs Ubuntu 22.04 we have to just clone it locally with the following terminal command:
+
+\begin{lstlisting}[language=bash, caption={libbpf-bootstrap clone command}]
+	git clone --recurse-submodules https://github.com/libbpf/libbpf-bootstrap
+\end{lstlisting}
+
+By doing this, we also install the submodules that this \textit{libbpf-bootstrap} requires, such as  \textit{libbpf} and \textit{bpftool}.
+More over, there is a simpel \verb|Makefile| that, although ti can't be used directly, it's simple enough to just transfer the logic to whichever build system needs to be used.
+
+The only thing that is missing on this repository is the compiler.
+We already mentioned that to compile a C eBPF program we have to use \textit{Clang}.
+Even if \textit{Clang} 10 should work fine for most eBPF features, the best thing that a user can do is to use the latest possible version: in fact, some features ( some of the more recent and advanced CO-RE relocation built-ins) may require version 11 or 12.
+Furthermore, the system should also have \verb|zlib| and \verb|libelf| packages installed because they are necessary for \textit{libbpf} to compile and run programs properly.
+To install all of these dependencies we just have to run the following prompt command:
+
+\begin{lstlisting}[language=bash, caption={libbpf-bootstrap clone command}]
+	sudo apt install clang libelf1 libelf-dev zlib1g-dev
+\end{lstlisting}
+
+The last thing that we have to check is that since this projects relies on \textit{BTF CO-RE} and BTF kernel support, the  Linux kernel has to be built with \verb|CONFIG_DEBUG_INFO_BTF=y| (as it was before for \textit{BumbleBee}).
+
+Finally, with just a couple of terminal commands, we are all set up to create and run our first eBPF program from scratch.
+However, if anybody wants to take a further look inside some working programs, \textit{libbpf-bootstrap} comes with a series of simple and documented examples.
+
+\subsection{Hello World with eBPF}
+
+\subsection{A more complex program}
