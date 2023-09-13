@@ -41,6 +41,30 @@
     \field{urlyear}{2023}
   \endentry
 
+  \entry{ANbpfprintk}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{title}{Andrii Nakryiko bpf-printk() guide}
+    \verb{url}
+    \verb https://nakryiko.com/posts/bpf-tips-printk/
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{ANlibbpfbootstrap}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{title}{Andrii Nakryiko libbpf-bootstrap guide}
+    \verb{url}
+    \verb https://nakryiko.com/posts/libbpf-bootstrap/
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{BCCGitHub}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{B}
@@ -183,6 +207,18 @@
     \field{urlyear}{2023}
   \endentry
 
+  \entry{BTFKernelDoc}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{BTF Linux kernel documentation page}
+    \verb{url}
+    \verb https://www.kernel.org/doc/html/latest/bpf/btf.html
+    \endverb
+    \field{urlmonth}{04}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{BumbleBeeRepo}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{B}
@@ -314,7 +350,7 @@
     \verb{url}
     \verb https://libbpf.readthedocs.io/en/latest/api.html
     \endverb
-    \field{urlmonth}{06}
+    \field{urlmonth}{05}
     \field{urlyear}{2023}
   \endentry
 
@@ -322,7 +358,7 @@
     \field{labeltitlesource}{title}
     \field{sortinit}{L}
     \field{sortinithash}{L}
-    \field{title}{libbpf GitHub repo}
+    \field{title}{libbpf GitHub repository}
     \verb{url}
     \verb https://github.com/libbpf/libbpf
     \endverb
@@ -337,18 +373,6 @@
     \field{title}{libbpf journey Andrii Nakryiko post}
     \verb{url}
     \verb https://nakryiko.com/posts/libbpf-v1/
-    \endverb
-    \field{urlmonth}{06}
-    \field{urlyear}{2023}
-  \endentry
-
-  \entry{libbpfRepo}{online}{}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{L}
-    \field{sortinithash}{L}
-    \field{title}{libbpf repository}
-    \verb{url}
-    \verb https://github.com/libbpf/libbpf
     \endverb
     \field{urlmonth}{06}
     \field{urlyear}{2023}
@@ -461,6 +485,32 @@
     \field{title}{OCI repository}
     \verb{url}
     \verb https://github.com/opencontainers/image-spec
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{SecLinuxKernelDoc}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{Section Linux kernel documentation page}
+    \verb{url}
+    \verb https://docs.kernel.org/bpf/libbpf/program_types.html#program-types-a
+    \verb nd-elf
+    \endverb
+    \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{SecListlibbpf}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{Section list on libbpf GitHub repository}
+    \verb{url}
+    \verb https://github.com/libbpf/libbpf/blob/787abf721ec8fac1a4a0a7b075acc79
+    \verb a927afed9/src/libbpf.c#L7935-L8075
     \endverb
     \field{urlmonth}{06}
     \field{urlyear}{2023}

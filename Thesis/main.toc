@@ -23,8 +23,7 @@
 \contentsline {subsection}{\numberline {3.7.1}The problem of portability}{25}{subsection.3.7.1}%
 \contentsline {subsection}{\numberline {3.7.2}The temporary solution: BCC}{26}{subsection.3.7.2}%
 \contentsline {subsection}{\numberline {3.7.3}The solution: BPF CO-RE}{26}{subsection.3.7.3}%
-\contentsline {subsection}{\numberline {3.7.4}BPF CO-RE}{28}{subsection.3.7.4}%
-\contentsline {subsection}{\numberline {3.7.5}Getting rid of kernel header dependency}{28}{subsection.3.7.5}%
+\contentsline {subsection}{\numberline {3.7.4}BPF CO-RE}{30}{subsection.3.7.4}%
 \contentsline {section}{\numberline {3.8}Future and potential of eBPF}{30}{section.3.8}%
 \contentsline {chapter}{\numberline {4}The eBPF subsystem}{33}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Writing an eBPF program}{33}{section.4.1}%
@@ -57,10 +56,10 @@
 \contentsline {subsection}{\numberline {6.1.4}Some examples}{68}{subsection.6.1.4}%
 \contentsline {section}{\numberline {6.2}libbpf-bootstrap}{77}{section.6.2}%
 \contentsline {subsection}{\numberline {6.2.1}Installation and overview}{77}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Hello World with eBPF}{78}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}A more complex program}{78}{subsection.6.2.3}%
-\contentsline {chapter}{\numberline {7}Windows development}{79}{chapter.7}%
-\contentsline {section}{\numberline {7.1}ebpf for Windows}{79}{section.7.1}%
-\contentsline {section}{\numberline {7.2}windows ebpf starter}{79}{section.7.2}%
-\contentsline {chapter}{\numberline {8}Conclusions}{81}{chapter.8}%
-\contentsline {chapter}{Bibliography}{83}{chapter*.16}%
+\contentsline {subsection}{\numberline {6.2.2}``Hello world!'' with eBPF}{78}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}A more complex program}{88}{subsection.6.2.3}%
+\contentsline {chapter}{\numberline {7}Windows development}{93}{chapter.7}%
+\contentsline {section}{\numberline {7.1}ebpf for Windows}{93}{section.7.1}%
+\contentsline {section}{\numberline {7.2}windows ebpf starter}{93}{section.7.2}%
+\contentsline {chapter}{\numberline {8}Conclusions}{95}{chapter.8}%
+\contentsline {chapter}{Bibliography}{97}{chapter*.16}%

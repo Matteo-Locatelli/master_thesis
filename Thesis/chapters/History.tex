@@ -308,21 +308,51 @@ To do so, it requires the integration and the cooperation of different component
 		format which describes the information of C programs and is used to enhance the verifier's capabilities;
 	\item A support for the compiler, as Clang  had to be extended with built-ins that
 		allow the capture of field offset, existence and size, type size and relocation and enum values and existence;
-	\item A loader, named \textit{libbpf} \cite{libbpfGitHub}, that takes the BPF
-		object file (the program after its compilation) and triggers the phases of loading and verification;
+	\item A loader, named \textit{libbpf}, that takes the BPF object file (the program
+		after its compilation) and triggers the phases of loading and verification;
 	\item The CO-RE compliant kernel.
 \end{itemize}
 
 With BPF CO-RE, eBPF programs are compiled into a more compact, intermediate representation of a binary file that can be loaded and executed on multiple kernel versions and configurations.
 This reduces the need to recompile programs for different kernel versions, making eBPF programs more portable and efficient. 
+For our purpose, these concepts about BTF are enough: however, anyone who wants to fully understand these notions can visit the Linux kernel documentation page related to BTF \cite{BTFKernelDoc}.
 
 To enable BPF CO-RE and let eBPF loader to adjust an eBPF program to a particular kernel running on target host, the new built-ins for Clang release \textit{BTF relocations} which capture a high-level description of what pieces of information the eBPF program code want to read.
 If a program wants to access a certain field in a struct inside the kernel and this field has been moved to a different offset inside the same struct or even to a different struct, the developer can find that field by just its name and type information.
 
-Once we have the object file of the compiled eBPF program, the Clang relocations and the BTF information provided by the running kernel of the host, the loader makes sure that the logic of that program is correctly functioning for the specific kernel by matching these information.
+The last thing that we need to make BPF CO-RE work is the BTF information provided by the running kernel of the target host.
+In fact, \textit{libbpf} relies on the kernel to expose its self-describing authoritative BTF information: it does so through \verb|sysfs| (short for \textit{system file system}) at \verb|/sys/kernel/btf/vmlinux|.
+\verb|sysfs| is a virtual file system in Linux and other Unix-like operating systems that provides a way to interact with and configure kernel parameters, devices, subsystems, objects and many more kernel-related information. 
+It is mounted at \verb|/sys| in the file system hierarchy.
+\verb|sysfs| is designed to expose information about the kernel in a structured and hierarchical manner: each device or parameter is represented as a directory or file within the \verb|sysfs| directory tree. 
+These files are also called \textit{virtual}: it means that they are computed on request.
+Users and programs can read or write to these files to query or configure various aspects of the kernel and its devices thanks to the provided interface which allows to access and manage this information in a structured and standardized way.
+For our case, we are just interested in the object file \verb|vmlinux|, an Executable and Linkable Format (ELF, a standard file format for executables, object code, shared libraries and core dumps) binary that contains the compiled bootable kernel inside it: when we build Linux, this file is one of the output artifacts and it is also typically packaged with major distributions. 
 
-The result is that it looks like the program was compiled specifically for the kernel of that machine, but this happened without distributing Clang with your application and performing compilation in runtime on target host.
+The BTF information for the running kernel can be generated using \verb|bpftool|, a command-line utility that is used to interact with and manage eBPF programs and related components, such as listing programs and maps, loading and unloading programs, attaching and detaching programs to various hook points in the kernel, querying program and map information, showing trace output or debugging information, accessing eBPF type information and many more tasks related to eBPF within the Linux kernel \cite{bpftoolGitHubRepo}.
+As many eBPF operations require elevated permissions, administrative privileges are tipically needed to use \textit{bpftool} on the Linux system.
+The BTF information for the running kernel can be generated with the following command:
+
+\begin{lstlisting}[language=bash, caption={vmlinux.h generation command}]
+	bpftool btf dump file /sys/kernel/btf/vmlinux format c > vmlinux.h
+\end{lstlisting}
+
+The command reads the \verb|vmlinux| object file and generates a \verb|vmlinux.h| header file which contains all kernel types that the installed kernel uses in it’s own source code (it is a very large header file). 
+We are going to see later that this file has to be included in the programs that we are going to develop: by doing so, in our eBPF program we have all internal kernel types and we eliminate dependency on system-wide kernel headers, such as \verb|linux/sched.h|, \verb|linux/fs.h| and many more.
+In fact, it’s pretty common in ebpf programs to read fields of data structures that are used in the kernel through the \verb|BPF_CORE_READ| macro: when we import this header file, our ebpf program can read memory and know which bytes correspond to which fields of any struct that you want to work with.
+Unfortunately, BTF does not record \verb|#define| macros, so some common macros and constants might be missing with \verb|vmlinux.h|. 
+However, most commonly missing ones might be provided as part of \textit{libbpf}’s kernel-side library.
+
+Since the \verb|vmlinux.h| file is generated from our installed kernel, an ebpf program could break if we try to run it without recompiling on another machine that is running a different kernel version. 
+This is because, from version to version, definitions of internal structs change within the Linux source code (as we already talked about).
+However, once we have the object file of the compiled eBPF program, the Clang relocations and the BTF information provided by the running kernel of the host, the loader enables portability of eBPF programs by resolving and matching all the types and fields in the kernel and updates necessary offsets and other relocatable data: it uses macros that will analyze what fields we are trying to access in the types that are defined in our \verb|vmlinux.h|. 
+If the field we want to access has been moved within the struct definition that the running kernel uses, the macros will find it for us. 
+Therefore, it doesn't matter if we compile our ebpf program with the \verb|vmlinux.h| file we generated from our own kernel and then ran it on a different one.
+By doing so, we make sure that the eBPF program’s logic is correctly functioning for the specific kernel.
+
+So, the result is that it looks like the program was compiled specifically for the kernel of the target machine, but this happened after getting rid of kernel header dependency and without distributing Clang with our application and performing compilation in runtime on target host.
 In fact, thanks to a good separation of concerns, after the loader has processed the eBPF program, from the kernel perspective you see a valid eBPF program code (and everything is done without worrying about the kernel version).
+Moreover, BPF CO-RE concept eliminates overhead associated with eBPF development and allows developers to write portable eBPF applications without modifications and runtime source code compilation on the target machine.
 
 \subsection{BPF CO-RE}
 
@@ -334,50 +364,6 @@ This eliminates the need to install a heavy-weight compiler library together wit
 Furthermore, there is no more need to catch sneaky compilation errors at runtime.
 
 There are other complex things that BPF CO-RE makes easier for the user for dealing with different kernel versions and configuration differences: the curious ones can read more about this topic on Nakryiko's post \cite{ANCOREPost}.
-
-\subsection{Getting rid of kernel header dependency}
-
-Beyond the BTF type information of the running kernel, to make eBPF programs portable \textit{libbpf} relies on the kernel to also expose its self-describing authoritative BTF information: it does so through \verb|sysfs| (short for \textit{system file system}) at \verb|/sys/kernel/btf/vmlinux|.
-
-\verb|sysfs| is a virtual file system in Linux and other Unix-like operating systems that provides a way to interact with and configure kernel parameters, devices, subsystems, objects and many more kernel-related information. 
-It is mounted at \verb|/sys| in the file system hierarchy.
-\verb|sysfs| is designed to expose information about the kernel in a structured and hierarchical manner: each device or parameter is represented as a directory or file within the \verb|sysfs| directory tree. 
-These files are also called \textit{virtual}: it means that they are computed on request.
-Users and programs can read or write to these files to query or configure various aspects of the kernel and its devices thanks to the provided interface which allows to access and manage this information in a structured and standardized way.
-
-For our case, we are just interested in the \verb|vmlinux| object file: when we build Linux, this file is one of the output artifacts.
-It's also typically packaged with major distributions. 
-This is an ELF binary that contains the compiled bootable kernel inside it.
-
-The BTF information for the running kernel can be generated using \verb|bpftool|, a command-line utility that is used to interact with and manage eBPF programs and related components, such as listing programs and maps, loading and unloading programs, attaching and detaching programs to various hook points in the kernel, querying program and map information, showing trace output or debugging information, accessing eBPF type information and many more tasks related to eBPF within the Linux kernel \cite{bpftoolGitHubRepo}.
-As many eBPF operations require elevated permissions, administrative privileges are tipically needed to use \textit{bpftool} on the Linux system.
-
-The BTF information for the running kernel can be generated with the following command:
-
-\begin{lstlisting}[language=bash, caption={vmlinux.h generation command}]
-	bpftool btf dump file /sys/kernel/btf/vmlinux format c > vmlinux.h
-\end{lstlisting}
-
-The command reads the \verb|vmlinux| object file and generates a \verb|vmlinux.h| header file which contains all kernel types that the installed kernel uses in it’s own source code (it is a very large header file). 
-We are going to see later that this file has to be included in the programs that we are going to develop: by doing so, in our eBPF program we have all internal kernel types and we eliminate dependency on system-wide kernel headers.
-In fact, it’s pretty common in ebpf programs to read fields of data structures that are used in the kernel. 
-When you import this header file our ebpf program can read memory and know which bytes correspond to which fields of any struct that you want to be working with.
-
-
-Since the \verb|vmlinux.h| file is generated from your installed kernel, an ebpf program could break if we try to run it without recompiling on another machine that is running a different kernel version. 
-This is because, from version to version, definitions of internal structs change within the Linux source code.
-
-However, using \textit{libbpf} enables something called "CO:RE" or "Compile once, run everywhere". 
-There are macros defined in \textit{libbpf} that will analyze what fields you're trying to access in the types that are defined in your \verb|vmlinux.h|. 
-If the field we want to access has been moved within the struct definition that the running kernel uses, the macros will find it for us. 
-Therefore, it doesn't matter if we compile our ebpf program with the \verb|vmlinux.h| file we generated from our own kernel and then ran it on a different one.
-
-Unfortunately, BTF does not record \verb|#define| macros, so some common macros might be missing with \verb|vmlinux.h|. 
-However, most commonly missing ones might be provided as part of \textit{libbpf}’s kernel-side library.
-
-
-libbpf enables portability of BPF programs by looking at the BPF program’s recorded BTF type and relocation information and matching them to BTF information (vmlinux) provided by the running kernel. libbpf then resolves and matches all the types and fields, and updates necessary offsets and other relocatable data to ensure that BPF program’s logic functions correctly for a specific kernel on the host. BPF CO-RE concept thus eliminates overhead associated with BPF development and allows developers to write portable BPF applications without modifications and runtime source code compilation on the target machine.
-
 
 \section{Future and potential of eBPF}
 

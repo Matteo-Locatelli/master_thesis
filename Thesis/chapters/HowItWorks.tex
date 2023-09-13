@@ -100,9 +100,9 @@ An eBPF program has to go through a series of steps before being executed inside
 \subsection{Compilation}
 
 We already said that an eBPF program is written in a high-level programming language, such as C.
-The first thing that happens to a program is its compilation using Clang with its eBPF backend LLVM: this process generates eBPF bytecode which resides in an Executable and Linkable Format (ELF, a standard file format for executables, object code, shared libraries, and core dumps.) file.
+The first thing that happens to a program is its compilation using Clang with its eBPF backend LLVM: this process generates eBPF bytecode which resides in an ELF file.
 
-As this file is loaded into the Linux kernel, it passes through two steps before being attached to the requested hook: verification and JIT compilation.
+As this file is loaded into the Linux kernel, it goes through two steps before being attached to the requested hook: verification and JIT compilation.
 
 \subsection{Verification}
 

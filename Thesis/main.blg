@@ -24,7 +24,7 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-Reallocating 'field_info' (item size: 4) to 11300 items.
+Reallocating 'field_info' (item size: 4) to 11860 items.
 Database file #1: main-blx.bib
 Database file #2: bibliography.bib
 I was expecting a `,' or a `}'---line 109 of file bibliography.bib
@@ -50,45 +50,45 @@ I'm skipping whatever remains of this entry
 Biblatex version: 3.18
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-You've used 45 entries,
+You've used 49 entries,
             6399 wiz_defined-function locations,
-            1389 strings with 13410 characters,
-and the built_in function-call counts, 126614 in all, are:
-= -- 2621
-> -- 9930
-< -- 1067
-+ -- 9250
-- -- 8918
-* -- 4230
-:= -- 12219
+            1406 strings with 14021 characters,
+and the built_in function-call counts, 138324 in all, are:
+= -- 2825
+> -- 10954
+< -- 1167
++ -- 10198
+- -- 9850
+* -- 4594
+:= -- 13381
 add.period$ -- 0
-call.type$ -- 45
-change.case$ -- 182
-chr.to.int$ -- 738
-cite$ -- 88
-duplicate$ -- 12573
-empty$ -- 13398
+call.type$ -- 49
+change.case$ -- 198
+chr.to.int$ -- 810
+cite$ -- 96
+duplicate$ -- 13703
+empty$ -- 14606
 format.name$ -- 67
-if$ -- 20558
+if$ -- 22366
 int.to.chr$ -- 0
-int.to.str$ -- 45
+int.to.str$ -- 49
 missing$ -- 0
-newline$ -- 564
+newline$ -- 614
 num.names$ -- 41
-pop$ -- 14330
+pop$ -- 15626
 preamble$ -- 1
-purify$ -- 144
+purify$ -- 156
 quote$ -- 0
-skip$ -- 3780
+skip$ -- 4116
 stack$ -- 0
-substring$ -- 3790
-swap$ -- 4202
-text.length$ -- 926
-text.prefix$ -- 44
+substring$ -- 4094
+swap$ -- 4592
+text.length$ -- 1010
+text.prefix$ -- 48
 top$ -- 1
-type$ -- 1518
+type$ -- 1654
 warning$ -- 0
-while$ -- 824
+while$ -- 892
 width$ -- 0
-write$ -- 520
+write$ -- 566
 (There were 4 error messages)

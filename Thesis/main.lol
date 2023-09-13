@@ -1,4 +1,4 @@
-\contentsline {lstlisting}{\numberline {3.1}{\ignorespaces vmlinux.h generation command}}{29}{lstlisting.3.1}%
+\contentsline {lstlisting}{\numberline {3.1}{\ignorespaces vmlinux.h generation command}}{28}{lstlisting.3.1}%
 \contentsline {lstlisting}{\numberline {4.1}{\ignorespaces bpf() system call signature}}{42}{lstlisting.4.1}%
 \contentsline {lstlisting}{\numberline {5.1}{\ignorespaces bpftool command syntax}}{59}{lstlisting.5.1}%
 \contentsline {lstlisting}{\numberline {6.1}{\ignorespaces bee installation commands}}{63}{lstlisting.6.1}%
@@ -17,4 +17,13 @@
 \contentsline {lstlisting}{\numberline {6.14}{\ignorespaces bee first program}}{69}{lstlisting.6.14}%
 \contentsline {lstlisting}{\numberline {6.15}{\ignorespaces bee complete program}}{73}{lstlisting.6.15}%
 \contentsline {lstlisting}{\numberline {6.16}{\ignorespaces libbpf-bootstrap clone command}}{77}{lstlisting.6.16}%
-\contentsline {lstlisting}{\numberline {6.17}{\ignorespaces libbpf-bootstrap clone command}}{78}{lstlisting.6.17}%
+\contentsline {lstlisting}{\numberline {6.17}{\ignorespaces libbpf-bootstrap install dependencies command}}{78}{lstlisting.6.17}%
+\contentsline {lstlisting}{\numberline {6.18}{\ignorespaces ``Hello world!'' kernel side program using libbpf-bootstrap}}{79}{lstlisting.6.18}%
+\contentsline {lstlisting}{\numberline {6.19}{\ignorespaces libbpf-bootstrap program's compilation commands}}{81}{lstlisting.6.19}%
+\contentsline {lstlisting}{\numberline {6.20}{\ignorespaces ``Hello world!'' skeleton file using libbpf-bootstrap}}{81}{lstlisting.6.20}%
+\contentsline {lstlisting}{\numberline {6.21}{\ignorespaces ``Hello world!'' user side program using libbpf-bootstrap}}{83}{lstlisting.6.21}%
+\contentsline {lstlisting}{\numberline {6.22}{\ignorespaces libbpf-bootstrap program execution command}}{86}{lstlisting.6.22}%
+\contentsline {lstlisting}{\numberline {6.23}{\ignorespaces libbpf-bootstrap program successful execution message}}{87}{lstlisting.6.23}%
+\contentsline {lstlisting}{\numberline {6.24}{\ignorespaces libbpf-bootstrap program successful execution message}}{87}{lstlisting.6.24}%
+\contentsline {lstlisting}{\numberline {6.25}{\ignorespaces bpf\_printk output message}}{87}{lstlisting.6.25}%
+\contentsline {lstlisting}{\numberline {6.26}{\ignorespaces libbpf-bootstrap kernel-side program with maps}}{89}{lstlisting.6.26}%

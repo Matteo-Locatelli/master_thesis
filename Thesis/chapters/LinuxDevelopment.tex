@@ -88,7 +88,7 @@ The first choice that has to be done is about the language with which the progra
 
 \begin{lstlisting}[language=bash, caption={bee language selection}]
 	? What language do you wish to use for the filter: 
-	  - C
+	- C
 \end{lstlisting}
 
 Currently only C is supported, but the company has planned the support for Rust as well.
@@ -103,8 +103,8 @@ However, since eBPF enables developers to hook a program into any kernel functio
 
 \begin{lstlisting}[language=bash, caption={bee type of program selection}]
 	? What type of program to initialize: 
-	  - Network
-	    File system
+	- Network
+	File system
 \end{lstlisting}
 
 Network programs will primarily target integration with various functions within the kernel networking stack, whereas file-system programs will interface with file operations, including \textit{open()} calls.
@@ -114,8 +114,8 @@ Once again, eBPF has several types of map, but \verb|bee| currently implements o
 
 \begin{lstlisting}[language=bash, caption={bee map type selection}]
 	? What type of map should we initialize: 
-	  - RingBuffer
-	    HashMap
+	- RingBuffer
+	HashMap
 \end{lstlisting}
 
 \verb|RingBuffer| is a generic map type that works as a queue and is usually used for the storage of many arbitrary data types.
@@ -128,9 +128,9 @@ This is what makes \textit{BumbleBee} really interesting: normally, to develop a
 
 \begin{lstlisting}[language=bash, caption={bee output format selection}]
 	? What type of output would you like from your map: 
-	  - print
-	    counter
-	    gauge
+	- print
+	counter
+	gauge
 \end{lstlisting}
 
 \verb|print| tells that the data in the maps will be displayed as text and \verb|print| can be event based (if \verb|RingBuffer| is used as map) or timer based (if \verb|HashMap| is used).
@@ -271,7 +271,8 @@ First, we have to appreciate how our decisions have structured the code:
 		format;
 	\item \verb|SEC("kprobe/tcp_v4_connect")| indicates the \verb|Network| program 
 		type;
-	\item \verb|BPF_KPROBE| is our eBPF program..
+	\item \verb|BPF_KPROBE| is our eBPF program represented as a normal C function in
+		a specially-named section that will be loaded into the kernel.
 \end{itemize}
 
 Second, we have to understand some things about a generic eBPF program:
@@ -279,8 +280,8 @@ Second, we have to understand some things about a generic eBPF program:
 \begin{itemize}
 	\item The first five lines are just includes for using eBPF technology
 		(\verb|bpf_helpers.h|, \verb|bpf_core_read.h| and \verb|bpf_tracing.h|), kernel symbols (\verb|vmlinux.h|) and types that bee can automatically interpret and display (\verb|solo_types.h|);
-	\item \verb|SEC("...")| is a macro that puts variables and functions into the
-		specified sections;
+	\item \verb|SEC("...")| is a macro defined in \verb|bpf_helpers.h| that puts
+		variables and functions into the specified sections;
 	\item \verb|__license| is a variable that defines the license of our eBPF code
 		which is mandatory and enforced by the kernel (some eBPF functionality is unavailable to non-GPL-compatible code);
 	\item The program is attached to \verb|tcp_v4_connect| through a kprobe, which
@@ -458,27 +459,13 @@ Obviously the possibilities are much more than those shown, but we think that th
 
 \section{libbpf-bootstrap}
 
-% https://nakryiko.com/posts/libbpf-bootstrap/
-
-% https://www.kernel.org/doc/html/latest/bpf/libbpf/libbpf_overview.html
-
-% https://nakryiko.com/posts/bcc-to-libbpf-howto-guide/
-
-% https://github.com/libbpf/libbpf-bootstrap/tree/master
-
-% https://docs.kernel.org/bpf/libbpf/program_types.html#program-types-and-elf
-
-% https://www.kernel.org/doc/html/latest/bpf/btf.html
-
 We have seen that \textit{BumbleBee} greatly simplifies the development of an eBPF application since it takes care of many things: it generates all the code on which the eBPF program can be built and it manages the user-space part all by itself.
 However, for the purpose of this thesis, we need to study the development of an eBPF program more thoroughly by writing from scratch both the kernel-side and the user-side code.
 
-Although this may seem difficult, luckily for us it comes to our aid \textit{libbpf-bootstrap}, a project created, among other people, by Andrii Nakryiko.
-The source code of this project can be found on GitHub \cite{libbpfbootstrapGithubRepo}.
+Although this may seem difficult, luckily for us it comes to our aid \textit{libbpf-bootstrap}, a project created, among other people, by Andrii Nakryiko and put on GitHub \cite{libbpfbootstrapGithubRepo}.
 The idea behind this project is to provide an environment where as many things as possible are set up for beginner users to let them dive straight into writing eBPF programs in C without worrying about the initial setup.
 In fact, at this point we might have understood that to give developers lots of power to extend the kernel functionalities without much kernel experience, eBPF requires the setup of a workflow through a series of steps that a new user has to unnecessarily know.
-
-\textit{libbpf-bootstrap} provides a convenient workflow with the best eBPF user experience to date.
+\textit{libbpf-bootstrap} handles this task and provides a convenient workflow with the best eBPF user experience to date.
 
 \subsection{Installation and overview}
 
@@ -488,24 +475,403 @@ Being a GitHub repository, to install this project on out Virtual Machine that r
 	git clone --recurse-submodules https://github.com/libbpf/libbpf-bootstrap
 \end{lstlisting}
 
-By doing this, we also install the submodules that this \textit{libbpf-bootstrap} requires, such as  \textit{libbpf} and \textit{bpftool}.
-More over, there is a simpel \verb|Makefile| that, although ti can't be used directly, it's simple enough to just transfer the logic to whichever build system needs to be used.
+By doing this, we also install the submodules that \textit{libbpf-bootstrap} requires, such as  \textit{libbpf} to exploit the BPF CO-RE concept and \textit{bpftool} to build skeleton files from the eBPF code.
+More over, there is a simple \verb|Makefile| that, although it can't be used directly, it's simple enough to just transfer the logic to whichever build system needs to be used.
 
 The only thing that is missing on this repository is the compiler.
 We already mentioned that to compile a C eBPF program we have to use \textit{Clang}.
-Even if \textit{Clang} 10 should work fine for most eBPF features, the best thing that a user can do is to use the latest possible version: in fact, some features ( some of the more recent and advanced CO-RE relocation built-ins) may require version 11 or 12.
+Even if \textit{Clang} 10 should work fine for most eBPF features, the best thing that a user can do is to use the latest possible version: in fact, some features (some of the more recent and advanced CO-RE relocation built-ins) may require version 11 or 12.
 Furthermore, the system should also have \verb|zlib| and \verb|libelf| packages installed because they are necessary for \textit{libbpf} to compile and run programs properly.
 To install all of these dependencies we just have to run the following prompt command:
 
-\begin{lstlisting}[language=bash, caption={libbpf-bootstrap clone command}]
+\begin{lstlisting}[language=bash, caption={libbpf-bootstrap install dependencies command}]
 	sudo apt install clang libelf1 libelf-dev zlib1g-dev
 \end{lstlisting}
 
 The last thing that we have to check is that since this projects relies on \textit{BTF CO-RE} and BTF kernel support, the  Linux kernel has to be built with \verb|CONFIG_DEBUG_INFO_BTF=y| (as it was before for \textit{BumbleBee}).
 
 Finally, with just a couple of terminal commands, we are all set up to create and run our first eBPF program from scratch.
-However, if anybody wants to take a further look inside some working programs, \textit{libbpf-bootstrap} comes with a series of simple and documented examples.
+However, if anybody wants to take a further look inside some working programs, \textit{libbpf-bootstrap} comes with a series of simple and documented examples both in C and Rust.
+Moreover, having provided one of the major contributions to this project, Andrii Nakryiko published a post on his blog about the \verb|libbp-bootstrap| environment where it talks about some simple examples in the repository and explains in detail how the \verb|Makefile| works \cite{ANlibbpfbootstrap}.
 
-\subsection{Hello World with eBPF}
+\subsection{``Hello world!'' with eBPF}
+
+Every time anyone has to deal with a new programming language or technology, the first program that is presented is and ``Hello world!''-like program.
+To explain how we can write the kernel-side and the user-side of an eBPF program from scratch and make it work in the \textit{libbpf-bootstrap} environment, we are going to do exactly what mentioned above.
+
+The one thing that we have to keep in mind when working with \textit{libbpf-bootstrap} is that both the programs must have the same name: the difference can be seen by the extensions of these files.
+This is a very important naming convention since it helps the \textit{Makefile} to compile all the eBPF applications.
+For the following example, we will call our program \verb|example_helloworld|.
+
+First, we show the eBPF C code that contain the logic which is going to be executed in the kernel context: this file has extension \verb|.bpf.c| and has to be created under the \verb|libbpf-bootstrap/examples/c| directory.
+We also have to create the user-side program with extension \verb|.c| because it will be required in the process of compilation.
+However, we will keep this file empty (for now).
+
+\begin{lstlisting}[language=C, caption={``Hello world!'' kernel side program using libbpf-bootstrap}, title=example\_helloworld.bpf.c]
+	#include "vmlinux.h"
+	#include <linux/bpf.h>
+	#include <bpf/bpf_helpers.h>
+	
+	char LICENSE[] SEC("license") = "Dual BSD/GPL";
+	
+	SEC("tracepoint/syscalls/sys_enter_execve")
+	int bpf_prog(void *ctx) {
+		char msg[] = "Hello, World!";
+		bpf_printk("invoke bpf_prog: %s\n", msg);
+		return 0;
+	}
+\end{lstlisting}
+
+This program is really simple, but if we want to understand how to create a eBPF program from scratch there are a few things to look at:
+
+\begin{itemize}
+	\item All the reported includes are a must for almost every eBPF program: we 
+		already	greatly discussed about \verb|vmlinux.h|, but usually an application makes use of some basic eBPF-related types and constants necessary for using the kernel-side BPF APIs (included in \verb|linux/bpf.h|) and macros, constants and eBPF helper definitions (included in \verb|bpf_helpers.h| provided by \verb|libbpf|);
+	\item \verb|SEC(...)| and \verb|LICENSE| are reported for the same reasons as we 
+		already discussed for the \textit{BumbleBee} examples;
+	\item This time the code defines a tracepoint eBPF program which will be called 
+		every time an \verb|execve| system call is invoked from any user-space application (in other words, every time we open a new application on our machine).
+	\item \verb|bpf_printk(...)| is the eBPF equivalent to \verb|printf(...)|.
+		The printed messages can be read from a special \verb|/sys/kernel/debug/tracing/trace_pipe| file (we will see later how to display it).
+\end{itemize}
+
+The logic of the program is self-explanatory: every time an \verb|execve| is invoked, the program prints the message \verb|invoke bpf_prog: Hello, World!|.
+We decided to just use this helper since it is the fastest and most convenient way for debugging a problem in an eBPF code.
+In fact, eBPF does not have a debugger that does the conventional things (setting a breakpoint, inspecting variables and maps or single-stepping through the code) and to understand what is going on in out eBPF program we just have to rely on logging some information about it.
+Due to its format, this helper is simple and easy to use, but it is computationally expensive, making it appropriate only for ad-hoc debugging and unsuitable to be used in production.
+In reality, \verb|bpf_printk| is a macro defined by \textit{libbpf} inside the \verb|bpf/bpf_helpers.h| and internally calls the eBPF helper \verb|bpf_trace_printk()|.
+We are not going to talk about this anymore: whoever wants more details can visit the Andrii Nakryiko's blog and read the post about this topic \cite{ANbpfprintk}.
+
+By just the few examples that we have covered, we could say that the trigger of our eBPF program is one of the most important things, if not the most important, because it reflects the hook point to which the program will attach: we could have different programs for different tracepoints or some other kernel events or define multiple programs with the same \verb|SEC(...)| attribute.
+Moreover, we could declare multiple eBPF programs inside the same eBPF C code and they will share all the global state which is useful when we try to make different programs collaborate.
+Luckily, on the Linux kernel documentation there is a page with a complete explanation about program types and sections \cite{SecLinuxKernelDoc}.
+Furthermore, \textit{libbpf} exposes a detailed list of expected names on its GitHub repository \cite{SecListlibbpf}.
+
+Once we have our kernel-side program, the next step that we have to do is to modify the \verb|Makefile| under the same \verb|libbpf-bootstrap/examples/c| directory by adding the name of our program (e.g. \verb|example_helloworld|) after de \verb|APP| variable.
+We are not going to cover all the detail of this file: it is enough to know that it takes care the process of compilation of this program.
+
+Now it is time to compile our program: to do so, we have to open a terminal with root privileges and once we go in the \verb|libbpf-bootstrap/build| folder of our local copy of \textit{libbpf-bootstrap}, we have to type the following commands:
+
+\begin{lstlisting}[language=bash, caption={libbpf-bootstrap program's compilation commands}]
+	cmake ../examples/c
+	make
+\end{lstlisting}
+
+This is all it takes to compile our program.
+By doing this, in the \verb|libbpf-bootstrap/build| folder a few files will be generated.
+In particular:
+
+\begin{itemize}
+	\item After the first command, inside the \verb|CMakeFiles| sub-folder, a 
+		sub-folder of extension \verb|.dir| containing a series of files that will be used in the process of compilation will be created for each application specified in the \verb|Makefile| (in our case, we will find the \verb|example_helloworld.dir| sub-folder);
+	\item After the second command, the skeleton header, the object file and the
+		executable file of the program will be generated.
+\end{itemize}
+
+If we want to speed up the process of compilation, we can specify the name of the only application that we want to compile in the second command (in our case, this would be \verb|make example_helloworld|).
+
+Now that we have generated it, it is time to analyze the skeleton header.
+This is a big file (388 lines in the case of our program) due to the fact that it includes the bytecode representation of our program, so we are going to show only the most important parts and omit the implementations of various methods.
+
+\begin{lstlisting}[language=C, caption={``Hello world!'' skeleton file using libbpf-bootstrap}, title=example\_helloworld.skel.h]
+	/* SPDX-License-Identifier: (LGPL-2.1 OR BSD-2-Clause) */
+	
+	/* THIS FILE IS AUTOGENERATED BY BPFTOOL! */
+	#ifndef __EXAMPLE_HELLOWORLD_BPF_SKEL_H__
+	#define __EXAMPLE_HELLOWORLD_BPF_SKEL_H__
+	
+	#include <errno.h>
+	#include <stdlib.h>
+	#include <bpf/libbpf.h>
+	
+	struct example_helloworld_bpf {
+		struct bpf_object_skeleton *skeleton;
+		struct bpf_object *obj;
+		struct {
+			struct bpf_map *rodata_str1_1;
+			struct bpf_map *rodata;
+		} maps;
+		struct {
+			struct bpf_program *bpf_prog;
+		} progs;
+		struct {
+			struct bpf_link *bpf_prog;
+		} links;
+		
+		#ifdef __cplusplus
+		static inline struct example_helloworld_bpf *open(const struct bpf_object_open_opts *opts = nullptr);
+		static inline struct example_helloworld_bpf *open_and_load();
+		static inline int load(struct example_helloworld_bpf *skel);
+		static inline int attach(struct example_helloworld_bpf *skel);
+		static inline void detach(struct example_helloworld_bpf *skel);
+		static inline void destroy(struct example_helloworld_bpf *skel);
+		static inline const void *elf_bytes(size_t *sz);
+		#endif /* __cplusplus */
+	};
+	
+	...
+	
+	#endif /* __EXAMPLE_HELLOWORLD_BPF_SKEL_H__ */
+\end{lstlisting}
+
+The most important thing about this file is the \verb|example_helloworld_bpf| struct: it contains a series of fields and methods that we can be directly used and accessed in our user-space program.
+In particular:
+
+\begin{itemize}
+	\item The struct \verb|bpf_object *obj| can be passed to \textit{libbpf} API 
+		functions;
+	\item \verb|maps| contains all the maps defined in the kernel-side code	with
+		\verb|SEC(".maps")|, plus the standard \verb|rodata| pointer (we can have more than just one map in a single kernel-side code);
+	\item \verb|progs| and \verb|links| contain the pointers to the eBPF programs
+		defined in our code with \verb|SEC("tracepoint")| which, in our case, is just \verb|bpf_prog| (we can have more than just one program in a single kernel-side code);
+	\item \verb|*bss|, \verb|*data| and \verb|*rodata| are optional structs that can
+		be used to allow direct access to eBPF global variables (they are not present in our skeleton file because we do no declare them).
+		These sections are created if we define in the kernel-side program, respectively, zero-initialized and mutable or non-zero-initialized and mutable or read-only variables;
+	\item The methods \verb|open_and_load|, \verb|open|, \verb|load|, \verb|attach|,
+		\verb|detach| and \verb|destroy| will be used to perform the now known standard operations on an eBPF program;
+	\item The method \verb|elf_bytes| contains the bytecode representation of the
+		kernel-side program.
+\end{itemize}
+
+Last, we present the user-space C code (remember that we left it empty in the \verb|libbpf-boostrap/examples/c| folder), which loads eBPF code and interacts with it throughout the lifetime of the application.
+Just for completeness, it is possible to define a \verb|.h| header file with the common type definitions and is shared by both eBPF and user-space code of the application.
+To keep things as simple as possible, we did not do that.
+
+\begin{lstlisting}[language=C, caption={``Hello world!'' user side program using libbpf-bootstrap}, title=example\_helloworld.c]
+	#include <stdio.h>
+	#include <unistd.h>
+	#include <sys/resource.h>
+	#include <bpf/libbpf.h>
+	#include "example_helloworld.skel.h"
+	
+	static int libbpf_print_fn(enum libbpf_print_level level, const char *format, va_list args)
+	{
+		return vfprintf(stderr, format, args);
+	}
+	
+	int main(int argc, char **argv)
+	{
+		struct example_helloworld_bpf *skel;
+		int err;
+		
+		/* Set up libbpf errors and debug info callback */
+		libbpf_set_print(libbpf_print_fn);
+		
+		/* Open BPF application */
+		skel = example_helloworld_bpf__open();
+		if (!skel) {
+			fprintf(stderr, "Failed to open BPF skeleton\n");
+			return 1;
+		}   
+		
+		/* Load & verify BPF programs */
+		err = example_helloworld_bpf__load(skel);
+		if (err) {
+			fprintf(stderr, "Failed to load and verify BPF skeleton\n");
+			goto cleanup;
+		}
+		
+		/* Attach tracepoint handler */
+		err = example_helloworld_bpf__attach(skel);
+		if (err) {
+			fprintf(stderr, "Failed to attach BPF skeleton\n");
+			goto cleanup;
+		}
+		
+		printf("Successfully started! Please run `sudo cat /sys/kernel/debug/tracing/trace_pipe` "
+		"to see output of the BPF programs.\n");
+		
+		for (;;) {
+			/* trigger our BPF program */
+			fprintf(stderr, ".");
+			sleep(1);
+		}
+		
+		cleanup:
+		example_helloworld_bpf__destroy(skel);
+		return -err;
+	}
+\end{lstlisting}
+
+This code does no access to any maps, programs or variables, but it just performs a series of operation on the eBPF kernel-side code.
+It is what a eBPF user-side program should look like at its minimum, so it is important to understand how it works:
+
+\begin{itemize}
+	\item Among the includes, \verb|libbpf.h| and the skeleton file are a must to be 
+		able to exploit the methods that we used in our code;
+	\item \verb|libbpf_set_print| provides a custom callback for all \textit{libbpf}
+		logs which is very useful, especially during active development, because it allows to capture helpful \textit{libbpf} debug logs (by default, \textit{libbpf} will log only error-level messages, if something goes wrong, but debug logs are helpful to get an extra context on what's going on and debug problems faster).
+		In this case, it just puts everything in \verb|stdout|;
+	\item Then, we use the auto-generated methods from the skeleton file to open, load 
+		and attach the eBPF program (\verb|example_helloworld| in our case).
+		After every operation, we check if everything went well: if so, now the program is waiting in the kernel for any \verb|execve| invocation to then start executing the eBPF code; if not, \verb|destroy| will clean up all the resources on both kernel and user side (the kernel usually cleans up resources when an application crashes, but it is a good practice to do it explicitly because some eBPF program types which will stay active in the kernel even if the owner user-space process dies);
+	\item \verb|printf| prints a string that will work as a reminder for the developer
+		on how he can see the debug output of the kernel-side program (we will see how in a short time);
+	\item The endless loop makes sure that our program \verb|example_helloworld| stays
+		attached in the kernel until user kills the process (e.g., by pressing \verb|CTRL+C|). 
+		In addition to that, it will invoke the \verb|execve()| system call periodically (once a second) through \verb|fprintf| to monitor internals of the kernel from \verb|example_helloworld| and how the state changes over time.
+\end{itemize}
+
+This code does the basic things that are needed to interact with an eBPF program.
+We invite anyone who wants to develop its own eBPF application to copy this code and, after the appropriate changes (e.g. methods and skeleton file names) use it as a starting point to develop his custom user-side program.
+One simple use is just to access the global variables defined in the kernel-side code: from user-space, they can be read and updated only through the \verb|skel| variable and those updates will be immediately reflected on the eBPF side. 
+In fact, kernel-side global variables are not global variables on the user-space side, but they are just members of the eBPF skeleton’s \verb|rodata|, \verb|bss| or \verb|data| members, which are initialized during the skeleton load phase. 
+Declaring exactly the same global variable in eBPF code and user-space code will declare completely independent variables, which won’t be connected in any way: to access the kernel-side global variable from user-space we have to use the C pointer notation \verb|skel->skeleton_member->variable_name|.
+
+Now that we have all the components that we need, we can finally run our program and display the output.
+To do so, the first thing that we have to do is to open two terminals, both with root privileges.
+
+In one of them, we go in the \verb|libbpf-bootstrap/build| folder and we start the execution of our program by typing the following command:
+
+\begin{lstlisting}[language=bash, caption={libbpf-bootstrap program execution command}]
+	./example_helloworld
+\end{lstlisting}
+
+If everything was done correctly, we will see a list of messages related to sections and maps of our program and the following string:
+
+\begin{lstlisting}[language=bash, caption={libbpf-bootstrap program successful execution message}]
+	Successfully started! Please run `sudo cat /sys/kernel/debug/tracing/trace_pipe` to see output of the BPF programs.
+\end{lstlisting}
+
+In the other terminal we do exactly what the previous message says and we run the following command (remember to use this terminal with root privileges too): in fact, \verb|bpf_printk| emits a formatted string to the special file at \verb|/sys/kernel/debug/tracing/trace\_pipe|, which we can cat to see its contents from the console:
+
+\begin{lstlisting}[language=bash, caption={libbpf-bootstrap program successful execution message}]
+	cat /sys/kernel/debug/tracing/trace_pipe
+\end{lstlisting}
+
+It is important to say that both of these terminal will continue executing the command until the user types \verb|CTRL+C|.
+
+Now, we can finally see in the second terminal the output of our eBPF program.
+Every time and \verb|execve| system call is invoked, a new line will appear in the terminal and it will have the following format:
+
+\begin{lstlisting}[language=bash, caption={bpf\_printk output message}]
+	task_name-task_pid   [CPU_number] options timestamp: bpf_trace_printk: invoke bpf_prog: Hello, World!
+\end{lstlisting}
+
+To give a better understanding of the output, we have to go through of every detail:
+
+\begin{itemize}
+	\item The \verb|task_name| is the current task name that invoked the \verb|execve| 
+		system call (some examples are \verb|nautilus| fo file manager, \verb|google-chrome| and \verb|firefox| for the notorious browsers, etc.);
+	\item The \verb|task_pid| is the process ID of the current task which is 
+		represented by a number of four or five digits;
+	\item The \verb|CPU_number| is the number of the CPU on which the task is running;
+	\item The \verb|options| is a set of characters where each of them refers to a set 
+		of complex options;
+	\item The \verb|timestamp:| is the timestamp since system boot;
+	\item The \verb|bpf_trace_printk:| indicates the helpers that is begin used to
+		display the message;
+	\item The \verb|invoke bpf_prog: Hello, World!| is the part controlled by the
+		program consisting in the message that we wanted to print.
+\end{itemize}
 
 \subsection{A more complex program}
+
+Now that we have seen the functioning of the \textit{libbpf-bootstrap} environment and explained how to debug and eBPF program, we are going to look at a more complex example that uses an eBPF map and from which we learned some useful things about eBPF helpers and how an eBPF program has to be written.
+
+We would like to underline that the example we are going to show reflects the purpose of this thesis, but has no practical use.
+In fact, we will see in the next chapter how the same example can be written for Windows, but to make this comparison we had to write the following program using a limited set of helpers due to the fact that their number on Windows is much lower than on Linux.
+
+For this example we are going to show only the kernel-side code as we have already seen the structure and functioning of the skeleton file and the user-side program.
+In fact, on both of this files there would be just minor changes that we already explained in the previous paragraph: in the skeleton file 
+
+\begin{itemize}
+	\item The struct will have a different internal structure because this eBPF
+		program uses a map;
+	\item The pointer to the program will have a different name simply because the 
+		name of the program that gets attached to the hook is different; 
+	\item The name of the implemented methods in the skeleton file used to perform the
+		various operations (opening, loading, attaching and tearing down) on the eBPF program will be different because the name of the file that contains the eBPF program is different.
+\end{itemize}
+
+Moreover, the user-side program will have to include a different skeleton file and use the methods implemented in it to open, load, attach and destroy the eBPF program.
+
+In the following we can see the kernel-side program.
+
+\begin{lstlisting}[language=C, caption={libbpf-bootstrap kernel-side program with maps}]
+	#include "vmlinux.h"
+	#include <bpf/bpf_helpers.h>
+	#include <bpf/bpf_tracing.h>
+	#include <bpf/bpf_core_read.h>
+	
+	// Set the license of the code
+	char LICENSE[] SEC("license") = "Dual BSD/GPL";
+	
+	// Set the event
+	struct event {
+		pid_t pid;      // int
+		u64 time_stamp; // unsigned long
+	};
+	
+	// Define the hash map
+	struct {
+		__uint(type, BPF_MAP_TYPE_HASH);
+		__uint(max_entries, 256 * 1024);
+		__type(key, pid_t);
+		__type(value, u64);
+	} hash_map SEC(".maps");
+	
+	static void hash_map_use(pid_t pid, u64 time_stamp){
+		bpf_printk("### BEGIN HASH MAP WORK ###");
+		
+		u64 update;
+		u64 delete;
+		
+		u64 *found;
+		u64 *deleted;
+		
+		update = bpf_map_update_elem(&hash_map, &pid, &time_stamp, BPF_ANY);
+		
+		bpf_printk("UPDATE %d (update %d).", pid, update);
+		
+		bpf_printk("key pid %d - ts %llu - &pid %d - update %d.", pid, time_stamp, &pid, update);
+		
+		found = (u64 *)bpf_map_lookup_elem(&hash_map, &pid);
+		
+		if (found) {
+			bpf_printk("FOUND IN HASH MAP (found %llu).", *found);
+		} else {
+			bpf_printk("NOT FOUND IN HASH MAP");
+		}
+		
+		delete = bpf_map_delete_elem(&hash_map, &pid);
+		
+		bpf_printk("DELETE %d (delete %lld).", pid, delete);
+		
+		deleted = (u64 *)bpf_map_lookup_elem(&hash_map, &pid);
+		
+		if (!deleted) {
+			bpf_printk("DELETED IN HASH MAP (*deleted %llu & deleted %p).", *deleted, deleted);
+		} else {
+			bpf_printk("NOT POSSIBLE TO DELETE IN HASH MAP");
+		}
+		
+		bpf_printk("### END HASH MAP WORK ###\n\n");
+	}
+	
+	
+	/*
+	3 ways to write code:
+	- inside the function in SEC
+	- in a function that return int & return 0 at the end
+	- in a function declared static 
+	*/
+	
+	
+	SEC("kprobe/tcp_v4_connect")
+	int print_pid(tcp_v4_connect)   
+	{
+		pid_t pid;
+		u64 time_stamp;
+		//struct event *e;
+		
+		pid = bpf_get_current_pid_tgid() >> 32;
+		time_stamp = bpf_ktime_get_ns();    // from system boot
+		
+		bpf_printk("BPF triggered from PID %d at time %d.\n", pid, time_stamp);
+		
+		hash_map_use(pid, time_stamp);
+		
+		return 0;
+	}
+\end{lstlisting}
