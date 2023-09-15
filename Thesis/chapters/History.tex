@@ -1,26 +1,30 @@
 \chapter{The history of eBPF}
 
-This chapter digs in the historical journey of extended Berkeley Packet Filter (eBPF), starting from the first ideas of packet filtering to its current state as a powerful and versatile technology. 
+This chapter digs in the historical journey of eBPF, starting from the first ideas of packet filtering to its current state as a powerful and versatile technology. 
 By exploring the foundations of packet filtering and the development of traditional BPF, we lay the groundwork for understanding the motivations behind eBPF's emergence. 
 We will uncover how eBPF has revolutionized networking, observability and security in contemporary computing environments, from its initial applications in Unix-based systems to its widespread adoption in modern computing.
 
 \section{The beginning of packet filtering}
 
 The acronym BPF was first used in December 1992 in a document written by Steven McCanne and Van Jacobson while working at Lawrence Berkeley Laboratory (Berkeley, California, USA), titled \textit{The BSD Packet Filter: a New Architecture for User-level Packet Capture} \cite{BSDPacketFilter} and presented at the 1993 Winter USENIX conference in San Diego, California, USA (it is just an 11 pages document and it is worth giving it a read).
-Fun fact, at the beginning of its story, the \textit{B} in BPF stood for Berkeley Software Distribution (BSD), a discontinued operating system based on the early version of Unix, which was developed and distributed by the Computer Systems Research Group at the University of California in Berkeley: in fact, at its beginning, BPF was running only on the FreeBSD operating system.
+Fun fact, at the beginning of its story, the \textit{B} in BPF stood for \textit{Berkeley Software Distribution} (\textit{BSD}), a discontinued operating system based on the early version of Unix, which was developed and distributed by the Computer Systems Research Group at the University of California in Berkeley: in fact, at its beginning, BPF was running only on the FreeBSD operating system.
 
-In this article they talk about the packet-capture techniques existing at the time and they describe the BSD packet filter (BPF) including its placement in the kernel and implementation as a virtual machine, defining it as ``a new kernel architecture for packet capture''.
+In this article they talk about the packet-capture techniques existing at the time and they describe the \textit{BSD packet filter} (\textit{BPF}) including its placement in the kernel and implementation as a virtual machine, defining it as ``a new kernel architecture for packet capture''.
 The authors first start to describe the need to manage network traffic efficiently and how it was performed with the facilities implemented to those days.
 Then, they present the plan behind BPF, showing its model and designing a virtual machine (perhaps, the most important thing) that would work as a filter with BPF, emphasizing on expandability, generality and performance.
 They defined the design of the virtual machine by the following five statement:
 
 \begin{itemize}
-	\item ``It must be protocol independent. The kernel should not have to be modified 
-		to add new protocol support.'';
-	\item ``It must be general. The instruction set should be rich enough to handle unforeseen uses'';
-	\item ``Packet data references should be minimized.'';
-	\item ``Decoding an instruction should consist of a single C switch statement.'';
-	\item ``The abstract machine registers should reside in physical registers.''.
+	\item 
+		``It must be protocol independent. The kernel should not have to be modified to add new protocol support.'';
+	\item 
+		``It must be general. The instruction set should be rich enough to handle unforeseen uses'';
+	\item 
+		``Packet data references should be minimized.'';
+	\item 
+		``Decoding an instruction should consist of a single C switch statement.'';
+	\item 
+		``The abstract machine registers should reside in physical registers.''.
 \end{itemize}
 
 In the end, they do some examples of packet filtering with BPF and with other technologies to compare their performances on the same hardware, showing how and why BPF performs substantially better than other approaches.
@@ -28,7 +32,7 @@ In the end, they do some examples of packet filtering with BPF and with other te
 There are two last things that are worth noting in this paper.
 First, when the paper was published, BPF was approximately two years old in which it had been tested and already found its way into multiple tools
 This shows that the development of BPF was a gradual one, something that continues with the technologies that succeeded it.
-Second, it mentions tcpdump as the program that uses BPF the most at the time of writing.
+Second, it mentions \textit{tcpdump} as the program that uses BPF the most at the time of writing.
 tcpdump is a data-network packet analyzer computer program that runs under a command line interface and allows the user to display TCP/IP and other packets being transmitted or received over a network to which the computer is attached.
 Still to our days, it is one of the most widely used network debugging tools: this shows that tcpdump has used BPF technology for at least thirty years.
 Funny enough, tcpdump is free software written in 1988 by a team of people including Van Jacobson and Steven McCanne who were, at the time, working in the Lawrence Berkeley Laboratory.
@@ -38,12 +42,14 @@ Funny enough, tcpdump is free software written in 1988 by a team of people inclu
 While the previous article was the first to cover BPF, it offers a broad view of the improvements this technology would bring to the world of network monitoring:
 
 \begin{itemize}
-	\item It outperformed other facilities of that time in their filtering mechanisms;
-	\item It had a programmable pseudo-machine model that demonstrated to be general 
-		and extensible;
-	\item It was portable and ran on most BSD systems which, due to 
-		their Unix-like basis, were a synonym of high quality networking back then;
-	\item It could interact with various data-link layers.
+	\item 
+		It outperformed other facilities of that time in their filtering mechanisms;
+	\item 
+		It had a programmable pseudo-machine model that demonstrated to be general and extensible;
+	\item 
+		It was portable and ran on most BSD systems which, due to their Unix-like basis, were a synonym of high quality networking back then;
+	\item 
+		It could interact with various data-link layers.
 \end{itemize}
 
 Given these characteristics, it can be understood how BPF was ahead of its time: it was used to speed up packet filtering and analyze network traffic, since packets rates could be very high, even for the computers at the time when McCanne and Jacobson wrote their article. 
@@ -73,29 +79,29 @@ Across various systems, like Linux, other raw interfaces to the data link layer 
 The decision to run user-supplied programs within the kernel proved to be highly advantageous, but certain aspects of the original BPF design faced difficult challenges over time:
 
 \begin{itemize}
-	\item The virtual machine and its fixed-length instruction set architecture (ISA, 
-		a part of the abstract model of a computer that defines how the CPU is controlled by the software) were outpaced as modern processors transitioned to 64-bit registers and introduced new instructions for multiprocessor systems, such as the atomic exchange-and-add instruction (XADD),compromising its ability to efficiently handle complex tasks on contemporary hardware;
-	\item The initial focus on offering a limited number of Reduced Instruction Set
-		Computer (RISC, a computer architecture designed to simplify the individual instructions given to the computer to accomplish tasks in order to achieve higher performances) instructions no longer aligned with the demands of contemporary processors because it did not provide a sufficient instruction set to handle advanced filtering and analysis task effectively;
-	\item As new networking functionalities emerge, incorporating them into the 
-		traditional BPF framework became challenging, because it lacked robust mechanisms for extensions and overloading of instructions, making very difficult its adaptability to ever-evolving network architectures;
-	\item Since BPF was primarily designed for execution within the kernel space,
-		its use in certain user-space scenarios and in other potential applications was limited due to its lack of versatility;
-	\item As modern networks handle higher data rates and voluminous traffic,
-		processing and filtering massive amounts of packets in real-time with BPF could cause performance bottlenecks, impacting overall system responsiveness, because it might not scale efficiently;
-	\item BPF was missing built-in safety mechanisms, making it vulnerable to errors
-		or malicious code which could lead to system crashes or security breaches;
-	\item BPF was not designed to handle efficiently complex packet structures or
-		protocols, limiting its ability in analyzing and filtering non-standard or highly intricate network traffic;
-	\item As networking technologies continue to evolve rapidly, BPF's rigidity 
-		may create challenges in adapting to emerging protocols, data formats and network architectures, potentially making it less suitable for future innovations.
+	\item 
+		The virtual machine and its fixed-length instruction set architecture (ISA, a part of the abstract model of a computer that defines how the CPU is controlled by the software) were outpaced as modern processors transitioned to 64-bit registers and introduced new instructions for multiprocessor systems, such as the atomic exchange-and-add instruction (XADD),compromising its ability to efficiently handle complex tasks on contemporary hardware;
+	\item 
+		The initial focus on offering a limited number of Reduced Instruction Set Computer (RISC, a computer architecture designed to simplify the individual instructions given to the computer to accomplish tasks in order to achieve higher performances) instructions no longer aligned with the demands of contemporary processors because it did not provide a sufficient instruction set to handle advanced filtering and analysis task effectively;
+	\item 
+		As new networking functionalities emerge, incorporating them into the traditional BPF framework became challenging, because it lacked robust mechanisms for extensions and overloading of instructions, making very difficult its adaptability to ever-evolving network architectures;
+	\item 
+		Since BPF was primarily designed for execution within the kernel space, its use in certain user-space scenarios and in other potential applications was limited due to its lack of versatility;
+	\item 
+		As modern networks handle higher data rates and voluminous traffic, processing and filtering massive amounts of packets in real-time with BPF could cause performance bottlenecks, impacting overall system responsiveness, because it might not scale efficiently;
+	\item 
+		BPF was missing built-in safety mechanisms, making it vulnerable to errors or malicious code which could lead to system crashes or security breaches;
+	\item 
+		BPF was not designed to handle efficiently complex packet structures or protocols, limiting its ability in analyzing and filtering non-standard or highly intricate network traffic;
+	\item 
+		As networking technologies continue to evolve rapidly, BPF's rigidity may create challenges in adapting to emerging protocols, data formats and network architectures, potentially making it less suitable for future innovations.
 \end{itemize} 
 
 It is essential to consider these limitations when evaluating the appropriateness of  BPF for modern networking requirements. 
 In fact, all of the problems about BPF described above can be referred to the fact that in the IT world things evolve really quickly and at its beginning BPF was not flexible and extensible to the innovations that would be introduced in the years to come.
 
 Recognizing its historical significance and contributions, it is clear that BPF was not enough to keep up with the technological advancements that would be done in modern hardware.
-To try to address many of the described limitations, in 2014 \textit{Extended BPF} (eBPF), a more versatile and future-ready technology for advanced networking and observability needs, was introduced by Alexei Starovoitov and Daniel Borkmann, creators and current maintainers of this project.
+To try to address many of the described limitations, in 2014 \textit{extended BPF} (eBPF), a more versatile and future-ready technology for advanced networking and observability needs, was introduced by Alexei Starovoitov and Daniel Borkmann, creators and current maintainers of this project.
 
 \section{Introduction to eBPF}
 
@@ -105,7 +111,7 @@ Therefore, eBPF enables the safe and efficient extension of kernel capabilities 
 Historically, the operating system has been an optimal platform for implementing the functionalities that eBPF was designed for (e.g. observability, security, and networking) because it benefits from the kernel's privileged ability to oversee and control the entire system.
 However, evolving an operating system kernel is very challenging due to its central role and critical need for stability and security, resulting in traditionally lower innovation rates compared to functionalities implemented outside the operating system.
 eBPF radically transforms this approach by enabling the execution of sandboxed programs within the operating system, empowering application developers to add extra capabilities at runtime. 
-With the help of a Just-In-Time (JIT) compiler and a verification engine, the operating system also ensures a safe and efficient execution of the programs: in fact, compiling programs into native machine code that could be executed directly by the CPU, addressed the limitations of cBPF regarding the lack of performance and flexibility, improving the execution speed and versatility of eBPF programs compared to the cBPF filtering programs that were written in assembly-like instructions that 
+With the help of a \textit{Just-In-Time} (\textit{JIT}) compiler and a verification engine, the operating system also ensures a safe and efficient execution of the programs: in fact, compiling programs into native machine code that could be executed directly by the CPU, addressed the limitations of cBPF regarding the lack of performance and flexibility, improving the execution speed and versatility of eBPF programs compared to the cBPF filtering programs that were written in assembly-like instructions that 
 represent the bytecode and they were interpreted by the kernel's cBPF interpreter that processes each instruction in the program sequentially for every packet.
 
 eBPF has first appeared in the Linux kernel version 3.18 released in December 2014 after the extension of the inner BPF virtual machine and makes the original version, which has been retroactively renamed to \textit{classic} BPF (cBPF), mostly obsolete.
@@ -132,21 +138,21 @@ In Table \ref{table:cBPF_vs_eBPF} we can see the main differences that were brou
 \end{table}
 
 Moving to 64-bit registers and an increasing the number of registers from two to ten (since modern architectures have far more than two registers), allowed parameters to be passed to functions in eBPF virtual machine registers just like on native hardware and virtually gave the virtual machine unlimited storage.
-If you want to read the details about the differences between cBPF and eBPF you can check ``The Linux Kernel Archives'' document that talks about this topic \cite{cBPFvseBPF}.
+If anyone wants to read the details about the differences between cBPF and eBPF you can check ``The Linux Kernel Archives'' document that talks about this topic \cite{cBPFvseBPF}.
 
 While these changes were introduced in eBPF due to the progresses made in computer hardware, there have also been several revolutions regarding the technology itself:
 
 \begin{itemize}
-	\item The most important one is the fact that an eBPF program, instead of only
-		being attached to packets, it can now be attached to many different event sources and run many programs within the kernel, making this technology very powerful and allowing it to start being used in a wide variety of applications, including networking and tracing;
-	\item At the lowest level, beyond the use of ten 64-bit registers, eBPF
-		introduced different jump semantics, a new \textit{BPF\_CALL} instruction to call in-kernel functions cheaply and corresponding register passing convention, new instructions and a different encoding for these instructions;
-	\item The ease of mapping eBPF to native instructions made it suitable for
-		JIT compilation, which was supported by many architectures, bringing an improvement in the performance (``The original patch that added support for eBPF in the 3.15 kernel showed that eBPF was up to four times faster on x86-64 than the old cBPF implementation for some network filter microbenchmarks, and most were 1.5 times faster'' \cite{eBPFThroughIntroduction});
-	\item eBPF was made more flexible and as the Linux kernel evolved in versions
-		after 3.18, new functionalities (that we will discuss later) were subsequently added, such as the use of loops.
-	\item More efficient global data stores, which eBPF calls ``maps'', were 
-		introduced, allowing the state of a process to persist between events and thus be aggregated for uses including statistics and context aware behavior (we will discuss about them in the next chapter).
+	\item 
+		The most important one is the fact that an eBPF program, instead of only being attached to packets, it can now be attached to many different event sources and run many programs within the kernel, making this technology very powerful and allowing it to start being used in a wide variety of applications, including networking and tracing;
+	\item 
+		At the lowest level, beyond the use of ten 64-bit registers, eBPF introduced different jump semantics, a new \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|BPF_CALL|} instruction to call in-kernel functions cheaply and corresponding register passing convention, new instructions and a different encoding for these instructions;
+	\item 
+		The ease of mapping eBPF to native instructions made it suitable for JIT compilation, which was supported by many architectures, bringing an improvement in the performance (``The original patch that added support for eBPF in the 3.15 kernel showed that eBPF was up to four times faster on x86-64 than the old cBPF implementation for some network filter microbenchmarks, and most were 1.5 times faster'' \cite{eBPFThroughIntroduction});
+	\item 
+		eBPF was made more flexible and as the Linux kernel evolved in versions after 3.18, new functionalities (that we will discuss later) were subsequently added, such as the use of loops.
+	\item 
+		More efficient global data stores, which eBPF calls \textit{maps}, were introduced, allowing the state of a process to persist between events and thus be aggregated for uses including statistics and context aware behavior (we will discuss about them in the next chapter).
 \end{itemize}
 
 The described changes made eBPF appear to the world as a revolution.
@@ -164,14 +170,14 @@ It is used in a number of Linux kernel subsystems, most prominently networking, 
 
 The mind-blowing feature about eBPF is the fact that, at its core, it allows a user (in some cases privileged) to inject near general-purpose code in the kernel. 
 Such code will then be executed at some point in time, usually after certain events of interest happen in the kernel. 
-In theory, this sounds really similar to Loadable Kernel Modules (LKM), the traditional way with which users could extend the features of the kernel.
+In theory, this sounds really similar to \textit{Loadable Kernel Modules} (\textit{LKM}), the traditional way with which users could extend the features of the kernel.
 In fact, LKM consist of a compiled general purpose C code loaded at run time inside the kernel and the code of a kernel module usually hooks into various kernel subsystems so that it gets automatically called upon the occurrence of certain events.
 This has been useful for developers who want to implement support for new hardware devices or tracing functions, for example.
 Even though both approaches want to extend the capabilities of the kernel at runtime, the big difference between them is the fact that, unlike LKM, eBPF will only run code that has been evaluated completely safe to run.
 This means that it will never lead to a kernel crash or kernel instability, which is something currently difficult to achieve with other technologies without giving up some serious flexibility. 
 We could say that eBPF does the same job as LKM, but it does not require to change kernel source code or load kernel modules and does it in a safe and efficient manner.
 
-How could this safety be achieved? It is provided through an in-kernel verifier which performs static code analysis and rejects programs which crash, hang or otherwise interfere with the kernel negatively (e.g. programs without strong exit guarantees like loops without exiting conditions, programs dereferencing pointers without safety-checks, and so forth).
+How could this safety be achieved? It is provided through an in-kernel \textit{verifier} which performs static code analysis and rejects programs which crash, hang or otherwise interfere with the kernel negatively (e.g. programs without strong exit guarantees like loops without exiting conditions, programs dereferencing pointers without safety-checks, and so forth).
 Programs that pass the verifier are loaded in the kernel where they will JIT compiled for native execution performance.
 Once again, the compiled eBPF program is verified before running to prevent denial-of-service attacks.
 Due to the fact that the execution model is event-driven, programs can be attached to various hook points in the operating system kernel and are run upon triggering of a specific event.
@@ -186,7 +192,7 @@ Some people still call it eBPF to really make the point that it's new: however k
 Moreover, BFP adn eBPF are generally used interchangeably in documentation and various tools.
 Consistently with the research aim of this thesis, we are going to distinguish eBPF from cBPF to make more clear what we are referring to, even if from this point on we are going to talk exclusively about eBPF.
 
-eBPF was also provided with an official logo: at the first eBPF Summit there was a vote taken and they decided to use the bee, named ``eBee''.
+eBPF was also provided with an official logo: at the first eBPF Summit there was a vote taken and they decided to use the bee, named \textit{eBee}.
 So, Vadim Shchekoldin created the eBPF logo, which we can see in Figure \ref{fig:eBPF_logo}.
 
 \begin{figure}[h]
@@ -201,7 +207,7 @@ So, Vadim Shchekoldin created the eBPF logo, which we can see in Figure \ref{fig
 Since its introduction in the infrastructure software world, the number of eBPF-based projects has exploded in recent years and more and more companies announced their intent to start adopting this technology.
 As such, there was the need to collaborate between projects to ensure that the core of eBPF would be well maintained and equipped with a clear path and vision for the bright future ahead of eBPF.
 
-To respond to this demanding need, in August 2021, some companies, including Meta, Google, Microsoft, Isovalent and Netflix, founded the ``eBPF Foundation'', establishing an \textit{eBPF steering committee} (BSC) to take care of the technical direction and vision of eBPF.
+To respond to this demanding need, in August 2021, some companies, including Meta, Google, Microsoft, Isovalent and Netflix, founded the \textit{eBPF Foundation}, establishing an \textit{eBPF steering committee} (\textit{BSC}) to take care of the technical direction and vision of eBPF.
 As one might expect, among the few members of the committee, there are Alexei Starovoitov and Daniel Borkmann.
 The logo of this institution can be seen in Figure \ref{fig:eBPF_foundation_logo}
 
@@ -215,14 +221,14 @@ The logo of this institution can be seen in Figure \ref{fig:eBPF_foundation_logo
 The purposes of this foundation are various and numerous:
 
 \begin{itemize}
-	\item Expand the contributions being made to extend the powerful capabilities of
-		eBPF and grow beyond Linux (as we already mentioned before, eBPF is now also available on Windows);
-	\item Raise funds in support of various open source, open data and/or open
-		standards projects relating to eBPF technologies to further drive the growth and adoption of the eBPF ecosystem;
-	\item Defining the minimal requirements of eBPF runtimes and maintain eBPF
-		technical project lifecycle procedures to ensure a smooth and efficient progress of eBPF initiatives;
-	\item Create a strong community that would collaborate among projects, attend
-		technical workshops and conferences to discuss ongoing research, development efforts and use cases around eBPF.
+	\item 
+		Expand the contributions being made to extend the powerful capabilities of eBPF and grow beyond Linux (as we already mentioned before, eBPF is now also available on Windows);
+	\item 
+		Raise funds in support of various open source, open data and/or open standards projects relating to eBPF technologies to further drive the growth and adoption of the eBPF ecosystem;
+	\item 
+		Defining the minimal requirements of eBPF runtimes and maintain eBPF technical project lifecycle procedures to ensure a smooth and efficient progress of eBPF initiatives;
+	\item 
+		Create a strong community that would collaborate among projects, attend technical workshops and conferences to discuss ongoing research, development efforts and use cases around eBPF.
 \end{itemize} 
 
 Basically, the foundation wants to get as many people as possible to adopt eBPF and involve them into the project.
@@ -238,20 +244,20 @@ Nowadays, eBPF has been adopted by a number of large-scale production users, lik
 However, due to the fact that eBPF is very versatile, performing and programmable, people have found innovative solutions in various areas:
 
 \begin{itemize}
-	\item Thanks to the networking and security revolution, eBPF allows administrators
-		to create custom filters and access controls at the kernel level, offering powerful packet filtering and firewall capabilities while minimizing performance overhead (firewalls, intrusion detection systems and DDoS protection.);
-	\item Given eBPF's real-time observability capabilities, achieved by attaching
-		programs to kernel hooks, enable developers to gain deep insights into system calls, network activity and resource utilization, empowering efficient monitoring with low-latency and non-intrusive measurements in the dynamic environment of many systems and applications;
-	\item In containerized environments, eBPF emerges as a game-changer, allowing
-		administrators to efficiently control and optimize network traffic between containers, improving isolation, security and performance while, thanks to its programmability, consistently aligning with the dynamic nature of container orchestration platforms, like Kubernetes;
-	\item In the middle of the evolving cloud landscape, eBPF assumes a central role,
-		enabling efficient load balancing, traffic shaping and service discovery within the cloud infrastructure, ensuring optimal resource utilization and networking agility;
-	\item Developers are enabled to look into application behavior and system
-		performance through event capture and analysis at the kernel level using tracing tools that serve as instrumental support for diagnosing	performance issues and debugging complex systems;
-	\item eBPF is also used for real-time protection against malicious network
-		activities due to the fact that it allows Intrusion Prevention Systems (IPS) to quickly inspect and filter packets, enabling rapid threat detection and prevention, while applying custom security policies and filtering rules;
-	\item To reduce latency and increase efficiency for critical networking functions,
-		eBPF uses custom in-kernel processing, efficiently offloading specific tasks to eBPF programs.
+	\item 
+		Thanks to the networking and security revolution, eBPF allows administrators to create custom filters and access controls at the kernel level, offering powerful packet filtering and firewall capabilities while minimizing performance overhead (firewalls, intrusion detection systems and DDoS protection.);
+	\item 
+		Given eBPF's real-time observability capabilities, achieved by attaching programs to kernel hooks, enable developers to gain deep insights into system calls, network activity and resource utilization, empowering efficient monitoring with low-latency and non-intrusive measurements in the dynamic environment of many systems and applications;
+	\item 
+		In containerized environments, eBPF emerges as a game-changer, allowing administrators to efficiently control and optimize network traffic between containers, improving isolation, security and performance while, thanks to its programmability, consistently aligning with the dynamic nature of container orchestration platforms, like Kubernetes;
+	\item 
+		In the middle of the evolving cloud landscape, eBPF assumes a central role, enabling efficient load balancing, traffic shaping and service discovery within the cloud infrastructure, ensuring optimal resource utilization and networking agility;
+	\item 
+		Developers are enabled to look into application behavior and system performance through event capture and analysis at the kernel level using tracing tools that serve as instrumental support for diagnosing	performance issues and debugging complex systems;
+	\item 
+		eBPF is also used for real-time protection against malicious network activities due to the fact that it allows Intrusion Prevention Systems (IPS) to quickly inspect and filter packets, enabling rapid threat detection and prevention, while applying custom security policies and filtering rules;
+	\item 
+		To reduce latency and increase efficiency for critical networking functions, eBPF uses custom in-kernel processing, efficiently offloading specific tasks to eBPF programs.
 \end{itemize}
 
 To summarize what we have seen until now, eBPF has only been in the Linux kernel since 2014, but has already worked its way into a number of different uses in the kernel for efficient event processing (socket filtering, capturing information, analyzing performances, attaching programs to hook points or probes, etc.). 
@@ -285,12 +291,12 @@ Even if not all eBPF programs require direct access to kernel data structures an
 
 \subsection{The temporary solution: BCC}
 
-The first thing that people started using for addressing this problem is \textit{BPF Compiler Collection} (BCC) \cite{BCCGitHub}, a toolkit for creating kernel programs suited for different tasks, such as network traffic and performance analysis.
-To make sure that the running kernel's memory layout is the same as the one expected by the eBPF program, when the application is executed by the host, BCC calls its embedded Clang/LLVM, puts the headers into the kernel and does compilation on the fly.
+The first thing that people started using for addressing this problem is \textit{BPF Compiler Collection} (\textit{BCC}) \cite{BCCGitHub}, a toolkit for creating kernel programs suited for different tasks, such as network traffic and performance analysis.
+To make sure that the running kernel's memory layout is the same as the one expected by the eBPF program, when the application is executed by the host, BCC calls its embedded compiler (which consists of the \textit{Clang-LLVM} combo), puts the headers into the kernel and does compilation on the fly.
 Additionally, you can define and rename any optional stuff not available on the kernel configuration that you are using and the Clang will adapt your eBPF program code to the specific kernel.
 
 While this workflows work, it has some problems.
-First, the Clang/LLVM combo is a big library and resource heavy: this means that you have to deploy large binaries when you distribute your application and the process of compilation can require a lot of time.
+First, the Clang-LLVM combo is a big library and resource heavy: this means that you have to deploy large binaries when you distribute your application and the process of compilation can require a lot of time.
 Second, it must be verified that the system on which the application is going to be installed has the kernel headers present, because BCC-based application do not work on kernels that have been custom built.
 Last but not least, working in an agile method is quite difficult because compilation errors will appear only at runtime and the application will have to be recompiled and restarted every time.
 
@@ -298,19 +304,20 @@ Although BCC is a great tool for experimenting small tools, when we look at some
 
 \subsection{The solution: BPF CO-RE}
 
-\textit{BPF Compile Once - Run Everywhere} (BPF CO-RE) is a feature in the eBPF ecosystem that aims to solve the problem of portability of eBPF programs across different versions and architectures of the Linux kernel which was presented at the ``Linux Storage, Filesystem and Memory Management (LSF/MM) Summit for 2019''.
+\textit{BPF Compile Once - Run Everywhere} (\textit{BPF CO-RE}) is a feature in the eBPF ecosystem that aims to solve the problem of portability of eBPF programs across different versions and architectures of the Linux kernel which was presented at the ``Linux Storage, Filesystem and Memory Management (LSF/MM) Summit for 2019''.
 
 BPF CO-RE allows to easily write portable eBPF programs.
 To do so, it requires the integration and the cooperation of different components:
 
 \begin{itemize}
-	\item \textit{BPF Type Format} (BTF), a compact, but expressive enough metadata
-		format which describes the information of C programs and is used to enhance the verifier's capabilities;
-	\item A support for the compiler, as Clang  had to be extended with built-ins that
-		allow the capture of field offset, existence and size, type size and relocation and enum values and existence;
-	\item A loader, named \textit{libbpf}, that takes the BPF object file (the program
-		after its compilation) and triggers the phases of loading and verification;
-	\item The CO-RE compliant kernel.
+	\item 
+		\textit{BPF Type Format} (\textit{BTF}), a compact, but expressive enough metadata format which describes the information of C programs and is used to enhance the verifier's capabilities;
+	\item 
+		A support for the compiler, as Clang  had to be extended with built-ins that allow the capture of field offset, existence and size, type size and relocation and enum values and existence;
+	\item 
+		A loader, named \textit{libbpf}, that takes the BPF object file (the program after its compilation) and triggers the phases of loading and verification;
+	\item 
+		The CO-RE compliant kernel.
 \end{itemize}
 
 With BPF CO-RE, eBPF programs are compiled into a more compact, intermediate representation of a binary file that can be loaded and executed on multiple kernel versions and configurations.
@@ -321,33 +328,33 @@ To enable BPF CO-RE and let eBPF loader to adjust an eBPF program to a particula
 If a program wants to access a certain field in a struct inside the kernel and this field has been moved to a different offset inside the same struct or even to a different struct, the developer can find that field by just its name and type information.
 
 The last thing that we need to make BPF CO-RE work is the BTF information provided by the running kernel of the target host.
-In fact, \textit{libbpf} relies on the kernel to expose its self-describing authoritative BTF information: it does so through \verb|sysfs| (short for \textit{system file system}) at \verb|/sys/kernel/btf/vmlinux|.
-\verb|sysfs| is a virtual file system in Linux and other Unix-like operating systems that provides a way to interact with and configure kernel parameters, devices, subsystems, objects and many more kernel-related information. 
-It is mounted at \verb|/sys| in the file system hierarchy.
-\verb|sysfs| is designed to expose information about the kernel in a structured and hierarchical manner: each device or parameter is represented as a directory or file within the \verb|sysfs| directory tree. 
+In fact, libbpf relies on the kernel to expose its self-describing authoritative BTF information: it does so through \colorbox{backcolour}{\lstinline[style=highlight, language=bash]|sysfs|} (short for \textit{system file system}) at \colorbox{backcolour}{\lstinline[style=highlight, language=bash]|/sys/kernel/btf/vmlinux|}.
+\colorbox{backcolour}{\lstinline[style=highlight, language=bash]|sysfs|} is a virtual file system in Linux and other Unix-like operating systems that provides a way to interact with and configure kernel parameters, devices, subsystems, objects and many more kernel-related information. 
+It is mounted at \colorbox{backcolour}{\lstinline[style=highlight, language=bash]|/sys|} in the file system hierarchy.
+\colorbox{backcolour}{\lstinline[style=highlight, language=bash]|sysfs|} is designed to expose information about the kernel in a structured and hierarchical manner: each device or parameter is represented as a directory or file within the \colorbox{backcolour}{\lstinline[style=highlight, language=bash]|sysfs|} directory tree. 
 These files are also called \textit{virtual}: it means that they are computed on request.
 Users and programs can read or write to these files to query or configure various aspects of the kernel and its devices thanks to the provided interface which allows to access and manage this information in a structured and standardized way.
-For our case, we are just interested in the object file \verb|vmlinux|, an Executable and Linkable Format (ELF, a standard file format for executables, object code, shared libraries and core dumps) binary that contains the compiled bootable kernel inside it: when we build Linux, this file is one of the output artifacts and it is also typically packaged with major distributions. 
+For our case, we are just interested in the object file \colorbox{backcolour}{\lstinline[style=highlight, language=bash]|vmlinux|}, an Executable and Linkable Format (ELF, a standard file format for executables, object code, shared libraries and core dumps) binary that contains the compiled bootable kernel inside it: when we build Linux, this file is one of the output artifacts and it is also typically packaged with major distributions. 
 
-The BTF information for the running kernel can be generated using \verb|bpftool|, a command-line utility that is used to interact with and manage eBPF programs and related components, such as listing programs and maps, loading and unloading programs, attaching and detaching programs to various hook points in the kernel, querying program and map information, showing trace output or debugging information, accessing eBPF type information and many more tasks related to eBPF within the Linux kernel \cite{bpftoolGitHubRepo}.
-As many eBPF operations require elevated permissions, administrative privileges are tipically needed to use \textit{bpftool} on the Linux system.
+The BTF information for the running kernel can be generated using \textit{bpftool}, a command-line utility that is used to interact with and manage eBPF programs and related components, such as listing programs and maps, loading and unloading programs, attaching and detaching programs to various hook points in the kernel, querying program and map information, showing trace output or debugging information, accessing eBPF type information and many more tasks related to eBPF within the Linux kernel \cite{bpftoolGitHubRepo}.
+As many eBPF operations require elevated permissions, administrative privileges are tipically needed to use bpftool on the Linux system.
 The BTF information for the running kernel can be generated with the following command:
 
-\begin{lstlisting}[language=bash, caption={vmlinux.h generation command}]
+\begin{lstlisting}[style=commandline, language=bash, caption={vmlinux.h generation command}]
 	bpftool btf dump file /sys/kernel/btf/vmlinux format c > vmlinux.h
 \end{lstlisting}
 
-The command reads the \verb|vmlinux| object file and generates a \verb|vmlinux.h| header file which contains all kernel types that the installed kernel uses in it’s own source code (it is a very large header file). 
-We are going to see later that this file has to be included in the programs that we are going to develop: by doing so, in our eBPF program we have all internal kernel types and we eliminate dependency on system-wide kernel headers, such as \verb|linux/sched.h|, \verb|linux/fs.h| and many more.
-In fact, it’s pretty common in ebpf programs to read fields of data structures that are used in the kernel through the \verb|BPF_CORE_READ| macro: when we import this header file, our ebpf program can read memory and know which bytes correspond to which fields of any struct that you want to work with.
-Unfortunately, BTF does not record \verb|#define| macros, so some common macros and constants might be missing with \verb|vmlinux.h|. 
-However, most commonly missing ones might be provided as part of \textit{libbpf}’s kernel-side library.
+The command reads the \colorbox{backcolour}{\lstinline[style=highlight, language=bash]|vmlinux|} object file and generates a \colorbox{backcolour}{\lstinline[style=highlight, language=bash]|vmlinux.h|} header file which contains all kernel types that the installed kernel uses in it’s own source code (it is a very large header file). 
+We are going to see later that this file has to be included in the programs that we are going to develop: by doing so, in our eBPF program we have all internal kernel types and we eliminate dependency on system-wide kernel headers, such as \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|linux/sched.h|}, \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|linux/fs.h|} and many more.
+In fact, it’s pretty common in ebpf programs to read fields of data structures that are used in the kernel through the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|BPF_CORE_READ|} macro: when we import this header file, our ebpf program can read memory and know which bytes correspond to which fields of any struct that you want to work with.
+Unfortunately, BTF does not record \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|\#define|} macros, so some common macros and constants might be missing with \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|vmlinux.h|}. 
+However, most commonly missing ones might be provided as part of libbpf’s kernel-side library.
 
-Since the \verb|vmlinux.h| file is generated from our installed kernel, an ebpf program could break if we try to run it without recompiling on another machine that is running a different kernel version. 
+Since the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|vmlinux.h|} file is generated from our installed kernel, an ebpf program could break if we try to run it without recompiling on another machine that is running a different kernel version. 
 This is because, from version to version, definitions of internal structs change within the Linux source code (as we already talked about).
-However, once we have the object file of the compiled eBPF program, the Clang relocations and the BTF information provided by the running kernel of the host, the loader enables portability of eBPF programs by resolving and matching all the types and fields in the kernel and updates necessary offsets and other relocatable data: it uses macros that will analyze what fields we are trying to access in the types that are defined in our \verb|vmlinux.h|. 
+However, once we have the object file of the compiled eBPF program, the Clang relocations and the BTF information provided by the running kernel of the host, the loader enables portability of eBPF programs by resolving and matching all the types and fields in the kernel and updates necessary offsets and other relocatable data: it uses macros that will analyze what fields we are trying to access in the types that are defined in our \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|vmlinux.h|}. 
 If the field we want to access has been moved within the struct definition that the running kernel uses, the macros will find it for us. 
-Therefore, it doesn't matter if we compile our ebpf program with the \verb|vmlinux.h| file we generated from our own kernel and then ran it on a different one.
+Therefore, it doesn't matter if we compile our ebpf program with the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|vmlinux.h|} file we generated from our own kernel and then ran it on a different one.
 By doing so, we make sure that the eBPF program’s logic is correctly functioning for the specific kernel.
 
 So, the result is that it looks like the program was compiled specifically for the kernel of the target machine, but this happened after getting rid of kernel header dependency and without distributing Clang with our application and performing compilation in runtime on target host.
@@ -382,20 +389,20 @@ Despite the need to standardize the technology and integrate it into as many pla
 This innovative technology is ready to unlock new frontiers and revolutionize various domains thanks to some key aspects:
 
 \begin{itemize}
-	\item As network requirements keep evolving, with the help of eBPF's 
-		programmability, administrators have to implement newer custom network protocols, load balancing algorithms and traffic shaping mechanisms;
-	\item As cloud adoption continues to rise, eBPF's indispensability in the
-		cloud-native ecosystem will grow further, offering fine-grained control over container networking for optimal isolation, advanced security and efficient resource utilization, making agility and scalability essential for modern cloud infrastructure;
-	\item The future of debugging and optimization for complex and distributed systems
-		belongs to eBPF's real-time observability and tracing capabilities which allow developers to exploit its potential for capturing, analyzing and visualizing diverse system events with the purpose of providing unparalleled insights into application behavior, performance bottlenecks and resource utilization;
-	\item As cyber threats become increasingly sophisticated, eBPF will persist in
-		strengthening security measures, expanding its role in intrusion detection systems and security applications, providing real-time packet inspection, protocol analysis and advanced filtering capabilities;
-	\item In a world where Artificial Intelligence and machine learning are
-		increasingly in the spotlight, eBPF's programmability prepares to integrate them within the kernel, promoting a powerful synergy that drives intelligent decision-making, automated resource management and dynamic adaptation to satisfy shifting workloads and network conditions;
-	\item With the help of the thriving eBPF community, new tools, libraries and
-		frameworks are developed rapidly, pushing the boundaries of eBPF's potential and encouraging the creation of innovative solutions.
-	\item As the world of Internet of Things and edge computing expands, eBPF's
-		lightweight and efficient nature makes it an ideal match for devices with limited resources, finding applications in intelligent edge gateways for data filtering, analysis and real-time decision-making;
+	\item 
+		As network requirements keep evolving, with the help of eBPF's programmability, administrators have to implement newer custom network protocols, load balancing algorithms and traffic shaping mechanisms;
+	\item 
+		As cloud adoption continues to rise, eBPF's indispensability in the cloud-native ecosystem will grow further, offering fine-grained control over container networking for optimal isolation, advanced security and efficient resource utilization, making agility and scalability essential for modern cloud infrastructure;
+	\item 
+		The future of debugging and optimization for complex and distributed systems belongs to eBPF's real-time observability and tracing capabilities which allow developers to exploit its potential for capturing, analyzing and visualizing diverse system events with the purpose of providing unparalleled insights into application behavior, performance bottlenecks and resource utilization;
+	\item 
+		As cyber threats become increasingly sophisticated, eBPF will persist in strengthening security measures, expanding its role in intrusion detection systems and security applications, providing real-time packet inspection, protocol analysis and advanced filtering capabilities;
+	\item 
+		In a world where Artificial Intelligence and machine learning are increasingly in the spotlight, eBPF's programmability prepares to integrate them within the kernel, promoting a powerful synergy that drives intelligent decision-making, automated resource management and dynamic adaptation to satisfy shifting workloads and network conditions;
+	\item 
+		With the help of the thriving eBPF community, new tools, libraries and frameworks are developed rapidly, pushing the boundaries of eBPF's potential and encouraging the creation of innovative solutions.
+	\item 
+		As the world of Internet of Things and edge computing expands, eBPF's lightweight and efficient nature makes it an ideal match for devices with limited resources, finding applications in intelligent edge gateways for data filtering, analysis and real-time decision-making;
 \end{itemize}
 
 It’s highly likely that the trend of using eBPF for safe and efficient event handling will continue.

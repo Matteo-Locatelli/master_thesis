@@ -4,62 +4,60 @@
 \contentsline {section}{\numberline {1.2}Motivation}{2}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Objectives}{2}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Organization of the Thesis}{3}{section.1.4}%
-\contentsline {chapter}{\numberline {2}Technologies used}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}The host environment}{5}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Virtual machine for Linux development}{6}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Virtual machine for Windows development}{6}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Repository of the project}{8}{section.2.4}%
-\contentsline {chapter}{\numberline {3}The history of eBPF}{11}{chapter.3}%
-\contentsline {section}{\numberline {3.1}The beginning of packet filtering}{11}{section.3.1}%
-\contentsline {section}{\numberline {3.2}The characteristics of BPF}{13}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Limitations of BPF}{15}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Introduction to eBPF}{16}{section.3.4}%
-\contentsline {section}{\numberline {3.5}What is eBPF?}{19}{section.3.5}%
-\contentsline {section}{\numberline {3.6}eBPF in modern architecture}{20}{section.3.6}%
-\contentsline {subsection}{\numberline {3.6.1}Name and logo}{20}{subsection.3.6.1}%
-\contentsline {subsection}{\numberline {3.6.2}eBPF Foundation}{21}{subsection.3.6.2}%
-\contentsline {subsection}{\numberline {3.6.3}Use cases of eBPF}{22}{subsection.3.6.3}%
-\contentsline {section}{\numberline {3.7}The portability of eBPF}{24}{section.3.7}%
-\contentsline {subsection}{\numberline {3.7.1}The problem of portability}{25}{subsection.3.7.1}%
-\contentsline {subsection}{\numberline {3.7.2}The temporary solution: BCC}{26}{subsection.3.7.2}%
-\contentsline {subsection}{\numberline {3.7.3}The solution: BPF CO-RE}{26}{subsection.3.7.3}%
-\contentsline {subsection}{\numberline {3.7.4}BPF CO-RE}{30}{subsection.3.7.4}%
-\contentsline {section}{\numberline {3.8}Future and potential of eBPF}{30}{section.3.8}%
-\contentsline {chapter}{\numberline {4}The eBPF subsystem}{33}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Writing an eBPF program}{33}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Architecture}{34}{section.4.2}%
-\contentsline {section}{\numberline {4.3}The instruction set}{36}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Hook points}{37}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Compiling and loading an eBPF program}{37}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Compilation}{38}{subsection.4.5.1}%
-\contentsline {subsection}{\numberline {4.5.2}Verification}{38}{subsection.4.5.2}%
-\contentsline {subsection}{\numberline {4.5.3}Hardening}{40}{subsection.4.5.3}%
-\contentsline {subsection}{\numberline {4.5.4}JIT compilation}{41}{subsection.4.5.4}%
-\contentsline {subsection}{\numberline {4.5.5}Loading and execution}{41}{subsection.4.5.5}%
-\contentsline {section}{\numberline {4.6}The bpf() system call}{42}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Tail and function calls}{44}{section.4.7}%
-\contentsline {section}{\numberline {4.8}Helper functions}{46}{section.4.8}%
-\contentsline {section}{\numberline {4.9}Maps}{49}{section.4.9}%
-\contentsline {chapter}{\numberline {5}eBPF toolchains}{51}{chapter.5}%
-\contentsline {section}{\numberline {5.1}eBPF tools}{52}{section.5.1}%
-\contentsline {section}{\numberline {5.2}bpftrace}{53}{section.5.2}%
-\contentsline {section}{\numberline {5.3}BCC}{54}{section.5.3}%
-\contentsline {section}{\numberline {5.4}libbpf}{55}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Requirements}{57}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Program lifecycle}{58}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Skeleton files}{59}{subsection.5.4.3}%
-\contentsline {chapter}{\numberline {6}Linux development}{61}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Bumblebee}{61}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Why BumbleBee}{62}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Installation}{63}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}Write an eBPF program}{64}{subsection.6.1.3}%
-\contentsline {subsection}{\numberline {6.1.4}Some examples}{68}{subsection.6.1.4}%
-\contentsline {section}{\numberline {6.2}libbpf-bootstrap}{77}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Installation and overview}{77}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}``Hello world!'' with eBPF}{78}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}A more complex program}{88}{subsection.6.2.3}%
-\contentsline {chapter}{\numberline {7}Windows development}{93}{chapter.7}%
-\contentsline {section}{\numberline {7.1}ebpf for Windows}{93}{section.7.1}%
-\contentsline {section}{\numberline {7.2}windows ebpf starter}{93}{section.7.2}%
-\contentsline {chapter}{\numberline {8}Conclusions}{95}{chapter.8}%
-\contentsline {chapter}{Bibliography}{97}{chapter*.16}%
+\contentsline {section}{\numberline {1.5}Repository of the project}{4}{section.1.5}%
+\contentsline {chapter}{\numberline {2}The history of eBPF}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}The beginning of packet filtering}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}The characteristics of BPF}{9}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Limitations of BPF}{11}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Introduction to eBPF}{12}{section.2.4}%
+\contentsline {section}{\numberline {2.5}What is eBPF?}{15}{section.2.5}%
+\contentsline {section}{\numberline {2.6}eBPF in modern architecture}{16}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Name and logo}{16}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}eBPF Foundation}{17}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}Use cases of eBPF}{18}{subsection.2.6.3}%
+\contentsline {section}{\numberline {2.7}The portability of eBPF}{20}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}The problem of portability}{21}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}The temporary solution: BCC}{22}{subsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.7.3}The solution: BPF CO-RE}{22}{subsection.2.7.3}%
+\contentsline {subsection}{\numberline {2.7.4}BPF CO-RE}{26}{subsection.2.7.4}%
+\contentsline {section}{\numberline {2.8}Future and potential of eBPF}{26}{section.2.8}%
+\contentsline {chapter}{\numberline {3}The eBPF subsystem}{29}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Writing an eBPF program}{29}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Architecture}{30}{section.3.2}%
+\contentsline {section}{\numberline {3.3}The instruction set}{32}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Hook points}{33}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Compiling and loading an eBPF program}{33}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Compilation}{34}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Verification}{34}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Hardening}{36}{subsection.3.5.3}%
+\contentsline {subsection}{\numberline {3.5.4}JIT compilation}{37}{subsection.3.5.4}%
+\contentsline {subsection}{\numberline {3.5.5}Loading and execution}{37}{subsection.3.5.5}%
+\contentsline {section}{\numberline {3.6}The bpf() system call}{38}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Tail and function calls}{40}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Helper functions}{42}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Maps}{45}{section.3.9}%
+\contentsline {chapter}{\numberline {4}eBPF toolchains}{47}{chapter.4}%
+\contentsline {section}{\numberline {4.1}eBPF tools}{48}{section.4.1}%
+\contentsline {section}{\numberline {4.2}bpftrace}{49}{section.4.2}%
+\contentsline {section}{\numberline {4.3}BCC}{50}{section.4.3}%
+\contentsline {section}{\numberline {4.4}libbpf}{51}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Requirements}{53}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Program lifecycle}{54}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Skeleton files}{55}{subsection.4.4.3}%
+\contentsline {chapter}{\numberline {5}Linux development}{57}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Creation of the work environment}{57}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Bumblebee}{59}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Why BumbleBee}{60}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Installation}{61}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Write an eBPF program}{62}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Some examples}{66}{subsection.5.2.4}%
+\contentsline {section}{\numberline {5.3}libbpf-bootstrap}{74}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Installation and overview}{75}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}``Hello world!'' with eBPF}{76}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}A more complex program}{85}{subsection.5.3.3}%
+\contentsline {chapter}{\numberline {6}Windows development}{93}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Creation of the work environment}{93}{section.6.1}%
+\contentsline {section}{\numberline {6.2}ebpf for Windows}{95}{section.6.2}%
+\contentsline {section}{\numberline {6.3}windows ebpf starter}{95}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Conclusions}{97}{chapter.7}%
+\contentsline {chapter}{Bibliography}{99}{chapter*.16}%

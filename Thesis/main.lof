@@ -1,17 +1,16 @@
 \babel@toc {english}{}\relax 
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces GitHub \textit {Invertocat} logo \blx@tocontentsinit {0}\cite {GitHubLogo}.\relax }}{4}{figure.caption.7}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Type 2 (or hosted) hypervisor architecture \blx@tocontentsinit {0}\cite {HypervisorsArchitectures}.\relax }}{7}{figure.caption.7}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Type 1 (or bare metal) hypervisor architecture \blx@tocontentsinit {0}\cite {HypervisorsArchitectures}.\relax }}{8}{figure.caption.8}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces GitHub \textit {Invertocat} logo \blx@tocontentsinit {0}\cite {GitHubLogo}.\relax }}{9}{figure.caption.9}%
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces eBPF logo.\relax }}{21}{figure.caption.11}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces eBPF Foundation logo.\relax }}{22}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces eBPF logo.\relax }}{17}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces eBPF Foundation logo.\relax }}{18}{figure.caption.10}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces \textit {BumbleBee} first program output.\relax }}{72}{figure.caption.13}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces \textit {BumbleBee} modified first program output.\relax }}{72}{figure.caption.14}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces \textit {BumbleBee} complete program output.\relax }}{76}{figure.caption.15}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Type 2 (or hosted) hypervisor architecture \blx@tocontentsinit {0}\cite {HypervisorsArchitectures}.\relax }}{59}{figure.caption.11}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces BumbleBee first program output.\relax }}{69}{figure.caption.12}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces BumbleBee modified first program output.\relax }}{70}{figure.caption.13}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces BumbleBee complete program output.\relax }}{74}{figure.caption.14}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Type 1 (or bare metal) hypervisor architecture \blx@tocontentsinit {0}\cite {HypervisorsArchitectures}.\relax }}{94}{figure.caption.15}%
 \addvspace {10\p@ }

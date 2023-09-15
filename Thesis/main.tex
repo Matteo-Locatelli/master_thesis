@@ -4,11 +4,13 @@
 \usepackage{todonotes}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{realboxes}
 
 
 \newlength\dunder
 \settowidth{\dunder}{\_}
 \newcommand{\twound}{\rule{2\dunder}{0.4pt}}
+\lstset{literate={\_\_}{\twound}3}
 
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -16,7 +18,7 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
-\lstdefinestyle{mystyle}{
+\lstdefinestyle{cstyle}{
 	backgroundcolor=\color{backcolour},   
 	commentstyle=\color{codegreen},
 	keywordstyle=\color{magenta},
@@ -35,7 +37,40 @@
 	tabsize=2
 }
 
-\lstset{style=mystyle}
+\lstdefinestyle{commandline}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{black},
+	keywordstyle=\color{black},
+	numberstyle=\tiny\color{black},
+	stringstyle=\color{black},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstdefinestyle{highlight}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{black},
+	keywordstyle=\color{black},
+	numberstyle=\tiny\color{black},
+	stringstyle=\color{black},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                    
+	keepspaces=true,                   
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
 
 
 \title{Exploring eBPF for Windows}
@@ -67,10 +102,7 @@
 \clearpage
 \pagenumbering{arabic}
 
-% https://ebpf.io/ -> COMMUNITY TALKS FOR DEEPER INSIGHTS
-
 \input{chapters/Introduction.tex}
-\input{chapters/Technologies.tex}
 \input{chapters/History.tex}
 \input{chapters/HowItWorks.tex}
 \input{chapters/Toolchains.tex}
