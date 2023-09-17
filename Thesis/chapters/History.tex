@@ -64,12 +64,12 @@ Programs in that language could perform different types of operations, like fetc
 
 But how can traditional Unix-like BPF implementations be used in user-space, despite being written for kernel-space? 
 This is accomplished using preprocessor conditions.
-A preprocessor is a program that receives an input and produces an output that it will be used as an input for an other program.
+A preprocessor is a program that receives an input and produces an output that it will be used as an input for another program.
 This is a typical features of compilers, computer programs that translate computer code written in one programming language (the source language) into another language (the target language). 
 This name is primarily used for programs that translate source code from a high-level programming language to a low-level programming language (e.g. assembly language, object code, or machine code) to create an executable program.
 We brought the example of compilers because we are going to see later that the process of loading a BPF program inside the kernel requires, among many things, a compiler.
 
-An other interesting feature about BPF was the fact that it provided a raw interface to various data-link layers, allowing it to work with different types of network interfaces and packet formats.
+Another interesting feature about BPF was the fact that it provided a raw interface to various data-link layers, allowing it to work with different types of network interfaces and packet formats.
 This feature made it a powerful tool for packet filtering and analysis across different network technologies, making possible to apply BPF in a wide range of networking scenarios
 Sometimes, BPF is used specifically in reference to its filtering capabilities, rather than encompassing the entire interface. 
 Across various systems, like Linux, other raw interfaces to the data link layer exist and they utilize BPF's filtering mechanisms for their own purposes. 
@@ -106,7 +106,7 @@ To try to address many of the described limitations, in 2014 \textit{extended BP
 \section{Introduction to eBPF}
 
 eBPF is a technology that can run sandboxed programs in a privileged context such as the operating system kernel.
-Therefore, eBPF enables the safe and efficient extension of kernel capabilities without the need to modify kernel source code or load kernel modules.
+Therefore, eBPF enables the safe and efficient extension of kernel capabilities without the need to modify kernel source code or load kernel modules written with the native kernel APIs.
 
 Historically, the operating system has been an optimal platform for implementing the functionalities that eBPF was designed for (e.g. observability, security, and networking) because it benefits from the kernel's privileged ability to oversee and control the entire system.
 However, evolving an operating system kernel is very challenging due to its central role and critical need for stability and security, resulting in traditionally lower innovation rates compared to functionalities implemented outside the operating system.
@@ -300,7 +300,7 @@ First, the Clang-LLVM combo is a big library and resource heavy: this means that
 Second, it must be verified that the system on which the application is going to be installed has the kernel headers present, because BCC-based application do not work on kernels that have been custom built.
 Last but not least, working in an agile method is quite difficult because compilation errors will appear only at runtime and the application will have to be recompiled and restarted every time.
 
-Although BCC is a great tool for experimenting small tools, when we look at some example of widely deployed, complex and real-world eBPF application we have to think of an other solution.
+Although BCC is a great tool for experimenting small tools, when we look at some example of widely deployed, complex and real-world eBPF application we have to think of another solution.
 
 \subsection{The solution: BPF CO-RE}
 
