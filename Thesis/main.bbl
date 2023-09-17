@@ -268,13 +268,39 @@
     \field{urlyear}{2023}
   \endentry
 
+  \entry{DebugDoc}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{title}{Debugging document}
+    \verb{url}
+    \verb https://github.com/microsoft/ebpf-for-windows/blob/main/docs/debuggin
+    \verb g.md
+    \endverb
+    \field{urlmonth}{05}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{DbgToolsWin}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{title}{Debugging tools for Windows}
+    \verb{url}
+    \verb https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/d
+    \verb ebugger-download-tools
+    \endverb
+    \field{urlmonth}{05}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{eBPFWinGitHubRepo}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{E}
     \field{sortinithash}{E}
     \field{title}{eBPF for Windows GitHub repository}
     \verb{url}
-    \verb https://github.com/microsoft/ebpf-for-windows/
+    \verb https://github.com/microsoft/ebpf-for-windows/tree/main
     \endverb
     \field{urlmonth}{05}
     \field{urlyear}{2023}
@@ -317,6 +343,19 @@
     \field{urlyear}{2023}
   \endentry
 
+  \entry{GetStartDoc}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{title}{Getting started document}
+    \verb{url}
+    \verb https://github.com/microsoft/ebpf-for-windows/blob/main/docs/GettingS
+    \verb tarted.md
+    \endverb
+    \field{urlmonth}{05}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{GitHubLogo}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{G}
@@ -339,6 +378,31 @@
     \verb t-makes-them-different-6a1755d6ae2c
     \endverb
     \field{urlmonth}{03}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{InseBPFDoc}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{I}
+    \field{sortinithash}{I}
+    \field{title}{Install eBPF document}
+    \verb{url}
+    \verb https://github.com/microsoft/ebpf-for-windows/blob/main/docs/InstallE
+    \verb bpf.md
+    \endverb
+    \field{urlmonth}{05}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{InstallWinDbg}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{I}
+    \field{sortinithash}{I}
+    \field{title}{Install the Windows debugger}
+    \verb{url}
+    \verb https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/
+    \endverb
+    \field{urlmonth}{05}
     \field{urlyear}{2023}
   \endentry
 
@@ -528,6 +592,19 @@
     \field{urlyear}{2023}
   \endentry
 
+  \entry{SetUpNetDebug}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{title}{Setting up network debugging of a Hyper-V virtual machine}
+    \verb{url}
+    \verb https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/s
+    \verb etting-up-network-debugging-of-a-virtual-machine-host
+    \endverb
+    \field{urlmonth}{05}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{soloioWebsite}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{S}
@@ -549,6 +626,19 @@
     \verb https://www.subcom.tech/
     \endverb
     \field{urlmonth}{06}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{TutDoc}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{title}{Tutorial document}
+    \verb{url}
+    \verb https://github.com/microsoft/ebpf-for-windows/blob/main/docs/tutorial
+    \verb .md
+    \endverb
+    \field{urlmonth}{05}
     \field{urlyear}{2023}
   \endentry
 
@@ -588,19 +678,6 @@
     \field{urlyear}{2023}
   \endentry
 
-  \entry{VMSetup}{online}{}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{V}
-    \field{sortinithash}{V}
-    \field{title}{Virtual machine installation instructions}
-    \verb{url}
-    \verb https://github.com/microsoft/ebpf-for-windows/blob/main/docs/vm-setup
-    \verb .md
-    \endverb
-    \field{urlmonth}{05}
-    \field{urlyear}{2023}
-  \endentry
-
   \entry{WineBPFStarterRepo}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{W}
@@ -621,6 +698,19 @@
     \verb{url}
     \verb https://microsoft.github.io/ebpf-for-windows/bpf__helper__defs_8h.htm
     \verb l
+    \endverb
+    \field{urlmonth}{05}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{WinVMSetupDoc}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{title}{Windows virtual machine installation instructions}
+    \verb{url}
+    \verb https://github.com/microsoft/ebpf-for-windows/blob/main/docs/vm-setup
+    \verb .md
     \endverb
     \field{urlmonth}{05}
     \field{urlyear}{2023}

@@ -44,14 +44,83 @@ However, the choice of creating a virtual machine using the Hyper-V Console Mana
 
 \begin{itemize}
 	\item 
-		The setup instructions described on the ebpf-for-windows GitHub repository tell the user to install a Windows VM \cite{VMSetup};
+		The setup instructions described on the ebpf-for-windows GitHub repository tell the user to install a Windows virtual machine;
 	\item 
 		The so created isolated Windows 11 development environment provided a controlled space for testing and optimizing eBPF programs on the Windows platform.
 		In fact, if anything goes wrong in this environment, we can just delete the virtual machine and create a new one, while if something bad happens on our host machine, we could break our computer.
 \end{itemize}
 
-We are going to talk about the eBPF installation on Windows later: for now, besides the fact that that he virtual machine was configured with adequate resources to support development tasks effectively, the only thing worth noting is that during the quick creation of the virtual machine the option of ``Windows 11 dev environment'' must be selected (the tutorial tells to choose the ``Windows 10 dev environment'', but Windows 11 works as well).  
+So, to install eBPF on Windows the first thing that we have to do is to install our virtual machine.
+To do so, we have to follow the instructions reported in the \textit{vm-setup.md} document \cite{WinVMSetupDoc}.
+Besides the fact that that the virtual machine was configured with adequate resources to support development tasks effectively, the only thing worth noting is that during the quick creation of the virtual machine the option of ``Windows 11 dev environment'' is the only one that can be selected since our host computer has Windows 11 as operative system (the tutorial tells to choose the ``Windows 10 dev environment'' probably because at the time of writing of this document version 10 of Windows was the highest available, but Windows 11 works as well).  
 
+After the ``one-time setup'' procedure is done, we have to decide how we are going to debug our virtual machine.
+After a careful analysis of the requirements needed to install eBPF we decided to configure a kernel debugging connection over IP address.
+In fact, since the eBPF for Windows binaries are not yet signed by Microsoft, they will only work on a machine with a kernel debugger attached and running or test signing is enabled.
+Between the two, we decided to took the first route because it seemed easier.
+To do so there are a few articles on the Microsoft Learn website, under the documentation section, that we have (once again) to follow by heart.
+The two things that are worthy of note with this approach are the following:
+
+\begin{itemize}
+	\item 
+		On our host computer we have to install a set of debugging tools for Windows.
+		There are a few available \cite{DbgToolsWin}, but we decided to stick with the classic \textit{WinDbg}, a debugger that can be used to analyze crash dumps, debug live user-mode and kernel-mode code, and examine CPU registers and memory \cite{InstallWinDbg}.
+		After following the installation path of this tool, we will find it under \lstinline[style=commandline, language=bash]|C:\Program Files (x86)\Windows Kits\10\Debuggers\x64|;
+	\item 
+		Since it is very likely that sometimes we will shut down our virtual machine, every time that we are going to turn it on we have to start the kernel debugger attached to it (we will present later how to do it).
+		This is quite inconvenient due to the fact that it requires a bit of time every time.  
+\end{itemize}
+
+At this point we have all the components that we will need on our host computer.
+Now we have to install a series of applications on the virtual machine: under the \textit{Prerequisites} of \textit{Building eBPF for Windows} in the \textit{GettingStarted.md} document there is a list of things to install in order to build the repository project \cite{GetStartDoc}.
+Moreover, to make WinDbg work and debug the virtual machine over IP, we have to install \textit{KDNET}, a debugging feature in Windows that allows remote kernel debugging over a network connection.
+
+Once we have installed all the required tools, we are ready to start debugging our virtual machine.
+With KDNET we have to set up the target machine (the one we want to debug) and the host machine (the one we will use for debugging) to communicate and then we can start the debugging session: an article on the Microsoft Learn websites tells us what to do \cite{SetUpNetDebug}.
+However, even after we have followed all the listed steps the first time, whenever we want to turn on our virtual machine to work with eBPF, we have to redo some of these steps.
+In particular, we have to:
+
+\begin{itemize}
+	\item 
+		Open a \textit{Command prompt} with administrator privileges on both the machines;
+	\item 
+		Check the host IP address with the command \lstinline[style=commandline, language=bash]|ipconfig| because if we let the \textit{Dynamic Host Configuration Protocol} (\textit{DHCP}, a network management protocol used on IP networks for automatically assigning IP addresses and other communication parameters to devices connected to the network using a client–server architecture) to assign automatically an IP address to our computer the address may vary;
+	\item 
+		On the virtual machine, in the \lstinline[style=commandline, language=bash]|C:\KDNET| folder (that we should have created if we followed the last mentioned article) we have to run \lstinline[style=commandline, language=bash]|C:kdnet <YourIPAddress> <YourDebugPort>|, where the debug port must be within the range 50000-50039.
+		This command will give us another command that we have to copy and run on the host machine.
+		It will look like this: \lstinline[style=commandline, language=bash]|windbg -k net:port=<YourDebugPort>,key=<YourKey>|, where the key consists of four alphanumeric strings separated by three dots;
+	\item 
+		On our host machine we have to:
+		\begin{itemize}
+			\item 
+				Go to the folder where wh have installed WinDbg, which is \lstinline[style=commandline, language=bash]|C:\Program Files (x86)\Windows Kits\10\Debuggers\x64|;
+			\item 
+				Run the command that we have copied from the virtual machine.
+		\end{itemize}
+		After we have run the command, WinDbg will start on our host machine.
+		However, for now, it says ``Debuggee not connected''.
+		We have to do a couple more steps to make it work;
+	\item 
+		Disable \textit{Enhanced session} on the virtual machine using the \textit{View} pull down menu in the VM;
+	\item 
+		Restart the virtual machine with the command \lstinline[style=commandline, language=bash]|shutdown -r -t|.	
+		If after we restart the virtual machine one time the ``Debuggee not connected'' string did not change, we have to restart it a second time.
+		If we do so, we should be able to see ``Debugger is running...''.
+\end{itemize}
+
+After everything is done we now have started our virtual machine with a kernel debugger attached.
+\todo{FIGURE BEFORE AND AFTER THE TURN ON OF THE DEBUGGER}
+
+At this point, remember to do the last point on the \textit{vm-setup.md} document which is \textit{Enable Driver Verifier on eBPF drivers}.
+
+The last step that we have to make is to install ebpf-for-windows.
+To do so, we have to follow the instructions given by the \textit{InstallEbpf.md} document \cite{InseBPFDoc}.
+The easiest way to install eBPF into a test virtual machine is to stick to the so called \textit{Method 1}.
+For this thesis we worked with the \textit{v0.9.0} version, but at the time of writing versions \textit{v0.10.0} and \textit{v0.11.0} were released.
+We can understand how fast this technology is evolving on Windows.
+
+Once we have done with all the set up part, we can now start developing some examples using the ebpf-for-windows project.
+We must point out that from now on we will assume that we are working on a virtual machine that has been turned on with a kernel debugger attached, as we explained previously.
 
 \section{ebpf for Windows}
 
@@ -59,6 +128,18 @@ We are going to talk about the eBPF installation on Windows later: for now, besi
 
 % https://github.com/Microsoft/ebpf-for-windows/ 
 
+To develop eBPF applications on Linux we used two projects that made this task relatively simple once we understood the logic behind eBPF.
+Unfortunately, with ebpf-for-windows this doesn't happen.
+However, the repository provides several documents in which it explains how to develop simple initial programs and how to debug them.
+
+But before doing so, we have to build our project: to do so, we have to follow the ``How to clone and build the project using Visual Studio'' section in the \textit{GettingStarted.md} document which consists of some operations besides cloning the repository.
+
+\cite{TutDoc}
+
+\cite{DebugDoc}
+
 \section{windows ebpf starter}
+
+% https://blog.subcom.tech/ebpf-programming-on-windows/
 
 % https://github.com/SubconsciousCompute/windows-ebpf-starter
