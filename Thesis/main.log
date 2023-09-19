@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.21)  17 SEP 2023 23:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.2.21)  19 SEP 2023 12:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1036,33 +1036,40 @@ Package: collectbox 2022/10/17 v0.4c Collect macro arguments as boxes
 (C:\Users\matte\AppData\Local\Programs\MiKTeX\tex/latex/adjustbox\adjcalc.sty
 Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
 -ends (calc, etex, pgfmath)
-))
+)) (C:\Users\matte\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.s
+ty
+Package: subcaption 2023/02/19 v1.6 Sub-captions (AR)
+Package caption Info: New subtype `subfigure' on input line 239.
+\c@subfigure=\count458
+Package caption Info: New subtype `subtable' on input line 239.
+\c@subtable=\count459
+)
 \dunder=\skip87
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'english'.
-(main.aux (chapters/abstract.aux) (chapters/Acknowledgments.aux))
+ (main.aux (chapters/abstract.aux) (chapters/Acknowledgments.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 89.
-LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
 
@@ -1081,9 +1088,9 @@ Package biblatex Info: Data encoding 'utf8' specified.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
  (main.bbl)
-Package biblatex Info: Reference section=0 on input line 89.
-Package biblatex Info: Reference segment=0 on input line 89.
-Package hyperref Info: Link coloring OFF on input line 89.
+Package biblatex Info: Reference section=0 on input line 92.
+Package biblatex Info: Reference segment=0 on input line 92.
+Package hyperref Info: Link coloring OFF on input line 92.
  (main.out) (main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
@@ -1130,16 +1137,16 @@ Package caption Info: End \AtBeginDocument code.
 (C:\Users\matte\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count458
+\scratchcounter=\count460
 \scratchdimen=\dimen285
 \scratchbox=\box111
-\nofMPsegments=\count459
-\nofMParguments=\count460
+\nofMPsegments=\count461
+\nofMParguments=\count462
 \everyMPshowfont=\toks36
-\MPscratchCnt=\count461
+\MPscratchCnt=\count463
 \MPscratchDim=\dimen286
-\MPnumerator=\count462
-\makeMPintoPDFobject=\count463
+\MPnumerator=\count464
+\makeMPintoPDFobject=\count465
 \everyMPtoPDFconversion=\toks37
 )
 (C:\Users\matte\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
@@ -1152,7 +1159,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-\c@lstlisting=\count464
+\c@lstlisting=\count466
  [1
 
 {C:/Users/matte/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
@@ -1174,8 +1181,8 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.97 \include{chapters/Acknowledgments.tex}
-                                            [1
+l.100 \include{chapters/Acknowledgments.tex}
+                                             [1
 
 
 
@@ -1198,8 +1205,8 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.97 \include{chapters/Acknowledgments.tex}
-                                            [3] (main.toc
+l.100 \include{chapters/Acknowledgments.tex}
+                                             [3] (main.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 3.
 LaTeX Font Info:    External font `cmex10' loaded for size
@@ -1215,10 +1222,10 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \tf@toc=\write6
 \openout6 = `main.toc'.
 
- [3] [4
+ [3]
+[4
 
-]
-(main.lof)
+] (main.lof)
 \tf@lof=\write7
 \openout7 = `main.lof'.
 
@@ -1239,7 +1246,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.102 \clearpage
+l.105 \clearpage
                  [1
 
 ] (chapters/Introduction.tex
@@ -1263,7 +1270,7 @@ LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 8
 (C:\Users\matte\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
 File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
-<images/Technologies/GitHub_logo.png, id=498, 677.53125pt x 188.20313pt>
+<images/Technologies/GitHub_logo.png, id=530, 677.53125pt x 188.20313pt>
 File: images/Technologies/GitHub_logo.png Graphic file (type png)
 <use images/Technologies/GitHub_logo.png>
 Package pdftex.def Info: images/Technologies/GitHub_logo.png  used on input lin
@@ -1292,12 +1299,12 @@ File: lstlang1.sty 2020/03/24 1.8d listings language file
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 )
 [14] [15] [16]
-<images/History/eBPF_logo.png, id=570, 302.12875pt x 167.62625pt>
+<images/History/eBPF_logo.png, id=602, 302.12875pt x 167.62625pt>
 File: images/History/eBPF_logo.png Graphic file (type png)
 <use images/History/eBPF_logo.png>
 Package pdftex.def Info: images/History/eBPF_logo.png  used on input line 200.
 (pdftex.def)             Requested size: 298.75264pt x 165.75352pt.
-<images/History/lf-stacked-color.png, id=572, 1003.75pt x 330.23375pt>
+<images/History/lf-stacked-color.png, id=604, 1003.75pt x 330.23375pt>
 File: images/History/lf-stacked-color.png Graphic file (type png)
 <use images/History/lf-stacked-color.png>
 Package pdftex.def Info: images/History/lf-stacked-color.png  used on input lin
@@ -1336,13 +1343,13 @@ Chapter 3.
 Underfull \vbox (badness 1460) has occurred while \output is active []
 
  [32]
-[33] [34] [35] [36] [37]
-Overfull \hbox (14.83987pt too wide) in paragraph at lines 211--213
+[33] [34] [35] [36] [37] [38]
+Overfull \hbox (14.83987pt too wide) in paragraph at lines 212--214
 []\T1/cmr/m/n/12 The first line is a must when we want to ex-ploit eBPF func-ti
 on-al-ity: the [][][][][][]
  []
 
-[38] [39] [40] [41] [42] [43] [44] [45]) (chapters/Toolchains.tex [46]
+[39] [40] [41] [42] [43] [44] [45]) (chapters/Toolchains.tex [46]
 Chapter 4.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1356,7 +1363,7 @@ Chapter 5.
 [57
 
 ]
-<images/Technologies/type_2_hypervisor.png, id=806, 315.579pt x 319.1925pt>
+<images/Technologies/type_2_hypervisor.png, id=838, 315.579pt x 319.1925pt>
 File: images/Technologies/type_2_hypervisor.png Graphic file (type png)
 <use images/Technologies/type_2_hypervisor.png>
 Package pdftex.def Info: images/Technologies/type_2_hypervisor.png  used on inp
@@ -1378,7 +1385,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [67]
 [68]
-<images/LinuxDevelopment/n_rb_p_display.png, id=945, 483.60675pt x 300.52275pt>
+<images/LinuxDevelopment/n_rb_p_display.png, id=977, 483.60675pt x 300.52275pt>
 
 File: images/LinuxDevelopment/n_rb_p_display.png Graphic file (type png)
 <use images/LinuxDevelopment/n_rb_p_display.png>
@@ -1386,7 +1393,7 @@ Package pdftex.def Info: images/LinuxDevelopment/n_rb_p_display.png  used on in
 put line 337.
 (pdftex.def)             Requested size: 298.75264pt x 185.65266pt.
  [69 <./images/LinuxDevelopment/n_rb_p_display.png>]
-<images/LinuxDevelopment/n_rb_p_working_display.png, id=952, 483.60675pt x 331.
+<images/LinuxDevelopment/n_rb_p_working_display.png, id=984, 483.60675pt x 331.
 2375pt>
 File: images/LinuxDevelopment/n_rb_p_working_display.png Graphic file (type png
 )
@@ -1401,7 +1408,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [72]
-<images/LinuxDevelopment/bee_repo_tut_display.png, id=1038, 483.60675pt x 300.5
+<images/LinuxDevelopment/bee_repo_tut_display.png, id=1070, 483.60675pt x 300.5
 2275pt>
 File: images/LinuxDevelopment/bee_repo_tut_display.png Graphic file (type png)
 <use images/LinuxDevelopment/bee_repo_tut_display.png>
@@ -1465,79 +1472,156 @@ Overfull \hbox (0.33508pt too wide) in paragraph at lines 938--940
 
 ]
 Chapter 6.
-[93]
-<images/Technologies/type_1_hypervisor.png, id=1336, 325.215pt x 240.9pt>
+[93] [94]
+<images/Technologies/type_1_hypervisor.png, id=1375, 325.215pt x 240.9pt>
 File: images/Technologies/type_1_hypervisor.png Graphic file (type png)
 <use images/Technologies/type_1_hypervisor.png>
 Package pdftex.def Info: images/Technologies/type_1_hypervisor.png  used on inp
-ut line 37.
+ut line 54.
 (pdftex.def)             Requested size: 298.75264pt x 221.31456pt.
+ [95 <./images/Technologies/type_1_hypervisor.png>] [96] [97]
+Overfull \hbox (86.46954pt too wide) in paragraph at lines 106--110
+\T1/cmr/m/n/12 we fol-lowed the last men-tioned ar-ti-cle) we have to run [][][
+][][][],
+ []
 
+
+Overfull \hbox (1.76585pt too wide) in paragraph at lines 106--110
+\T1/cmr/m/n/12 chine. It will look like this: [][][][][][],
+ []
+
+
+Overfull \hbox (216.41318pt too wide) in paragraph at lines 113--115
+[]\T1/cmr/m/n/12 Go to the folder where wh have in-stalled WinDbg, which is [][
+][][][][]; 
+ []
+
+<images/WindowsDevelopment/WinDbg_nc.png, id=1404, 597.432pt x 482.40225pt>
+File: images/WindowsDevelopment/WinDbg_nc.png Graphic file (type png)
+<use images/WindowsDevelopment/WinDbg_nc.png>
+Package pdftex.def Info: images/WindowsDevelopment/WinDbg_nc.png  used on input
+ line 136.
+(pdftex.def)             Requested size: 149.37631pt x 120.61497pt.
+<images/WindowsDevelopment/WinDbg_r.png, id=1405, 597.432pt x 482.40225pt>
+File: images/WindowsDevelopment/WinDbg_r.png Graphic file (type png)
+<use images/WindowsDevelopment/WinDbg_r.png>
+Package pdftex.def Info: images/WindowsDevelopment/WinDbg_r.png  used on input 
+line 142.
+(pdftex.def)             Requested size: 149.37631pt x 120.61497pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[94] [95 <./images/Technologies/type_1_hypervisor.png>] [96] [97] [98])
-(chapters/Conclusions.tex [99] [100
+[98] [99 <./images/WindowsDevelopment/WinDbg_nc.png> <./images/WindowsDevelopme
+nt/WinDbg_r.png>] [100]
+Overfull \hbox (64.14575pt too wide) in paragraph at lines 193--195
+\T1/cmr/m/n/12 pro-grams, we have to write [][][][][][]. 
+ []
+
+[101]
+Overfull \hbox (55.75066pt too wide) in paragraph at lines 243--245
+[]\T1/cmr/m/n/12 The logic of the pro-gram is very sim-ple: it gets a ran-dom i
+n-te-ger from [][][][][][]
+ []
+
+[102] [103]
+Overfull \hbox (72.48907pt too wide) in paragraph at lines 298--303
+[]\T1/cmr/m/n/12 The sec-ond com-mand cre-ates the trace ses-sion. in-stead of 
+[][][][][][]
+ []
+
+
+Overfull \hbox (86.69444pt too wide) in paragraph at lines 298--303
+\T1/cmr/m/n/12 we had to put our path to that folder: since it was lo-cated in 
+[][][][][][],
+ []
+
+[104] [105] [106]
+Underfull \vbox (badness 3471) has occurred while \output is active []
+
+ [107]
+[108]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [109]
+[110]
+Overfull \hbox (96.75171pt too wide) in paragraph at lines 501--506
+\T1/cmr/m/n/12 the same ex-cept for the penul-ti-mate one, which is [][][][][][
+].
+ []
+
+
+Overfull \hbox (43.52042pt too wide) in paragraph at lines 514--518
+\T1/cmr/m/n/12 called [][][][][][] un-der the folder [][][][][][]
+ []
+
+[111] [112]) (chapters/Conclusions.tex [113] [114
 
 ]
 Chapter 7.
-) [101] [102
-
-]
-Overfull \hbox (6.7309pt too wide) in paragraph at lines 114--114
+[115]) [116]
+Overfull \hbox (6.7309pt too wide) in paragraph at lines 117--117
 []\T1/cmr/m/it/12 BCC repos-i-tory\T1/cmr/m/n/12 . \T1/cmr/m/sc/12 url\T1/cmr/m
 /n/12 : []$\T1/cmtt/m/n/12 https : / / github . com / iovisor / bcc$[] \T1/cmr/
 m/n/12 (vis-ited on 03/2023). 
  []
 
-[103]
-Overfull \hbox (4.40643pt too wide) in paragraph at lines 114--114
+[117
+
+]
+Overfull \hbox (4.40643pt too wide) in paragraph at lines 117--117
 []\T1/cmr/m/it/12 eBPF for Win-dows GitHub repos-i-tory\T1/cmr/m/n/12 . \T1/cmr
 /m/sc/12 url\T1/cmr/m/n/12 : []$\T1/cmtt/m/n/12 https : / / github . com / micr
 osoft /
  []
 
-[104]
-Overfull \hbox (22.89084pt too wide) in paragraph at lines 114--114
+[118]
+Overfull \hbox (2.30693pt too wide) in paragraph at lines 117--117
+\T1/cmtt/m/n/12 / / blog . subcom . tech / ebpf -[] programming -[] on -[] wind
+ows/$[] \T1/cmr/m/n/12 (vis-ited on 06/2023). 
+ []
+
+
+Overfull \hbox (22.89084pt too wide) in paragraph at lines 117--117
 []\T1/cmr/m/it/12 Hypervisors ar-chi-tec-tures im-ages\T1/cmr/m/n/12 . \T1/cmr/
 m/sc/12 url\T1/cmr/m/n/12 : []$\T1/cmtt/m/n/12 https : / / medium . com / teamr
 esellerclub /
  []
 
-[105] [106] [107] (main.aux (chapters/abstract.aux)
+[119] [120] [121] (main.aux (chapters/abstract.aux)
 (chapters/Acknowledgments.aux))
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 9FD227753F14F8F886BDA476D634FA0B;9196.
+(rerunfilecheck)             Checksum: 47DF38C6AF29F128E9F2BBB231306866;9354.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 34978 strings out of 476374
- 664975 string characters out of 5788854
+ 35421 strings out of 476374
+ 672475 string characters out of 5788854
  2059340 words of memory out of 5000000
- 54188 multiletter control sequences out of 15000+600000
- 525820 words of font info for 57 fonts, out of 8000000 for 9000
+ 54496 multiletter control sequences out of 15000+600000
+ 526589 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,12n,98p,1889b,2983s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc
 1200.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
-0\ecrm0600.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
-/dpi600\ecbx1440.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
-pen/ec/dpi600\ectt1000.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour
-/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/
-ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\matte\AppData\Local\MiKTeX\fon
-ts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\matte\AppData\Local\MiKT
-eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\matte\AppData\Loca
-l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\matte\AppDat
-a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk> <C:\Users\matte\
-AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\
-matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\
-Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk
->
-Output written on main.pdf (124 pages, 889912 bytes).
+0\ecrm1095.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
+/dpi600\ecrm0600.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
+pen/ec/dpi600\ecbx1440.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour
+/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/
+ljfour/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\matte\AppData\Local\MiKTeX\fon
+ts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\matte\AppData\Local\MiKT
+eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\Users\matte\AppData\Loca
+l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\matte\AppDat
+a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\matte\
+AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk> <C:\Users\
+matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\
+Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk
+> <C:\Users\matte\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1
+440.pk>
+Output written on main.pdf (138 pages, 1015366 bytes).
 PDF statistics:
- 2211 PDF objects out of 2487 (max. 8388607)
- 626 named destinations out of 1000 (max. 500000)
- 549 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2455 PDF objects out of 2487 (max. 8388607)
+ 755 named destinations out of 1000 (max. 500000)
+ 567 words of extra memory for PDF output out of 10000 (max. 10000000)
 

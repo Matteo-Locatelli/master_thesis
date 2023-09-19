@@ -17,7 +17,7 @@ eBPF exposes to the user a virtual processor, with a custom set of RISC-like ins
 Thanks to this features, developers can write programs in eBPF bytecode (the form in which the Linux kernel expects eBPF programs) and pass them to the virtual machine to be evaluated.
 
 While it is of course possible to write bytecode directly, developers do not have to create eBPF bytecode from scratch when writing a new program.
-It has been implemented an eBPF back-end for \textit{Low-Level Virtual Machine} (LLVM, ``a collection of modular and reusable compiler and toolchain technologies'' \cite{LLVMWebsite}): as a result \textit{Clang}, the LLVM front-end compiler for C-derived programming languages, can be used to compile a subset of standard C code in an eBPF object file.
+It has been implemented an eBPF back-end for \textit{Low-Level Virtual Machine} (\textit{LLVM}, ``a collection of modular and reusable compiler and toolchain technologies'' \cite{LLVMWebsite}): as a result \textit{Clang}, the LLVM front-end compiler for C-derived programming languages, can be used to compile a subset of standard C code in an eBPF object file.
 While the C to eBPF translation must be done in a very cautious way, it massively expands the use cases of eBPF due to the fact that it makes relatively easy to write new eBPF code in a familiar programming language such as C.
 
 At this point it is important to mention that in a lot of scenarios, eBPF is used indirectly via projects like Cilium, bcc, bpftrace and many more. 
@@ -118,6 +118,7 @@ The generated eBPF bytecode undergoes verification by a safety tool, the eBPF \t
 It is not a security tool inspecting what the programs are doing.
 The verifier checks the bytecode for safety, ensuring that it satisfies all the constraints and security rules to prevent potential security vulnerabilities.
 The safety of the eBPF program is determined in two steps.
+This is why eBPF Programs are written in a restricted subset of C, so that another piece of software can verify it.
 
 The first test ensures that the eBPF program terminates and does not contain any loops that could cause the kernel to lock up. 
 To do so, the verifier does \textit{Directed Acyclic Graph} (\textit{DAG}) check to disallow loops and a depth-first search of the program's \textit{Control Flow Graph} (\textit{CFG}). 

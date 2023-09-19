@@ -28,3 +28,15 @@
 \contentsline {lstlisting}{\numberline {5.25}{\ignorespaces bpf\_printk output message}}{85}{lstlisting.5.25}%
 \contentsline {lstlisting}{\numberline {5.26}{\ignorespaces libbpf-bootstrap kernel-side program with maps}}{86}{lstlisting.5.26}%
 \contentsline {lstlisting}{\numberline {5.27}{\ignorespaces libbpf-bootstrap more complex program debugging messages}}{89}{lstlisting.5.27}%
+\contentsline {lstlisting}{\numberline {6.1}{\ignorespaces Kernel debugger error messages}}{101}{lstlisting.6.1}%
+\contentsline {lstlisting}{\numberline {6.2}{\ignorespaces ``Hello world!'' kernel side program on Windows}}{101}{lstlisting.6.2}%
+\contentsline {lstlisting}{\numberline {6.3}{\ignorespaces ``Hello world!'' compile command}}{102}{lstlisting.6.3}%
+\contentsline {lstlisting}{\numberline {6.4}{\ignorespaces ``Hello world!'' installation command}}{103}{lstlisting.6.4}%
+\contentsline {lstlisting}{\numberline {6.5}{\ignorespaces Network adapter problem}}{103}{lstlisting.6.5}%
+\contentsline {lstlisting}{\numberline {6.6}{\ignorespaces tracelog real time debugging command}}{104}{lstlisting.6.6}%
+\contentsline {lstlisting}{\numberline {6.7}{\ignorespaces tracelog real time message output}}{105}{lstlisting.6.7}%
+\contentsline {lstlisting}{\numberline {6.8}{\ignorespaces tracelog kernel debugging commands}}{105}{lstlisting.6.8}%
+\contentsline {lstlisting}{\numberline {6.9}{\ignorespaces tracelog kernel debugging message output}}{106}{lstlisting.6.9}%
+\contentsline {lstlisting}{\numberline {6.10}{\ignorespaces ``Hello world!'' delete command}}{106}{lstlisting.6.10}%
+\contentsline {lstlisting}{\numberline {6.11}{\ignorespaces hash\_map\_use.c program using windows-ebpf-starter}}{108}{lstlisting.6.11}%
+\contentsline {lstlisting}{\numberline {6.12}{\ignorespaces hash\_map\_use.c program output}}{110}{lstlisting.6.12}%

@@ -294,6 +294,18 @@
     \field{urlyear}{2023}
   \endentry
 
+  \entry{eBPFWinDoc}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{title}{eBPF for Windows full documentation}
+    \verb{url}
+    \verb https://microsoft.github.io/ebpf-for-windows/index.html
+    \endverb
+    \field{urlmonth}{05}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{eBPFWinGitHubRepo}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{E}
@@ -303,6 +315,18 @@
     \verb https://github.com/microsoft/ebpf-for-windows/tree/main
     \endverb
     \field{urlmonth}{05}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{eBPFWinlibbpfHeader}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{title}{eBPF for Windows libbpf.h}
+    \verb{url}
+    \verb https://microsoft.github.io/ebpf-for-windows/libbpf_8h.html
+    \endverb
+    \field{urlmonth}{06}
     \field{urlyear}{2023}
   \endentry
 
@@ -328,6 +352,18 @@
     \verb https://docs.kernel.org/bpf/maps.html
     \endverb
     \field{urlmonth}{03}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{eBPFWinSubComBlogArticle}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{title}{eBPF programming on Windows Subconscious Compute article}
+    \verb{url}
+    \verb https://blog.subcom.tech/ebpf-programming-on-windows/
+    \endverb
+    \field{urlmonth}{06}
     \field{urlyear}{2023}
   \endentry
 
@@ -563,6 +599,18 @@
     \verb https://github.com/opencontainers/image-spec
     \endverb
     \field{urlmonth}{04}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{PrevailVerifier}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{title}{PREVAIL verifier}
+    \verb{url}
+    \verb https://github.com/vbpf/ebpf-verifier
+    \endverb
+    \field{urlmonth}{05}
     \field{urlyear}{2023}
   \endentry
 

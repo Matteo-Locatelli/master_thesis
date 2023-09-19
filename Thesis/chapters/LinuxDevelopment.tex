@@ -563,7 +563,7 @@ This program is really simple, but if we want to understand how to create a eBPF
 	\item 
 		All the reported includes are a must for almost every eBPF program: we already	greatly discussed about \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|vmlinux.h|}, but usually an application makes use of some basic eBPF-related types and constants necessary for using the kernel-side BPF APIs (included in \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|linux/bpf.h|}) and macros, constants and eBPF helper definitions (included in \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf_helpers.h|} provided by libbpf);
 	\item 
-		\colorbox{backcolour}{\lstinline[style=cstyle, language=C]|SEC(...)|} and \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|LICENSE|} are reported for the same reasons as we already discussed for the BumbleBee examples;
+		\colorbox{backcolour}{\lstinline[style=cstyle, language=C]|SEC("...")|} and \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|LICENSE|} are reported for the same reasons as we already discussed for the BumbleBee examples;
 	\item 
 		This time the code defines a tracepoint eBPF program which will be called every time an \colorbox{backcolour}{\lstinline[style=highlight, language=bash]|execve|} system call is invoked from any user-space application (in other words, every time we open a new application on our machine).
 	\item 
