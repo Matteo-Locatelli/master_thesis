@@ -1,14 +1,14 @@
 \chapter{The eBPF subsystem}
 
-From what we have learned from the previous chapter we can try to give a definition to eBPF: it is a ``verified-to-be-safe, fast to switch-to mechanism, for running code in Linux kernel space to react to events such as function calls, function returns, and trace points in kernel or user space'' \cite{eBPFLinuxJournal}.
+From what we have learned from the previous chapter we can try to give a definition to eBPF: it is a ``\textit{verified-to-be-safe, fast to switch-to mechanism, for running code in Linux kernel space to react to events such as function calls, function returns, and trace points in kernel or user space}'' (Kevin Dankwardt, 2020) \cite{eBPFLinuxJournal}.
 In a few words, eBPF is very powerful because it is fast and safe. 
 
-Given also eBPF's efficiency and flexibility, Brendan Gregg, an internationally famous expert in computing performance,  famously coined eBPF as ``superpowers for Linux''.
-Linus Torvalds, the author of the first version of the Linux kernel, expressed that ``BPF has actually been really useful, and the real power of it is how it allows people to do specialized code that isn't enabled until asked for''.
+Given also eBPF's efficiency and flexibility, Brendan Gregg, an internationally famous expert in computing performance, described eBPF with the famous expression for ``\textit{superpowers for Linux}'' (Brendan Gregg 2016).
+Linus Torvalds, the author of the first version of the Linux kernel, expressed that ``\textit{BPF has actually been really useful, and the real power of it is how it allows people to do specialized code that isn't enabled until asked for}'' (Linus Torvalds, 2018).
 Once again, we mention the fact that due to its success in Linux, the eBPF runtime has been ported to other operating systems such as Windows.
 
 Like all superheroes are shocked when they first come across their superpowers, eBPF too can seem overwhelming at first glance.
-To fully appreciate it, the goal of this chapter is to explain everything you need to know about eBPF.
+To fully appreciate it, the goal of this chapter is to explain everything that is important to know about eBPF.
 
 \section{Writing an eBPF program}
 
@@ -17,20 +17,20 @@ eBPF exposes to the user a virtual processor, with a custom set of RISC-like ins
 Thanks to this features, developers can write programs in eBPF bytecode (the form in which the Linux kernel expects eBPF programs) and pass them to the virtual machine to be evaluated.
 
 While it is of course possible to write bytecode directly, developers do not have to create eBPF bytecode from scratch when writing a new program.
-It has been implemented an eBPF back-end for \textit{Low-Level Virtual Machine} (\textit{LLVM}, ``a collection of modular and reusable compiler and toolchain technologies'' \cite{LLVMWebsite}): as a result \textit{Clang}, the LLVM front-end compiler for C-derived programming languages, can be used to compile a subset of standard C code in an eBPF object file.
+It has been implemented an eBPF back-end for \textit{Low-Level Virtual Machine} (\textit{LLVM}, ``\textit{a collection of modular and reusable compiler and toolchain technologies}'' \cite{LLVMWebsite}): as a result \textit{Clang}, the LLVM front-end compiler for C-derived programming languages, can be used to compile a subset of standard C code in an eBPF object file.
 While the C to eBPF translation must be done in a very cautious way, it massively expands the use cases of eBPF due to the fact that it makes relatively easy to write new eBPF code in a familiar programming language such as C.
 
-At this point it is important to mention that in a lot of scenarios, eBPF is used indirectly via projects like Cilium, bcc, bpftrace and many more. 
+At this point it is important to mention that in a lot of scenarios eBPF is used indirectly via projects like \textit{Cilium} \cite{CiliumWebsite}, \textit{BCC} \cite{BCCRepo}, \textit{bpftrace} \cite{bpftraceRepo} and many more (we will talk a bit more about the last two in the next chapter). 
 The peculiarity of these projects is the fact that they provide an abstraction on top of eBPF and do not require writing programs directly: instead, they offer the ability to specify intent-based definitions which are then implemented with eBPF.
 If no higher-level abstraction exists, programs need to be written directly. 
 We are going to look at some of this projects in the next chapter of this paper.
 
-In the following we are going to look at the  components mentioned above and how they work in practice, including how the program safety verification is done.
+In the following we are going to look at the components mentioned above and how they work in practice, including how the program safety verification is done.
 
 \section{Architecture}
 
-We understood that the architecture of eBPF (extended Berkeley Packet Filter) is characterized by its ability to provide programmability within the kernel, offering a powerful framework for safe and efficient extension of kernel functionality. 
-At its core, eBPF operates as an in-kernel virtual machine, running sandboxed programs that are designed to enhance kernel behavior without requiring changes to the kernel source code or loading kernel modules.
+We understood that the architecture of eBPF is characterized by its ability to provide programmability within the kernel, offering a powerful framework for safe and efficient extension of the kernel's functionalities. 
+At its core, eBPF operates as an in-kernel virtual machine, running sandboxed programs that are designed to enhance kernel's capabilities without requiring changes to the kernel source code or loading kernel modules.
 
 When we talk about an eBPF program, we have to consider a big infrastructure of things that make this technology interesting:
 
@@ -44,7 +44,7 @@ When we talk about an eBPF program, we have to consider a big infrastructure of 
 	\item 
 		\textit{Tail calls}, for calling into other eBPF programs;
 	\item 
-		\textit{Hook points}, which are points of execution in the kernel to which an eBPF program	is attached;
+		\textit{Hook points}, which are points of execution in the kernel to which an eBPF program is attached;
 	\item 
 		A \textit{verifier}, a program used to determine the safety of a program;
 	\item 
@@ -54,47 +54,47 @@ When we talk about an eBPF program, we have to consider a big infrastructure of 
 \end{itemize}
 
 When an eBPF program passes the verification process, it is then compiled, loaded in the kernel and attached to a hook point.
-When the associated event or condition occurs in the kernel, the attached eBPF program is triggered to execute and it receives some input data coming from the kernel (e.g. the system call arguments passed by the user space process invoking the system call to the kernel, if the program is attached to a system call execution via a system call tracepoint): the program can then manipulate the input data tu perform various operations, such as filtering a packet (for networking use), compute a set of metric (typically for tracing, where the programs are attached to a very busy execution point in the kernel) or interact with the kernel, as defined by the program's logic.
+When the associated event or condition occurs in the kernel, the attached eBPF program is triggered and it starts its execution: from that point it receives some input data coming from the kernel (for example, if the program is attached to a system call execution via a \textit{tracepoint}, it could receive the system call arguments provided by the kernel every time the by the user space process invokes the system call): the program can then manipulate the input data tu perform various operations, such as filtering a packet (for networking use), compute a set of metric (typically for tracing, where the programs are attached to a very busy execution point in the kernel) or interact with the kernel, as defined by the program's logic.
 
 The following paragraphs provide further details on individual aspects of the eBPF architecture.
 
-\section{The instruction set}
+\section{Instruction set}
 
 In order to guarantee good performance on the kernel side, the RISC instruction set of an eBPF program is simple enough that it can be relatively easily translated into native machine code via a JIT step embedded inside the kernel. 
 This means that right after the verification of the safety of the program, the runtime will not actually suffer the performance overhead of having to execute the eBPF bytecode via the virtual machine. 
 It will just execute straight native machine code, significantly improving the performance.
 
-Moreover, the general purpose RISC instruction set was designed for writing eBPF program in a subset of C which can be compiled into BPF instructions through a compiler back end (e.g. LLVM), so that the kernel can later on map them through an in-kernel JIT compiler into native opcodes for optimal execution performance inside the kernel.
+Moreover, the general purpose RISC instruction set was designed for writing eBPF program in a subset of C which can be compiled into eBPF instructions through a back end compiler (e.g. LLVM), so that the kernel can later on map them through an in-kernel JIT compiler into native \textit{operation codes} (\textit{opcode}, the portion of a machine language instruction that specifies the operation to be performed) for optimal execution performance inside the kernel.
 
 There are several advantages for pushing these instruction into the kernel:
 
 \begin{itemize}
 	\item 
-		The kernel is made programmable without having to cross the boundaries between kernel-space and user-space;
+		The kernel is made programmable without having to cross the boundaries between kernel space and user space;
 	\item 
 		Programs can be heavily optimized for performance by compiling out features that are not required for the use cases the program solves;
 	\item 
-		eBPF provides a stable Application Binary Interface (ABI, the machine language interface between the operative system and its applications) towards user space and does not require any third party kernel modules because it is a core part of the Linux kernel that is shipped everywhere, making eBPF programs portable across different architectures;
+		eBPF provides a stable \textit{Application Binary Interface} (\textit{ABI}, the machine language interface between the operative system and its applications) towards user space and does not require any third party kernel modules because it is a core part of the Linux kernel that is shipped everywhere, making eBPF programs portable across different architectures;
 	\item 
-		eBPF programs work with the kernel, making use of existing kernel infrastructure (e.g. drivers, netdevices, sockets, etc.) and tooling (e.g. iproute2) as well as the safety guarantees which the kernel provides.
+		eBPF programs work with the kernel, making use of the existing kernel infrastructure (drivers, netdevices, sockets, etc.) and tooling (e.g. iproute2), as well as the safety guarantees which the kernel provides.
 \end{itemize}
 
 \section{Hook points}
 
-eBPF programs are event-driven by design and are run when the kernel or an application triggers a certain \textit{hook point}. 
+eBPF programs are event-driven by design and are executed when the kernel or an application triggers a certain \textit{hook point}. 
 When the designated code path is traversed, any eBPF program attached to that point is executed.
-In the kernel there are some pre-defined hooks, including system calls, function entry/exit, kernel tracepoints, network events and several others.
-It is also possible to create custom hook points to attach eBPF programs almost anywhere in kernel or user applications by creating a kernel probe (kprobe) or user probe (uprobe).
+In the kernel there are some predefined hooks, including system calls, function entry/exit, kernel tracepoints, network events and several others.
+It is also possible to create custom hook points to attach eBPF programs almost anywhere in kernel or user applications by creating a \textit{kernel probe} (\textit{kprobe}) or \textit{user probe} (\textit{uprobe}).
 
-Given its origin, eBPF works really well writing network programs and it's possible to write programs that attach to network sockets, enabling the user to do many different operations such as traffic filtering, classification and network classifier actions.
+Given its origin, eBPF works really well for writing network programs and it's possible to write programs that attach to network sockets, enabling the user to do many different operations such as traffic filtering, classification and network classifier actions.
 Even the modification of established network socket configurations can be achieved through eBPF programs.
-A notable use case is the eXpress Data Path (XDP) project \cite{XDPWebsite}, which leverages eBPF to carry out high-performance packet processing by executing eBPF programs at the network stack's lowest level, immediately following packet reception.
+A notable use case is the \textit{eXpress Data Path} (\textit{XDP}) project \cite{XDPWebsite}, which leverages eBPF to carry out high-performance packet processing by executing eBPF programs at the network stack's lowest level, immediately following packet reception.
 
-In addition to network-oriented applications, we already discussed that eBPF has many other purposes: it can filter and restricting system calls, debug the kernel and carry out performance analysis.
-To do so, programs can be attached to tracepoints, kprobes and perf (a tool to analyze performance in the Linux kernel) events.
+In addition to network-oriented applications, we have already discussed that eBPF has many other purposes: it can filter and restricting system calls, debug the kernel and carry out performance analysis.
+To do so, programs can be attached to tracepoints, kprobes and \textit{perf} (a tool to analyze performance in the Linux kernel) events.
 Because eBPF programs can access kernel data structures, developers can write and test new debugging code without having to recompile the kernel (the implications are obvious for engineers whose work is to debug issues on live and running systems).
 
-When the desired hook has been identified, the eBPF program can be loaded into the Linux kernel for verification and further use using the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf()|} system call. 
+When the desired hook has been identified, the eBPF program can be loaded into the Linux kernel for verification and further use using the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf()|} system call (which we will cover later). 
 This is typically done using one of the available eBPF libraries. 
 
 \section{Compiling and loading an eBPF program}
@@ -105,23 +105,22 @@ An eBPF program has to go through a series of steps before being executed inside
 
 \subsection{Compilation}
 
-We already said that an eBPF program is written in a high-level programming language, such as C.
+We have already said that an eBPF program is written in a high-level programming language, such as C.
 The first thing that happens to a program is its compilation using Clang with its eBPF backend LLVM: this process generates eBPF bytecode which resides in an ELF file.
 
 As this file is loaded into the Linux kernel, it goes through two steps before being attached to the requested hook: verification and JIT compilation.
 
 \subsection{Verification}
 
-There are security and stability risks with allowing user-space code to run inside the kernel. 
+There are security and stability risks with allowing user space code to run inside the kernel. 
 So, a number of checks are performed on every eBPF program before it is loaded. 
-The generated eBPF bytecode undergoes verification by a safety tool, the eBPF \textit{verifier}, within the kernel to ensure that the eBPF program is safe to run.
-It is not a security tool inspecting what the programs are doing.
+The generated eBPF bytecode undergoes verification by a safety tool within the kernel, the eBPF \textit{verifier}, to ensure that the eBPF program is safe to run (it is not a security tool that inspects what the programs are doing).
+This is why eBPF Programs are written in a restricted subset of C, so that another piece of software can verify it.
 The verifier checks the bytecode for safety, ensuring that it satisfies all the constraints and security rules to prevent potential security vulnerabilities.
 The safety of the eBPF program is determined in two steps.
-This is why eBPF Programs are written in a restricted subset of C, so that another piece of software can verify it.
 
 The first test ensures that the eBPF program terminates and does not contain any loops that could cause the kernel to lock up. 
-To do so, the verifier does \textit{Directed Acyclic Graph} (\textit{DAG}) check to disallow loops and a depth-first search of the program's \textit{Control Flow Graph} (\textit{CFG}). 
+To do so, the verifier does a \textit{Directed Acyclic Graph} (\textit{DAG}) check to disallow loops and a depth-first search of the program's \textit{Control Flow Graph} (\textit{CFG}). 
 Any program that contains unreachable instructions will fail to load, as they are strictly prohibited (though classic BPF checker allows them).
 Furthermore, there must not be infinite loops: programs are accepted only if the verifier can ensure that loops contain an exit condition which is guaranteed to become true.
 
@@ -131,40 +130,40 @@ This step is done to check two major things:
 
 \begin{itemize}
 	\item 
-		If programs are trying to access invalid memory or out-of-range data (outside the 512 byte of stack designated to each program), due to	the presence of out of bounds jumps, and use uninitialized variables because they should not have the ability to overwrite critical kernel memory or execute arbitrary code;
+		If programs are trying to access invalid memory or out-of-range data (outside the 512 byte of stack designated to each program) due to the presence of out of bounds jumps and using uninitialized variables because they should not have the ability to overwrite critical kernel memory or execute arbitrary code;
 	\item 
 		If programs have a finite complexity (the verifier must be capable of completing its analysis of all possible execution paths within the limits of the configured upper complexity limit).
 \end{itemize}
 
-Although this second operation seems expensive in computation terms, the verifier is smart enough to know when the current state of the program is a subset of one it's already checked. 
-Since all previous paths must be valid (otherwise the program would already have failed to load), the current path must also be valid. 
-This allows the verifier to perform a sort of ``pruning'' to some branches and skip their simulation.
+Although this second operation seems expensive in computation terms, the verifier is smart enough to know when the current state of the program is a subset of one that has been already checked. 
+Since all previous paths must be valid (otherwise the program would already have failed the verification), the current path must also be valid. 
+This allows the verifier to perform a sort of \textit{pruning} to some branches and skip their simulation.
 
-Another thing that is not generally allowed by the eBPF verifier is pointer arithmetic because it works under a ``secure mode'' which enables only privileged processes to load eBPF programs.
+Another thing that is not generally allowed by the eBPF verifier is pointer arithmetic because it works under a \textit{secure mode} which enables only privileged processes to load eBPF programs.
 The idea is to make sure that kernel addresses do not leak to unprivileged users and that pointers cannot be written to memory. 
 Unless unprivileged eBPF is enabled (and secure mode is not enabled), then pointer arithmetic is allowed but only after additional checks are performed (e.g. all pointer accesses are checked for type, alignment and bounds violations).
 
 In general, untrusted programs cannot load eBPF programs: all processes that want to load eBPF programs in the kernel must be running in privileged mode.
-However, you can enable ``unprivileged eBPF'' which allows unprivileged processes to load some eBPF programs subject to a reduced functionality set and with limited access to the kernel.
+However, we can enable \textit{unprivileged eBPF} which allows unprivileged processes to load some eBPF programs subject to a reduced functionality set and with limited access to the kernel.
 
 Lastly, the verifier uses the eBPF program type (covered later) to restrict which kernel functions can be called from eBPF programs and which data structures can be accessed. 
 In fact, an eBPF program cannot randomly modify data structures in the kernel and arbitrary access kernel memory directly.
-To guarantee consistent data access, an eBPF program running is allowed to modify the data of certain data structures inside the kernel only if the modification can be guaranteed to be safe and it can access the data outside of the context of the program via only eBPF helpers (which we will discuss later).
+To guarantee consistent data access, a running eBPF program is allowed to modify the data of certain data structures inside the kernel only if the modification can be guaranteed to be safe and it can access data outside of the context of the program only via eBPF helpers (which we will discuss later).
 
 \subsection{Hardening}
 
 Once the verifier has successfully completed his job, the eBPF program undergoes an \textit{hardening} process according to whether the program is loaded from privileged or unprivileged process.
 
 Hardening refers to the process of enhancing the security and safety of eBPF programs to prevent potential vulnerabilities and ensure their reliable and controlled execution within the kernel. 
-This is particularly important because, as we already know, eBPF programs have the capability to run within the kernel's context, which requires robust measures to mitigate risks.
+This is particularly important because, as we should know by now, eBPF programs have the capability to run within the kernel's context, which requires robust measures to mitigate risks.
 
 This step includes two main operations:
 
 \begin{itemize}
 	\item 
-		The kernel memory holding an eBPF program is protected and made read-only and any attempt to modify the eBPF program (through a kernel bug or malicious manipulation) will crush the kernel instead of allowing it to continue executing the corrupted/manipulated program;
+		The kernel memory holding an eBPF program is protected and made read-only and any attempt to modify the eBPF program (through a kernel bug or malicious manipulation) will crush the kernel instead of allowing it to continue executing the corrupted or manipulated program;
 	\item 
-		All constants in the code are blinded to prevent attackers from injecting executable code as constants which, in the presence of another kernel bug, could allow an attacker to jump into the memory section of the eBPF program to execute code (called JIT spraying attacks, similar to JavaScript injection);
+		All constants in the code are blinded to prevent attackers from injecting executable code as constants which, in the presence of another kernel bug, could allow an attacker to jump into the memory section of the eBPF program to execute code (called \textit{JIT spraying attacks}, similar to \textit{JavaScript injection});
 \end{itemize}
 
 By following these practices, developers can minimize security risks and ensure that eBPF programs operate safely and reliably within the kernel's context, ensuring that only safe and well-behaved programs are allowed to run.
@@ -172,10 +171,9 @@ This process of hardening helps prevent potential security vulnerabilities and e
 
 \subsection{JIT compilation}
 
-Once the bytecode has been verified and hardened, the eBPF \textit{JIT compiler} is executed. 
-It translates the verified eBPF bytecode into native machine code that corresponds to the target CPU architecture which can be directly executed by the processor. 
+Once the bytecode has been verified and hardened, the eBPF \textit{JIT compiler} processes the program: it translates the verified eBPF bytecode into native machine code that corresponds to the target CPU architecture which can be directly executed by the processor. 
 This native code is generated on-the-fly and is specific to the underlying hardware, ensuring optimal execution of eBPF programs by eliminating the overhead of interpreting bytecode.
-The JIT compilation step makes eBPF programs run as efficiently as natively compiled kernel code or as code loaded as a kernel module.
+The JIT compilation step makes eBPF programs run as efficiently as natively compiled kernel code and loaded code via kernel module.
 
 In fact, JIT compilers speed up execution of the eBPF program significantly since they reduce the per instruction cost compared to the interpreter used in cBPF. 
 Most of the times, instructions can be mapped one-to-one with native instructions of the underlying architecture. 
@@ -184,67 +182,68 @@ Moreover, during JIT compilation, the compiler can apply various optimization te
 
 \subsection{Loading and execution}
 
-The resulting native machine code is then loaded into the kernel's memory space: this is done in Linux using the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf()|} system call (see the next paragraph).
-When the predefined event or hook associated to the eBPF program is triggered (e.g., a network packet arrival or a system call), its native machine code generated by the JIT compiler is executed directly by the CPU. 
+The resulting native machine code is then loaded into the kernel's memory space: this is done in Linux using the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf()|} system call (see the next paragraph).
+When the predefined event or hook associated to the eBPF program is triggered (e.g., a network packet arrival or a system call execution), its native machine code generated by the JIT compiler is executed directly by the CPU. 
 This execution is significantly faster than interpreting bytecode, leading to improved performance.
 
-As eBPF serves diverse purposes across various kernel subsystems, each eBPF program type has a distinct procedure for attaching to its relevant system. 
+As eBPF serves different purposes across various kernel subsystems, each eBPF program type has a distinct procedure for attaching to its relevant system. 
 Once the program is attached, it becomes operational, engaging in activities such as filtering, analysis or data capture, according to its intended function. 
-Subsequently, user-space programs can manage active eBPF programs, involving actions like reading states from eBPF maps and, if designed accordingly, modifying the eBPF map to influence program behavior.
+Subsequently, user space programs can manage active eBPF programs, involving actions like reading states from eBPF maps and, if designed accordingly, modifying the eBPF map to influence program behavior.
 
-Furthermore, while the program is running, the JIT compilation process allows for dynamic adaptation of the eBPF program's behavior based on the runtime environment: if changes occur in the system or the program's requirements, the eBPF JIT compiler can recompile the bytecode into a different native machine code to ensure optimal performance.
+Furthermore, while the program is running, the JIT compilation process allows for the dynamic adaptation of eBPF program behavior based on the runtime environment: if changes occur in the system or the program's requirements, the eBPF JIT compiler can recompile the bytecode into a different native machine code to ensure optimal performance.
 
 \section{The bpf() system call}
 
-The creation of the eBPF program as byte code and attaching the loaded program to a system in the kernel are two steps in the process of using an eBPF program that vary by use case.
-However, the step in between these two, that is loading the program into the kernel and creating necessary eBPF-maps, is the core of eBPF and it is what all eBPF applications have in common.
-In Linux, this step is done by the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf()|} system call, which was introduced in the Linux kernel version 3.18, released on the 7th of December 2014, along with the underlying machinery in the kernel: it is an interface provided by the Linux kernel that allows user programs to interact with and utilize eBPF functionality. 
+Compiling the eBPF program into native bytecode and attaching the loaded program to a system in the kernel are two steps in the process of using an eBPF program that vary by use case.
+However, the step in between these two, that is loading the program into the kernel and creating necessary eBPF maps, is the core of eBPF and it is what all eBPF applications have in common.
+
+In Linux, this step is done by the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf()|} system call, which was introduced in the Linux kernel version 3.18, released on the 7th of December 2014, along with the underlying machinery in the kernel: it is an interface provided by the Linux kernel that allows user programs to interact with and utilize eBPF functionality. 
 It serves as a bridge between user space and the kernel, acting as a gateway for user applications to utilize the power of eBPF within the kernel.
-This system call allows for the byte code to be loaded along with a declaration of the the type of eBPF program that’s being loaded and provides many more key functionalities, such as program execution, maps initialization for data exchange, helper function invocation and error handling.
+This system call allows for the bytecode to be loaded along with a declaration of the the type of eBPF program that’s being loaded and provides many more key functionalities, such as program execution, maps initialization for data exchange, helper function invocation and error handling.
 
 Below we can see the necessary syntax of this system call:
 
-\begin{lstlisting}[style=cstyle, language=C, caption={bpf() system call signature}]
+\begin{lstlisting}[style=cstyle, language=C, caption={\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf()|} system call signature.}]
 	#include <linux/bpf.h>
 	int bpf(int cmd, union bpf_attr *attr, unsigned int size);
 \end{lstlisting}
 
-The first line is a must when we want to exploit eBPF functionality: the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|linux/bpf.h|} header file in the Linux kernel contains a collection of macro definitions, function prototypes and data structures related to the eBPF subsystem and programs. 
+The first line is a must when we want to exploit the eBPF functionality: the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|linux/bpf.h|} header file in the Linux kernel contains a collection of macro definitions, function prototypes and data structures related to the eBPF subsystem and programs. 
 This header file provides the necessary interfaces and definitions for user space programs to interact with the eBPF subsystem in the kernel: it includes various constants, helper function prototypes, map data structure definitions and other components that are essential for programming with eBPF in the Linux kernel.
 
-The second line, instead, shows the syntax of the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf()|} system call:
+The second line, instead, shows the syntax of the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf()|} system call:
 
 \begin{itemize}
 	\item 
-		The \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|cmd|} argument tells the operation that has to be performed and essentially defines an API since the type of program loaded in the kernel dictates where the program can be attached, which in-kernel helper functions the verifier will allow to be called, whether network packet data can be accessed directly and the type of object passed as the first argument to the program.;
+		The \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|cmd|} argument tells the operation that has to be performed and essentially defines an API since the type of program loaded in the kernel dictates where the program can be attached, which in-kernel helper functions the verifier will allow to be called, whether network packet data can be accessed directly and the type of object passed as the first argument to the program;
 	\item 
-		The \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|attr|} argument, a pointer to a union of type \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf_attr|}, is an accompanying argument which allows data to be passed between the kernel and user space in a format that depends on the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|cmd|} argument (the unused fields and padding must be zeroed out before the call);
+		The \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|attr|} argument, a pointer to a union of type \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_attr|}, is an accompanying argument which allows data to be passed between the kernel and user space in a format that depends on the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|cmd|} argument (the unused fields and padding must be zeroed out before the call);
 	\item 
-		The \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|size|} argument is the size of the union pointed by \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|attr|} in bytes.
+		The \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|size|} argument is the size of the union pointed by \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|attr|} in bytes.
 \end{itemize}
 
-We are not going to describe in detail all the possible values that there are for the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|cmd|} and \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|attr|} arguments: the ones who want to deepen these topics can read the Linux manual page related to the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf()|} system call \cite{BPFManPage} or can go through different files directly related to using eBPF from user-space that can be found on the GitHub repository of the Linux kernel \cite{LinuxKernelRepo}, such as the latest Linux kernel code related to this system call \cite{BPFKernelCode} or the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf.h|} header file \cite{BPFHeader} for assisting in using it.	.
+We are not going to describe in detail all the possible values that there are for the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|cmd|} and \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|attr|} arguments: the ones who want to deepen these topics can read the Linux manual page related to the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf()|} system call \cite{BPFManPage} or can go through different files directly related to using eBPF from user space that can be found on the GitHub repository of the Linux kernel \cite{LinuxKernelRepo}, such as the latest Linux kernel code related to this system call \cite{BPFKernelCode} or the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf.h|} header file \cite{BPFHeader} for assisting in using it.
 
-The most important thing to know is that the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf()|} macro is not meant to be directly called in eBPF programs; instead, it serves as a placeholder to indicate the invocation of helper functions during the JIT compilation process.
-When we write eBPF programs, we don't explicitly use \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf()|} in our code. 
+The most important thing to know is that the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf()|} macro is not meant to be directly called in eBPF programs; instead, it serves as a placeholder to indicate the invocation of helper functions during the JIT compilation process.
+When we write eBPF programs, we don't explicitly use \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf()|} in our code. 
 Instead, we use the names of specific helper functions provided by the eBPF runtime.
-These helper functions are then invoked indirectly through the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf()|} macro during the JIT compilation process: it essentially tells the eBPF verifier and JIT compiler that a helper function is being called at that point in the program. 
-The actual mapping from \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf()|} to the appropriate helper function is handled by the eBPF runtime during the loading and verification process.
-So, while there is only one \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf()|} macro, there are many different eBPF helper functions that it represents, each with its own specific functionality and usage.
+These helper functions are then invoked indirectly through the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf()|} macro during the JIT compilation process: it essentially tells the eBPF verifier and JIT compiler that a helper function is being called at that point in the program. 
+The actual mapping from \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf()|} to the appropriate helper function is handled by the eBPF runtime during the loading and verification process.
+So, while there is only one \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf()|} macro, there are many different eBPF helper functions, each of them with its own specific functionality and usage.
 
 \section{Tail and function calls}
 
 eBPF programs are modular thanks to the the concepts of \textit{tail} and \textit{function calls}.
  
 Function calls allow defining and calling functions within an eBPF program: this is a standard procedure in all programming languages. 
-But there are a couple of things that developers have to consider when they declare a function in an eBPF program:
-At the beginning of eBPF, all the reusable functions have to be declared \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|inline|}, resulting in duplication of these functions in the object file of the program.
+But there are a couple of things that developers have to consider when they declare a function in an eBPF program.
+At the beginning of eBPF, all the reusable functions have to be declared \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|inline|}, resulting in duplication of these functions in the object file of the program.
 The main reason was that the loader, the verifier and the JIT compiler were not supporting the call of functions.
-From Linux kernel 4.16 and LLVM 6.0, this constrain got lifted and eBPF programs do not longer need to use \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|inline|} everywhere.
-This was an important performance optimization since it heavily reduces the generated eBPF code size and therefore becomes friendlier to a CPU’s instruction cache.
-Moreover, it is a good practice to put \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|static|} in the signature of all methods of eBPF programs: since they are written in a restricted set of C, static functions are not	visible outside the translation unit, which is the object file the program is compiled into, increasing the level of safety in the program.
+From Linux kernel 4.16 and LLVM 6.0, this constrain got lifted and eBPF programs do not longer need to use \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|inline|} everywhere.
+This was an important performance optimization since it heavily reduces the generated eBPF bytecode size and therefore becomes friendlier to a CPU’s instruction cache.
+Moreover, it is a good practice to put \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|static|} in the signature of all methods of eBPF programs: since they are written in a restricted set of C, static functions are not visible outside the translation unit, which is the object file the program is compiled into, increasing the level of safety in the program.
 
-Tail calls, however, are a mechanism within the eBPF programming framework that enables one eBPF program to efficiently invoke another eBPF program and replace the execution context, similar to how the \colorbox{backcolour}{\lstinline[style=highlight, language=bash]|execve|} system call operates for regular processes, without returning back to the old program.
+Tail calls, however, are a mechanism within the eBPF programming framework that enables one eBPF program to efficiently invoke another eBPF program and replace the execution context (similar to how the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|execve|} system call operates for regular processes), without returning back to the old program.
 This second mechanism has minimal overhead (unlike function calls) and it is implemented as a long jump, reusing the same stack frame: this allows the modularization and reuse of eBPF logic, promoting code organization, maintainability and performance.
 
 When an eBPF program encounters a tail call instruction, it effectively transfers control to the specified eBPF program.
@@ -269,21 +268,21 @@ There are two components:
 
 \begin{itemize}
 	\item 
-		A special map (key-value data structure), called \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|BPF_MAP_TYPE_PROG_ARRAY|}, has its values populated by file descriptors of the tail called eBPF programs (currently it is write-only from user-space side);
+		A special map, called \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|BPF_MAP_TYPE_PROG_ARRAY|}, has its values populated by file descriptors of the tail called eBPF programs (currently it is write-only from user space side);
 	\item 
-		A \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf_tail_call()|} helper is called, where the context, a reference to the program array and the lookup key of the map are passed to. 
+		A \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_tail_call()|} helper is called and the context, a reference to the program array and the lookup key of the map are passed to. 
 \end{itemize}
 
 Then, the kernel inlines this helper call directly into a specialized eBPF instruction.
-It takes the key passed to the helper and looks for that value in the map to pull the file descriptor: then , it atomically replaces program pointers at the given map slot. 
+It takes the key passed to the helper and looks for that value in the map to pull the file descriptor: then, it atomically replaces program pointers at the given map slot. 
 
-If the provided key is not present in the map, the kernel will just continue the execution of the old program with the instructions following after the \colorbox{backcolour}{\lstinline[style=cstyle, language=C]|bpf_tail_call()|}.
+If the provided key is not present in the map, the kernel will just continue the execution of the old program with the instructions following the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_tail_call()|}.
 
 The use of tail calls is an optimization technique that contributes to the efficiency of eBPF programs. 
 By minimizing the overhead associated with program transitions and context switches, eBPF tail calls enhance the performance of activities (e.g. packet processing and tracing) carried out by eBPF programs within the kernel.
-Furthermore, during runtime, a developer can alter the eBPF program's execution behavior by adding or replacing atomically various functionalities.
+Furthermore, during runtime, a developer can alter the eBPF program execution behavior by adding or replacing atomically various functionalities.
 
-Up to Linux kernel 5.9, subprograms and tail calls were mutually exclusive: eBPF programs that used tail calls could not take advantage of reducing program image size and faster load times.
+Up to Linux kernel 5.9, subprograms and tail calls were mutually exclusive: eBPF programs that used tail calls could not take advantage of reducing program image size and having faster load times.
 Since Linux kernel 5.10, the developer is allowed to combine the two features, but with some restrictions:
 
 \begin{itemize}
@@ -295,7 +294,7 @@ Since Linux kernel 5.10, the developer is allowed to combine the two features, b
 		The maximum number of tail calls is 33, so that infinite loops can't be created.
 \end{itemize}
 
-In total, with this restriction, the eBPF program’s call chain can consume at most 8 kB of stack space. 
+With this restriction, the eBPF program’s call chain can in total consume at most 8 kB of stack space. 
 Without this, eBPF programs will run on a stack size of 512 bytes, resulting in a total size of 16 kB for the maximum number of queue calls that could overload the kernel stack on some architectures.
 
 \section{Helper functions}
@@ -305,7 +304,7 @@ If this was allowed, eBPF programs would depend on particular kernel versions an
 Instead, eBPF programs can use \textit{helper functions}, which are implemented inside the kernel in C and are thus hardcoded and part of the kernel ABI. 
 
 These helpers are one of the major things that makes eBPF different from cBPF: they are a set of predefined functions provided by the eBPF runtime environment to assist eBPF programs in performing various tasks and interacting with the kernel.
-In a few words, they execute some operation on behalf of the eBPF program, natively, to interact with the system or with the context in which they work. 
+In a few words, they natively execute some operation on behalf of the eBPF program to interact with the system or with the context in which they work. 
 
 Being functions, their signature is the typical one that all functions in C have: a return type, an name of the helper and a list of arguments.
 The specific signatures of eBPF helpers may vary based on the helper's purpose and the operations it supports. 
@@ -321,32 +320,32 @@ There are a few more things that a developer has to take into account when using
 	\item 
 		Due to eBPF conventions, a helper can not have more than five arguments;
 	\item 
-		For how an helper call behaves, we can understand that calling helpers introduces no overhead, thus offering excellent performance (internally, eBPF programs call directly into the compiled helper functions without requiring any foreign-function interface).
+		For how an helper call behaves, we can understand that calling helpers introduces no overhead, thus offering excellent performance (internally, eBPF programs called directly into the compiled helper functions without requiring any foreign-function interface).
 \end{itemize}
 
 Therefore, eBPF helpers serve as a bridge between the eBPF program and the underlying kernel, providing a safe and controlled way to perform operations that would otherwise be restricted due to the isolated nature of eBPF programs, such as accessing and manipulate data, performing calculations, interacting with external resources and making decisions based on specific conditions.
-Although developers can do many operations with current helpers, the set of available helper calls is constantly evolving.
+Although developers can do many operations with the current helpers, the set of available helper calls is constantly evolving.
 Some common functionalities of eBPF helper functions include:
 
 \begin{itemize}
 	\item 
 		Allowing eBPF programs to read from and write to memory locations to ensure that memory access is properly bounded and does not violate kernel memory protection;
 	\item 
-		Enabling eBPF programs to inspect and modify network packets, headers and data, used for tasks like packet filtering, classification modification;
+		Enabling eBPF programs to inspect and modify network packets, headers and data, used for tasks like packet filtering, classification and modification;
 	\item 
 		Getting access to various time-related information, such as timestamps and timers, allowing eBPF programs to track time and perform time-sensitive operations;
 	\item 
 		Doing mathematical operations, enabling eBPF programs to perform calculations, manipulate numeric values and generate random numbers;
 	\item 
-		Inserting, updating and deleting key-value pairs in maps, since eBPF programs can interact with eBPF maps;
+		Inserting, updating and deleting key-value pairs in maps, providing to eBPF programs a way to interact with eBPF maps;
 	\item 
-		Helping eBPF programs implement synchronization mechanisms to	safely access shared data structures;
+		Helping eBPF programs implement synchronization mechanisms to safely access shared data structures;
 	\item 
-		Enabling eBPF programs to interact with tracepoints and perf events, allowing for efficient tracing and profiling of kernel and user-space events;
+		Enabling eBPF programs to interact with tracepoints and perf events, allowing for efficient tracing and profiling of kernel and user space events;
 	\item 
 		Allowing eBPF programs to interact with files and sockets, enabling I/O operations and communication between eBPF programs and user space;
 	\item 
-		Letting the program to print debugging messages.
+		Letting the program print debug messages.
 \end{itemize}
 
 To sum it up, eBPF helpers provide a standardized way for eBPF programs to consult a core kernel defined set of function calls in order to perform essential tasks (retrieve/push data from/to the kernel) without compromising safety and security. 
@@ -356,7 +355,7 @@ They are a critical component of the eBPF ecosystem and contribute to the versat
 
 Another substantial difference between cBPF and eBPF is the introduction of \textit{maps}: they are more or less generic key-value data structures that reside in kernel space used to 
 allow efficient storage and low-throughput data flow between user and kernel space while being persistent across different invocations.
-In particular, eBPF maps can be accessed from eBPF programs using helper functions as well as from applications in user space via a system call.
+In particular, eBPF maps can be accessed from eBPF programs using helper functions as well as from applications in user space via system call.
 They serve as a mechanism for communication and coordination between eBPF programs and user applications.
 
 The life cycle of maps is very simple: when a map is successfully created, a file descriptor associated with that map is returned and they are normally destroyed by closing the associated file descriptor.
@@ -376,9 +375,8 @@ eBPF maps enable the following functionalities:
 \end{itemize}
 
 eBPF maps come in different types, each designed for specific use cases.
-It is not in the interest of this paper to present all map types: the ones who want to check them can visit the Linux kernel documentation about eBPF maps \cite{eBPFLinuxMaps}.
+It is not in the interest of this paper to present all map types: the ones who want to check them can visit the Linux kernel documentation article about eBPF maps \cite{eBPFLinuxMaps}.
 It is enough to know that each map is defined by four values: a type, a maximum number of elements, a value size in bytes and a key size in bytes.
-Furthermore, there are generic maps with per-CPU and non-per-CPU flavor that can read and write arbitrary data and some map types work with additional eBPF helper functions that perform special tasks based on the map contents.
+Furthermore, there are generic maps with a per-CPU or a non-per-CPU flavor that can read and write arbitrary data and some other map types that work with additional eBPF helper functions to perform special tasks based on the map contents.
 
 So, eBPF maps provide a powerful mechanism for eBPF programs to interact with the wider system, enabling dynamic data sharing and coordination between the kernel and user space.
-

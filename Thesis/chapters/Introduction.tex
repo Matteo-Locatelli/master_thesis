@@ -1,17 +1,17 @@
 \chapter{Introduction}
 
 In the ever-evolving landscape of computer science and networking, the demand for efficient, flexible and secure packet filtering technologies has been dominant. 
-The \textit{Berkeley Packet Filter} (BPF), an innovative technology developed in the Unix environment, has emerged as a powerful tool for network monitoring, traffic analysis and security enforcement. 
-Over the years, BPF has undergone significant advancements, culminating in the birth of \textit{Extended Berkeley Packet Filter} (eBPF), a groundbreaking extension that has revolutionized network engineering and performance analysis.
+The \textit{Berkeley Packet Filter} (\textit{BPF}), an innovative technology developed in the Unix environment, has emerged as a powerful tool for network monitoring, traffic analysis and security enforcement. 
+Over the years, BPF has undergone significant advancements, culminating in the birth of \textit{Extended Berkeley Packet Filter} (\textit{eBPF}), a groundbreaking extension that has revolutionized network engineering and performance analysis.
 
 \section{Background}
 
-Computer networks establish the backbone of modern communication, enabling the seamless exchange of information across the globe. 
+Computer networks establish the backbone of modern communication, enabling the consistent exchange of information across the globe. 
 
 The rapid growth of network traffic, the rise of complex cyber threats and the increasing need for real-time monitoring have motivated researchers and engineers to explore innovative solutions to enhance network performance and to build robust security mechanisms.
 Packet filtering, a fundamental networking technique, serves as a first line of defense in safeguarding networks and optimizing data transmission.
 
-Originally conceived in the 1990s, the Berkeley Packet Filter was designed as a mechanism to filter packets at the kernel level for the Berkeley Software Distribution (BSD) operating system (a discontinued operating system based on the early versions of the Unix operating system). 
+Originally conceived in the 1990s, the Berkeley Packet Filter was designed as a mechanism to filter packets at the kernel level for the \textit{Berkeley Software Distribution} (\textit{BSD}) operating system, a discontinued operating system based on the early versions of Unix. 
 However, its potential, consisting of its lightweight and versatile design, far exceeded its initial purpose and it evolved into a versatile technology with applications across various networking domains.
 
 Over the years, BPF has undergone significant developments and adaptations, until it resulted in the advent of eBPF: with the introduction of a new virtual machine and bytecode, eBPF allowed for the dynamic execution of custom programs within the kernel context, extending its applicability beyond traditional packet filtering to areas such as network monitoring, tracing and deep packet inspection.
@@ -26,7 +26,7 @@ In addition to that, we will explore the advancements introduced to eBPF on both
 
 \section{Objectives}
 
-This master's thesis aims to provide an in-depth analysis of eBPF's architecture, installation and functionalities in both operating systems, while showing the history, development and impact of eBPF in the world of computer science and network engineering. 
+This master's thesis aims to provide an in-depth analysis of eBPF's architecture, installation and functionality in both operating systems, while showing the history, development and impact of eBPF in the world of computer science and network engineering. 
 
 The primary objectives of this research are as follows:
 
@@ -53,23 +53,30 @@ The primary objectives of this research are as follows:
 
 \section{Organization of the Thesis}
 
-\todo{BETTER ORGANIZATION -> TEXT OR LIST}
-
 The subsequent chapters of this thesis will be organized as follows:
 
 \begin{itemize}
 	\item 
-		Chapter 2: the history of eBPF (with real-world examples);
+		Chapter 2 delves into the roots of eBPF, tracing its evolution from its inception to its current state;
 	\item 
-		Chapter 3: How eBPF works
+		In chapter 3, we dive deep into the technical structure of eBPF. 
+		We explore its inner workings, focusing on its unique design and architecture.
+		This chapter serves as a foundation for the practical applications discussed in subsequent chapters;
 	\item 
-		Chapter 4: Applications ad infrastructure of eBPF (BCC, libbpf, and many more from ebpf.io)
+		Chapter 4 explores the rich ecosystem surrounding eBPF. 
+		We discuss essential tools like \textit{BCC} and \textit{libbpf}.
+		This chapter showcases how eBPF is more than just a concept, but it is a thriving ecosystem;
 	\item 
-		Chapter 5: eBPF on Linux (installation and programs development);
+		Chapter 5 is dedicated to present the process of setting up eBPF and developing programs tailored in the Linux environments. 
+		We will show some practical examples to provide a hands-on approach to mastering eBPF on Linux;
 	\item 
-		Chapter 6: eBPF on Windows (installation and programs development);
+		This chapter expands our scope to eBPF on the Windows platform. 
+		We explore the recent integration of eBPF into the Windows ecosystem, offering step-by-step instructions for installation and program development. 
+		Our goal is to bridge the gap between eBPF and Windows, making it accessible to a wider audience;
 	\item 
-		Chapter 7: Conclusion.
+		In the final chapter, we reflect on our journey through the world of eBPF. 
+		We summarize key outcomes, discuss the current state of eBPF and explore its future prospects on both Linux and Windows. 
+		This chapter serves as a culmination of our exploration and provides a forward-looking perspective.
 \end{itemize}
 
 Through this master's thesis, we hope to offer a comprehensive understanding of eBPF's significance, capabilities and potential in modern networking environments.
@@ -78,7 +85,7 @@ By exploring the installation and development processes on both Linux and Window
 
 \section{Repository of the project}
 
-\textit{GitHub} is a platform and cloud-based service for software development and collaborative version control using Git, a distributed version control system that tracks changes in any set of computer files, allowing developers to store and manage their code, owned by the company \verb|GitHub Inc.|, whose logo is displayed in Figure \ref{fig:GitHub_logo}.
+\textit{GitHub} is a platform and cloud-based service for software development and collaborative version control using \textit{Git}, a distributed version control system that tracks changes in any set of computer files, allowing developers to store and manage their code, owned by the company \textit{GitHub Incorporation}, whose logo is displayed in Figure \ref{fig:GitHub_logo}.
 It provides the distributed version control of Git plus access control, bug tracking, software feature requests, task management, continuous integration and wikis for every project.
 It is commonly used to host open source software development projects.
 
@@ -89,15 +96,15 @@ It is commonly used to host open source software development projects.
 	\label{fig:GitHub_logo}
 \end{figure}
 
-Throughout the course of this master's thesis about eBPF, GitHub was an indispensable platform that played a dual role in enhancing my research journey. 
+Throughout the course of this master's thesis about eBPF, GitHub was an indispensable platform that played a dual role in enhancing our research journey. 
 
-Firstly, it served as an efficient instrument to share the progress of my work with my  co-advisors and make easier the collaboration during the entire development process. 
-Its version control system allowed me to keep track of changes, maintain a detailed history of my project and collaborate consistently with my co-advisors, ensuring a smooth and efficient development workflow. 
-By regularly pushing updates to the repository \cite{MasterThesisRepo}, the co-advisors were able to monitor the evolution of my work, review code changes, provide timely feedback and offer valuable suggestions for improvement.
+Firstly, it served as an efficient instrument to share the progress of the work with the co-advisors and made the collaboration during the entire development process easier. 
+Its version control system allowed us to keep track of changes, maintain a detailed history of my project and collaborate consistently with the co-advisors, ensuring a smooth and efficient development workflow. 
+By regularly pushing updates to the repository of this project \cite{MasterThesisRepo}, the co-advisors were able to monitor the evolution of the work, review code changes, provide timely feedback and offer valuable suggestions for improvement.
 
 Secondly, GitHub was used as an invaluable resource for the eBPF community: during our research, we encountered several repositories (which we will discuss later) dedicated to developing and optimizing eBPF environments, tools and libraries. 
-By studying and understanding their implementations, we were able to build upon the expertise and contributions of the open-source community, so that the quality and scope of my research have been enriched.
+By studying and understanding their implementations, we were able to build upon the expertise and contributions of the open-source community, so that the quality and scope of our research have been enriched.
 
 The open-source spirit of GitHub made knowledge exchange and collective growth easier, enabling us to contribute to the eBPF community while benefiting from the collective expertise it had to offer.
-In fact, the public visibility of the GitHub repository of this project opens up the possibility of sharing my work with the wider community. 
+In fact, the public visibility of the GitHub repository of this project opens up the possibility of sharing our work with the wider community. 
 By making the repository public, we hope that others can benefit from the knowledge and insights gained during the project, encouraging collaboration and contributions from future researchers and developers in the field of eBPF and its applications.

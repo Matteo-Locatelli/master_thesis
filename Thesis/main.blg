@@ -24,71 +24,50 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-Reallocating 'field_info' (item size: 4) to 13680 items.
+Reallocating 'field_info' (item size: 4) to 13960 items.
 Database file #1: main-blx.bib
 Database file #2: bibliography.bib
-I was expecting a `,' or a `}'---line 108 of file bibliography.bib
- :  
- :  urldate   = {2023-03}
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 114 of file bibliography.bib
- :  
- :  urldate   = {2023-03}
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 120 of file bibliography.bib
- :  
- :  urldate   = {2023-03}
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 126 of file bibliography.bib
- :  
- :  urldate   = {2023-03}
-(Error may have been on previous line)
-I'm skipping whatever remains of this entry
 Biblatex version: 3.18
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
-You've used 62 entries,
+You've used 64 entries,
             6399 wiz_defined-function locations,
-            1456 strings with 15674 characters,
-and the built_in function-call counts, 177626 in all, are:
-= -- 3504
-> -- 14527
-< -- 1499
-+ -- 13511
-- -- 13106
-* -- 5789
-:= -- 17411
+            1470 strings with 16339 characters,
+and the built_in function-call counts, 223608 in all, are:
+= -- 6643
+> -- 17154
+< -- 1723
++ -- 16113
+- -- 14816
+* -- 8631
+:= -- 23878
 add.period$ -- 0
-call.type$ -- 62
-change.case$ -- 249
-chr.to.int$ -- 1056
-cite$ -- 122
-duplicate$ -- 17422
-empty$ -- 18561
-format.name$ -- 67
-if$ -- 28306
+call.type$ -- 64
+change.case$ -- 309
+chr.to.int$ -- 1164
+cite$ -- 126
+duplicate$ -- 21816
+empty$ -- 21278
+format.name$ -- 720
+if$ -- 36374
 int.to.chr$ -- 0
-int.to.str$ -- 62
+int.to.str$ -- 91
 missing$ -- 0
-newline$ -- 776
-num.names$ -- 41
-pop$ -- 19841
+newline$ -- 951
+num.names$ -- 616
+pop$ -- 20672
 preamble$ -- 1
-purify$ -- 194
+purify$ -- 291
 quote$ -- 0
-skip$ -- 5224
+skip$ -- 6737
 stack$ -- 0
-substring$ -- 5139
-swap$ -- 5872
-text.length$ -- 1289
-text.prefix$ -- 61
+substring$ -- 10296
+swap$ -- 6646
+text.length$ -- 1506
+text.prefix$ -- 63
 top$ -- 1
-type$ -- 2096
+type$ -- 2164
 warning$ -- 0
-while$ -- 1122
+while$ -- 1876
 width$ -- 0
-write$ -- 715
-(There were 4 error messages)
+write$ -- 888
