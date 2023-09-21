@@ -433,7 +433,7 @@
     \field{labeltitlesource}{title}
     \field{sortinit}{L}
     \field{sortinithash}{L}
-    \field{title}{Linux kernel code of the bpf system call}
+    \field{title}{Linux kernel code of the bpf() system call}
     \verb{url}
     \verb https://github.com/torvalds/linux/blob/master/kernel/bpf/syscall.c
     \endverb
@@ -544,7 +544,7 @@
     \field{labeltitlesource}{title}
     \field{sortinit}{L}
     \field{sortinithash}{L}
-    \field{title}{Linux manual page about the bpf system call}
+    \field{title}{Linux manual page about the bpf() system call}
     \verb{url}
     \verb https://man7.org/linux/man-pages/man2/bpf.2.html
     \endverb
@@ -747,7 +747,7 @@
     \field{labeltitlesource}{title}
     \field{sortinit}{N}
     \field{sortinithash}{N}
-    \field{title}{The guide to bpf\_trace\_printk and bpf\_printk}
+    \field{title}{The guide to bpf\_trace\_printk() and bpf\_printk()}
     \verb{url}
     \verb https://nakryiko.com/posts/bpf-tips-printk/
     \endverb

@@ -84,7 +84,7 @@ The two things that are worthy of note with this approach are the following:
 	\item 
 		On our host computer we have to install a set of debugging tools for Windows.
 		There are a few available \cite{DbgToolsWin}, but we decided to stick with the classic \textit{WinDbg}, a debugger that can be used to analyze crash dumps, debug live user-mode and kernel-mode code and examine CPU registers and memory \cite{InstallWinDbg}.
-		After following the installation path of this tool, we will find it under \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|$C:\\Program Files (x86)\\Windows Kits\\10\\Debuggers\\x64|};
+		After following the installation path of this tool, we will find it under \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|C:\\Program Files (x86)\\Windows Kits\\10\\Debuggers\\x64|};
 	\item 
 		Since it is very likely that sometimes we will shut down our virtual machine, every time that we are going to turn it on we have to start the kernel debugger attached to it (we will present later how to do it).
 		This is quite inconvenient due to the fact that it requires a bit of time every time.  
@@ -103,16 +103,19 @@ In particular, we have to:
 	\item 
 		Open a \textit{Command prompt} with administrator privileges on both the machines;
 	\item 
-		Check the host IP address with the command \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|ipconfig|} because if we let the \textit{Dynamic Host Configuration Protocol} (\textit{DHCP}, a network management protocol used on IP networks for automatically assigning IP addresses and other communication parameters to devices connected to the network using a client–server architecture) to assign automatically an IP address to our computer, the address may vary;
+		Check the host IP address with the command \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|ipconfig|} because if we let the \textit{Dynamic Host Configuration Protocol} (\textit{DHCP}, a network management protocol used on IP networks for automatically assigning IP addresses and other communication parameters to devices connected to the network using a client–server architecture) to assign automatically an IP address to our computer, the address may vary;
 	\item 
-		On the virtual machine, in the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|C:\\KDNET|} folder (that we should have created if we followed the last mentioned article) we have to run \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|C:kdnet <YourIPAddress> <YourDebugPort>|}, where the debug port must be within the range 50000-50039.
-		This command will give us another command that we have to copy and run on the host machine.
-		It will look like this: \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|windbg -k net:port=<YourDebugPort>,key=<YourKey>|}, where the key consists of four alphanumeric strings separated by three dots;
+		On the virtual machine, in the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|C:\\KDNET|} folder (that we should have created if we have correctly followed the last mentioned article), we have to run \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|kdnet <HostIPAddress> <DebugPort>|}, where the debug port must be within the range 50000-50039.
+		This command will give us a few messages and another command that we have to copy and run on the host machine.
+		It will look like this: \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|windbg -k net:port=<DebugPort>,key=<YourKey>|}, where the key consists of four alphanumeric strings separated by three dots;
 	\item 
 		On our host machine we have to:
 		\begin{itemize}
 			\item 
-				Go to the folder where wh have installed WinDbg, which is \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|"C:\\Program Files (x86)\\Windows Kits\\10\\Debuggers\\x64"|};
+				Go to the folder where we have installed WinDbg, which is 
+				
+				\noindent
+				\colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|"C:\\Program Files (x86)\\Windows Kits\\10\\Debuggers\\x64"|};
 			\item 
 				Run the command that we have copied from the virtual machine.
 		\end{itemize}
@@ -122,26 +125,26 @@ In particular, we have to:
 	\item 
 		Disable \textit{Enhanced session} on the virtual machine using the \textit{View} pull down menu in the VM;
 	\item 
-		Restart the virtual machine with the command \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|shutdown -r -t|}.
+		Restart the virtual machine with the command \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|shutdown -r -t|}.
 		If after we restart the virtual machine one time the \textit{Debuggee not connected} string did not change, we have to restart it a second time.
 		If we do so, we should be able to see \textit{Debugger is running...}.
 \end{itemize}
 
 After everything is done we now have started our virtual machine with a kernel debugger attached.
 In Figure \ref{fig:WinDbg} we can look at what we should see once we start the Windows debugger on our host machine.
-In particular, Figure \ref{fig:WinDbgNc} shows the debugger interface immediately after we run the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|windbg|} command on our host machine, while Figure \ref{fig:WinDbgR} displays the interface once we reboot our virtual machine two times.
+In particular, Figure \ref{fig:WinDbgNc} shows the debugger interface immediately after we run the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|windbg|} command on our host machine, while Figure \ref{fig:WinDbgR} displays the interface once we reboot our virtual machine two times.
 
 \begin{figure}[h]
 	\centering
 	\begin{subfigure}{.5\textwidth}
 		\centering
-		\includegraphics[width=0.7\linewidth]{images/WindowsDevelopment/WinDbg_nc.png}
+		\includegraphics[width=0.9\linewidth]{images/WindowsDevelopment/WinDbg_nc.png}
 		\caption{}
 		\label{fig:WinDbgNc}
 	\end{subfigure}%
 	\begin{subfigure}{.5\textwidth}
 		\centering
-		\includegraphics[width=0.7\linewidth]{images/WindowsDevelopment/WinDbg_r.png}
+		\includegraphics[width=0.9\linewidth]{images/WindowsDevelopment/WinDbg_r.png}
 		\caption{}
 		\label{fig:WinDbgR}
 	\end{subfigure}	
@@ -182,18 +185,18 @@ Even though the tutorial is pretty clear, we have to point out a few things to g
 
 \begin{itemize}
 	\item 
-		To explain how sections work, the tutorial first uses \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|#pragma clang section|} and then switches to the macro \raggedright\raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|SEC("...")|}.
+		To explain how sections work, the tutorial first uses \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|#pragma clang section|} and then switches to the macro \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|SEC("...")|}.
 		They have the same effect, but we suggest to stick to the traditional way that we have already seen in Linux; 
 	\item 
-		From the tutorial we can see that inside the \raggedright\raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|SEC("...")|} macro we could write anything we want.
+		From the tutorial we can see that inside the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|SEC("...")|} macro we could write anything we want.
 		However, the number of valid hook points is limited (and they are different from Linux).
-		To see what are the strings that can be written inside the macro to designate which hook point the eBPF program is designed for, we have to run \raggedright\raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|ls HKCU:\\Software\\eBPF\\Providers\\SectionData|} on \textit{Windows PowerShell} (not Command Prompt) terminal with administrator privileges;
+		To see what are the strings that can be written inside the macro to designate which hook point the eBPF program is designed for, we have to run \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|ls HKCU:\\Software\\eBPF\\Providers\\SectionData|} on \textit{Windows PowerShell} (not Command Prompt) terminal with administrator privileges;
 	\item 
 		Among all the examples provided by the tutorial, not all of them can be installed inside the Windows kernel.
-		If we want to do so, inside the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|SEC("...")|} macro we must use a string for a valid hook point;
+		If we want to do so, inside the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|SEC("...")|} macro we must use a string for a valid hook point;
 	\item 
-		If we have to include some header files, after we compile the program we could get an error saying that the file has not been found.
-		To solve this we have to include the full path to that file (in our case, for example, to include the header \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_helpers.h|} in our programs, we have to write \raggedright\raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|#include "C:\\eBPF-for-Windows.0.9.0\\build\\native\\include\\bpf_helpers.h"|}.
+		If we attempt to include an header file, during the compilation process of our program we could get an error indicating that the file has not been found.
+		We can resolve this by specifying the full path to that file (in our case, for example, to include the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_helpers.h|} header in our programs, we should write\\\colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|#include "C:\\eBPF-for-Windows.0.9.0\\build\\native\\include\\bpf_helpers.h"|}.
 \end{itemize}
 
 Once we are done with the basic tutorial, there is a more complex one that illustrates how to understand and debug eBPF verification failures in the \textit{debugging.md} document \cite{DebugDoc}.
@@ -201,7 +204,7 @@ We are not going to cover it since our focus is to take the developed programs, 
 
 In fact, now we are going to develop our first program: like we did in Linux, we are going to write a simple \textit{Hello World!}-like program and we are going to show all the process required to look at some debug messages.
 
-In Windows we have just to define the code of the program that we are going to inject in the kernel: we will call our program \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|helloworld.c|}.
+In Windows we have just to define the code of the program that we are going to inject in the kernel: we will call our program \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|helloworld.c|}.
 
 However, once we try to write some code (for example using Visual Studio), in our kernel debugger on our host machine several error messages will appear:
 
@@ -213,7 +216,7 @@ However, once we try to write some code (for example using Visual Studio), in ou
 We can just ignore them: for the purpose of this thesis we have not studied the debugger in depth, but there is a lot about it in the documentation on Microsoft Learn.
 We will see later that our debugger works and prints debug messages.
 
-In the following there is the code of our \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|helloworld.c|} program.
+In the following there is the code of our \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|helloworld.c|} program.
 
 \begin{lstlisting}[style=cstyle, language=C, caption={Code of the ``Hello world!''-like kernel side program in ebpf-for-windows.}, title=helloworld.c]
 	#include "C:\\eBPF-for-Windows.0.9.0\\build\\native\\include\\bpf_helpers.h|"
@@ -230,19 +233,19 @@ Looking at the code, there are a few things that we have to point at because the
 
 \begin{itemize}
 	\item 
-		There is no need to define a \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|LICENSE|} for our eBPF code;
+		There is no need to define a \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|LICENSE|} for our eBPF code;
 	\item 
 		As we mentioned earlier, we can now see that to include an header file for working with eBPF we have to include all the path to that file;
 	\item 
 		For this simple example we wanted to use two of the helpers provided for Windows.
 		The full documentation about eBPF API for Windows can be found on GitHub \cite{eBPFWinDoc};
 	\item 
-		We decided to use the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|xdp|} hook point which defines a section meant as an XDP layer program.
+		We decided to use the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|xdp|} hook point which defines a section meant as an XDP layer program.
 		In other words, every time network packets are exchanged (for example, by searching something on the browser), the program is triggered.
 \end{itemize}
 
-The logic of the program is very simple: it gets a random integer from \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_get_prandom_u32()|} and prints a string with \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_printk()|}.
-If we had tried to do the printing of a message like we did in Linux (i.e. defining a string variable and printing it), the program would fail the process of compilation because, as the time of writing, \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_printk()|} can just print the standard string given as first parameter and can accept from zero to a maximum of three numbers as other parameters.
+The logic behind the program is very simple: first, it gets a random number from \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_get_prandom_u32()|} and then prints a string with \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_printk()|} using the previously generated number as parameter.
+If we had tried to do the printing of a message like we did in Linux (i.e. defining a string variable and printing it), the program would fail the process of compilation because, as the time of writing, \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_printk()|} can just print the standard string given as first parameter and can accept from zero to a maximum of three numbers as other parameters.
 
 Once we have written our program we are ready to inject it into the kernel.
 To do so, we have to work from Command Prompt with administrator privileges.
@@ -252,7 +255,7 @@ As we learned from the tutorial.md document, first we have to compile our progra
 	clang -target bpf -Werror -g -O2 -c helloworld.c -o helloworld.o
 \end{lstlisting}
 
-The important options of this command are \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|-Werror|}, that specifies that warnings are errors, \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|-02|}, which is for compiling an optimized build and \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|-g|} which keeps the symbol information.
+The important options of this command are \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|-Werror|}, that specifies that warnings are errors, \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|-02|}, which is for compiling an optimized build and \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|-g|} which keeps the symbol information.
 We will not cover all the possible commands that the tutorial presented.
 The curious users can look deeper into the characteristics of this program using the other commands.
 
@@ -265,8 +268,8 @@ Then we have to install this program into the kernel with the following command.
 If the loading of the program into the kernel is successful we will get in return a program ID associated to it.
 However, we have to mention a major problem that we faced when we were loading programs into the kernel.
 To perform network debugging we have to create a \textit{virtual network adapter} (\textit{vNIC}) to emulate the behavior of a physical network adapter in order to provide network connectivity to our virtual machine.
-However, since we are loading a program which has \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|xdp|} as hook point, our virtual machine loses network connectivity every time we load our \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|helloworld.c|} program in the kernel and regains it every time we remove it from the kernel.
-This will also happen with all the other hook points that are shown in the repository since they are all related to networking: in fact, as the time of writing, Windows does not provide many hook points (for example, there is no \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|execve|} hook point like in Linux) and the ones available are not well-documented.
+However, since we are loading a program which has \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|xdp|} as hook point, our virtual machine loses network connectivity every time we load our \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|helloworld.c|} program in the kernel and regains it every time we remove it from the kernel.
+This will also happen with all the other hook points that are shown in the repository since they are all related to networking: in fact, as the time of writing, Windows does not provide many hook points (for example, there is no \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|execve|} hook point like in Linux) and the ones available are not well-documented.
 Inside the \textit{Settings} of our virtual machine we will display the following message:
 
 \begin{lstlisting}[style=commandline, language=bash, caption={Network adapter problem message on the virtual machine.}]
@@ -278,7 +281,7 @@ However, we will be able to watch debug messages anyway (but we could not figure
 
 Once the program is injected into the kernel, we are now ready to see some output strings.
 In the GettingStarted.md document, under the section \textit{Using tracing}, there is an explanation on how we can look at some debugging output.
-eBPF on Windows uses \textit{Event Tracing for Windows} for logging traces: to view traces in real-time, the  \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|tracelog.exe|} and \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|tracefmt.exe|} commands from the \textit{Windows Driver Kit} (\textit{WDK}, a set of software tools from Microsoft that enables the development of device drivers for the Microsoft Windows platform that we were told to install in the in the Prerequisites section in the GettingStarted.md document) can be used.  
+eBPF on Windows uses \textit{Event Tracing for Windows} for logging traces: to view traces in real-time, the  \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|tracelog.exe|} and \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|tracefmt.exe|} commands from the \textit{Windows Driver Kit} (\textit{WDK}, a set of software tools from Microsoft that enables the development of device drivers for the Microsoft Windows platform that we were told to install in the in the Prerequisites section in the GettingStarted.md document) can be used.  
 However, there is another very interesting way to do so, depending on where we want to generate our output.
 
 If we want to see our debug strings in the Command Prompt in real time we have to follow the instruction on the document mentioned above.
@@ -295,12 +298,12 @@ This is an important part of this process, so we have to be very careful about i
 
 \begin{itemize}
 	\item 
-		The first command brings in a folder where we can find the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|tracelog|} and the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|tracefmt|} programs that we are going to use to print our debug output;
+		The first command brings in a folder where we can find the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|tracelog|} and the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|tracefmt|} programs that we are going to use to print our debug output;
 	\item 
-		The second command creates the trace session.
-		Instead of \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|[eBPF for Windows install folder]|} we had to put our path to that folder: since it was located in \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|C:\\Program Files\\ebpf-for-windows|}, we just had to replace the string between brackets with \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|ebpf-for-windows|}.
-		Moreover, we just want to look at the output printed by \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_printk()|}, so we specified the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|ebpf-printk.guid|} file in the command.
-		However, we could look at all sort of messages if we replace it with \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|ebpf-all.guid|};
+		The second command creates the trace session, a period during which a process is generating trace messages.
+		Instead of \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|[eBPF for Windows install folder]|} we had to put our path to that folder: since in our case it was located in \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|C:\\Program Files\\ebpf-for-windows|}, we just had to replace the string between brackets with \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|ebpf-for-windows|}.
+		Moreover, we just want to look at the output printed by \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_printk()|}, so we specified the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|ebpf-printk.guid|} file in the command.
+		However, we could look at all sort of messages if we replace it with \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|ebpf-all.guid|};
 	\item 
 		The third command lets us view the tracing session in real time on terminal;
 	\item 
@@ -313,9 +316,9 @@ After running the first three commands, every time that the program triggers, we
 	[CPU_ID]process_ID.thread_ID::gg/mm/yyyy-hh:mm:ss.sss [EbpfForWindowsProvider]{"Message":"Hello World x!"}
 \end{lstlisting}
 
-Apart from the IDs (the CPU one is just a number, while the process and the thread ones are in hexadecimal) and the date and time information, at the end we get our debugging message (\raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|x|} is the number generated randomly which varies in each message).
-Once we are done with the tracing session, we press \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|CTRL+C|} to interrupt the execution of the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|tracefmt|} command.
-Then, we run the last command to stop the tracing session: if we do not do this, we will not be able to start a new tracing session with the same name using the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|tracelog|} command.
+Apart from the IDs (the CPU one is just a number, while the process and the thread ones are in hexadecimal) and the date and time information, at the end we get our debugging message (\colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|x|} is the number generated randomly which varies in each message).
+Once we are done with the tracing session, we press \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|CTRL+C|} to interrupt the execution of the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|tracefmt|} command.
+Then, we run the last command to stop the tracing session: if we do not do this, we will not be able to start a new tracing session with the same name using the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|tracelog|} command.
 
 However, once we close our terminal, all the information that we got from our tracing session gets lost.
 On Windows there is a way to save all the debug messages in a file (and this cannot be done on Linux).
@@ -334,21 +337,21 @@ There are a few important things to look at:
 	\item 
 		The first command is the same as before;
 	\item 
-		The second command does the same thing as before, but it has \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|-kd|} instead of \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|-rt|} at its end: this changes everything.
+		The second command does the same thing as before, but it has \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|-kd|} instead of \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|-rt|} at its end: this changes everything.
 		In fact, now we can see the output messages in two different places:
 		\begin{itemize}
 			\item 
 				In the kernel debugger interface;
 			\item 
-				In a \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|LogFile.Etl|} which can be found in the same directory as \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|tracelog|} (i.e. \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.22621.0\\x64|}).
+				In a \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|LogFile.Etl|} which can be found in the same directory as \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|tracelog|} (i.e. \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.22621.0\\x64|}).
 		\end{itemize}
-		Now, every time the program gets triggered, on the kernel debugger interface a new message gets printed and the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|LogFile.Etl|} gets updated.
+		Now, every time the program gets triggered, on the kernel debugger interface a new message gets printed and the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|LogFile.Etl|} gets updated.
 		It is a bit like before where in Command Prompt new debug messages were printed in real time, but now they are printed in different locations;
 	\item 
 		The third command works in the same way as before;
 	\item 
-		The last command is a new one and we used it to transform the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|Etl|} file generated by \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|tracelog|} in a \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|csv|} file to make it readable.
-		This file has as many rows as the number of debug messages generated by our program and quite a few columns which contain different information about our messages and we can find it in the same directory of the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|Etl|} file.
+		The last command is a new one and we used it to transform the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|Etl|} file generated by \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|tracelog|} in a \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|csv|} file to make it readable.
+		This file has as many rows as the number of debug messages generated by our program and quite a few columns which contain different information about our messages and we can find it in the same directory of the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|Etl|} file.
 \end{itemize}
 
 In the kernel debugger interface the printed messages have a very similar structure as the ones printed in Command Prompt with the previous sequence of commands:
@@ -357,18 +360,18 @@ In the kernel debugger interface the printed messages have a very similar struct
 	[CPU_ID]process_ID.thread_ID::gg/mm/yyyy-hh:mm:ss.sss [EbpfForWindowsProvider/EbpfGenericMessage]{"Message":"Hello World x!"}
 \end{lstlisting}
 
-In addition we have the information about the event name which, in this case, is \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|EbpfGenericMessage|}.
+In addition we have the information about the event name which, in this case, is \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|EbpfGenericMessage|}.
 
-Instead, in the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|csv|} file all the information is disposed into columns: we can find the event name, the process ID, the date and time, the user data (which contains just our \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|Hello World x!|} message) and many more. 
+Instead, in the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|csv|} file all the information is disposed into columns: we can find the event name, the process ID, the date and time, the user data (which contains just our \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|Hello World x!|} message) and many more. 
 
-These are two ways to perform debugging with \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_printk()|} on Windows.
+These are two ways to perform debugging with \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_printk()|} on Windows.
 Once we are done with the tracing session, we must remember to remove the program from where we have installed it with the following command:
 
 \begin{lstlisting}[style=commandline, language=bash, caption={``Hello world!''-like program delete command in ebpf-for-windows.}]
 	netsh ebpf delete program program_id
 \end{lstlisting}
 
-In this case, the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|program_id|} is the one that we get in return when we installed the program.
+In this case, the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|program_id|} is the one that we get in return when we installed the program.
 
 \section{The windows-ebpf-starter project}
 
@@ -388,7 +391,7 @@ However, we wrote them an email asking if they could give us access to that repo
 
 After we cloned the repository on our virtual machine, we built the environment by following the instructions on the article and did the tutorial about \textit{Writing and compiling a simple eBPF program}.
 Once we became familiar with the environment, we decided to reproduce the same examples that we did in Linux to make a fair comparison between two programs that should do the same thing.
-For this purpose, in the following we are going to present a program very similar to the one that used an \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|HashMap|}: we will call it \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|hash_map_use.c|}
+For this purpose, in the following we are going to present a program very similar to the one that used an \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|HashMap|}: we will call it \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|hash_map_use.c|}
 
 \begin{lstlisting}[style=cstyle, language=C, caption={Code of the program that uses a map in windows-ebpf-starter.}, title=hash\_map\_use.c]
 	#include "stdint.h"
@@ -463,18 +466,18 @@ Apart from the different way of defining an eBPF map and some types of some vari
 
 \begin{itemize}
 	\item 
-		Take the process ID with \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_get_current_pid_tgid() >>32|} and the time from system boot with \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_ktime_get_ns()|} and pass them by copy to the sub-program \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|hash_map_use()|};
+		Take the process ID with \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_get_current_pid_tgid() >>32|} and the time from system boot with \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_ktime_get_ns()|} and pass them by copy to the sub-program \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|hash_map_use()|};
 	\item 
-		Add them to the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|HashMap|} with the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|pid|} as key and the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|time_stamp|} as value;
+		Add them to the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|HashMap|} with the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|pid|} as key and the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|time_stamp|} as value;
 	\item 
-		Look for the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|pid|} value in the map (which will always be found);
+		Look for the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|pid|} value in the map (which will always be found);
 	\item 
-		Delete the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|pid|}-\raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|time_stamp|} couple from the map;
+		Delete the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|pid|}-\colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|time_stamp|} couple from the map;
 	\item 
-		Check if the delete operation has been done successfully by looking again for the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|pid|} value in the map.
+		Check if the delete operation has been done successfully by looking again for the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|pid|} value in the map.
 \end{itemize}
 
-Once we compile the program with the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|build.bat|} file provided by the project, we can then load it into the kernel and start a tracing session with \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|tracelog|}, following the one of the two procedures that we have seen earlier.
+Once we compile the program with the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|build.bat|} file provided by the project, we can then load it into the kernel and start a tracing session with \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|tracelog|}, following the one of the two procedures that we have seen earlier.
 
 After doing so, we will see the following output:
 
@@ -495,53 +498,53 @@ There are a few interesting things about this output messages:
 	\item 
 		We did report just the debug messages, omitting the information about the process and thread IDs, the date and time and the CPU number;
 	\item 
-		As the output of the Linux program, \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|pid|} and \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|time_stamp|} are between quotes because they depend on the particular execution of the program;
+		As the output of the Linux program, \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|pid|} and \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|time_stamp|} are between quotes because they depend on the particular execution of the program;
 	\item 
 		Due to the problem with the virtual network adapter that we have discussed previously, the process ID will always be 0, meaning that the system is in idle.
 		However, this is not important if we just want to show how this program works;
 	\item 
-		The second-to-last message suggests that the delete operation has not been performed successfully, even though the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_map_delete_elem()|} returns 0.
-		We could not figure out why this happens.
-		We tried to develop the exact same program using an \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|ArrayMap|} instead of the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|HashMap|} and all the debug messages are the same except for the penultimate one, which is \raggedright\raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|"DELETED IN ARRAY: pid ``pid'' - *deleted 0."|}.
-		It looks like that the delete method works well with the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|ArrayMap|}, but gives some problems with the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|HashMap|};
+		The second-to-last message suggests that the delete operation has not been performed successfully, even though the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_map_delete_elem()|} returns 0.
+		We could not figure out why this happens, so we tried to develop the exact same program using an \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|ArrayMap|} instead of the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|HashMap|}.
+		The result was interesting: all the debug messages were the same except for the penultimate one, which was \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|"DELETED IN ARRAY: pid ``pid'' - *deleted 0."|}.
+		It looks like that the delete method works well with the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|ArrayMap|}, but gives some problems with the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|HashMap|};
 	\item 
-		We remember that with \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_printk()|} we can just print numbers on Windows, so we could not print the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|deleted|} pointer to see its value and understand what goes wrong in the delete operation.
+		We remember that with \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_printk()|} we can just print numbers on Windows, so we could not print the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|deleted|} pointer to see its value and understand what goes wrong in the delete operation.
 \end{itemize}
 
 Besides learning some new things about eBPF maps, it seems that this project, which we looked at with hope, does not significantly simplify things when we have to load a program inside the kernel and look at some debug output.
-It makes the process of compilation easier because it defines the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|build.bat|} file which allows us to compile multiple programs at once, but other than that we have to use again the commands that are shown in the tutorial.md document in the ebpf-for-windows repository.
+It makes the process of compilation easier because it defines the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|build.bat|} file which allows us to compile multiple programs at once, but other than that we have to use again the commands that are shown in the tutorial.md document in the ebpf-for-windows repository.
 
 However, the article of Gurnoor Virdi does not stop with the writing of some simple eBPF programs: the section called \textit{Working with userspace} is the most interesting part about this project because it shows how we can manage the lifetime of an eBPF program through an user space application (like we did with libbpf-bootstrap).
 
 The idea is the same of the one that we have already seen in Linux: create a user space application that uses a series of methods to manage the various phases that an eBPF kernel side program goes through: opening, loading, attaching and unloading.
-However, these methods are not automatically generated in a skeleton file by the environment after the compilation of the kernel source code of the program that we want to control from user space: they are defined in an header file inside the eBPF runtime, called \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|libbpf.h|}, which can be found in the the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|..\\ebpf-for-windows.0.9.0\\build\\native\\include\\libbpf\\src|} folder (the documentation of this header can be found in a page of the eBPF for Windows documentation on GitHub \cite{eBPFWinlibbpfHeader}).
+However, these methods are not automatically generated in a skeleton file by the environment after the compilation of the kernel source code of the program that we want to control from user space: they are defined in an header file inside the eBPF runtime, called \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|libbpf.h|}, which can be found in the the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|..\\ebpf-for-windows.0.9.0\\build\\native\\include\\libbpf\\src|} folder (the documentation of this header can be found in a page of the eBPF for Windows documentation on GitHub \cite{eBPFWinlibbpfHeader}).
 In fact, we only need two things to make the user space application work:
 
 \begin{itemize}
 	\item 
-		The path to the object file (with extension \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|.o|}) generated from the kernel source code after the process of compilation;
+		The path to the object file (which has \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|.o|} extension) generated from the kernel source code after the process of compilation;
 	\item 
-		The name of the eBPF program that we want to load into the kernel (in other words, the name of the function defined after \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|SEC("hook_point")|}).
+		The name of the eBPF program that we want to load into the kernel (in other words, the name of the function defined after \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|SEC("hook_point")|}).
 \end{itemize}
 
-Once we have these 2 things we can use the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_object__open()|} method to create a pointer to a \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_object|}, which we are going to use in the following phases as a parameter of other methods, such as \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_object__load()|} to load the object code into the kernel, \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_object__attach()|} to attach the program to an hook point and \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_object__close()|} to unload the object code from the kernel.
+Once we have these 2 things we can use the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_object__open()|} method to create a pointer to a \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_object|}, which we are going to use in the following phases as a parameter of other methods, such as \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_object__load()|} to load the object code into the kernel, \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_object__attach()|} to attach the program to an hook point and \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_object__close()|} to unload the object code from the kernel.
 
 However, we tried to do the tutorial described in the article, but we could not manage to correctly compile the user space application.
-Every time we get a fatal error saying that the  \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|\#include|} files cannot be found.
-In particular, we get the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|0x2|} error code which corresponds to \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|ERROR_FILE_NOT_FOUND|}. 
+Every time we get a fatal error saying that the  \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|\#include|} files cannot be found.
+In particular, we get the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|0x2|} error code which corresponds to \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|ERROR_FILE_NOT_FOUND|}. 
 This error code indicates that the system or a program attempted to perform an operation on a file or directory that does not exist at the specified location.
 
 We get this error for including all the headers, but for different reasons:
 
 \begin{itemize}
 	\item 
-		If we include a standard C library (such as \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|iostream|}), the compiler says that it cannot find such file;
+		If we include a standard C library (such as \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|iostream|}), the compiler says that it cannot find such file;
 	\item 
-		If we include an header file from the eBPF runtime (such as \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|libbpf.h|}), even if we put the full path to that file the compiler says that he cannot find some other headers.
-		In fact, in the header files of the eBPF runtime, there are plenty of \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|\#include|} of some other header files.
+		If we include an header file from the eBPF runtime (such as \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|libbpf.h|}), even if we put the full path to that file the compiler says that he cannot find some other headers.
+		In fact, in the header files of the eBPF runtime, there are plenty of \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|\#include|} of some other header files.
 \end{itemize}
 
-We think that the problem is the way in which the project is structured: in the tutorial we are told to modify the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|Makefile|} and add our particular paths to the location of the include directory of the eBPF development files we downloaded through the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|nuget|} package (i.e. \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|..\\ebpf-for-windows.0.9.0\\build\\native\\include|}) and to the location of the lib directory containing \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|EbpfApi.lib|} from the eBPF install directory (i.e. \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|..\\ebpf-for-windows.0.9.0\\build\\native\\lib|}).
+We think that the problem is the way in which the project is structured: in the tutorial we are told to modify the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|Makefile|} and add our particular paths to the location of the include directory of the eBPF development files we downloaded through the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|nuget|} package (i.e. \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|..\\ebpf-for-windows.0.9.0\\build\\native\\include|}) and to the location of the lib directory containing \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|EbpfApi.lib|} from the eBPF install directory (i.e. \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|..\\ebpf-for-windows.0.9.0\\build\\native\\lib|}).
 We think that this tells the compiler to look for all the files that we include in our user space program just in the first of these two folders, but, obviously, not all headers are in that exact directory.
 
 So, although windows-ebof-starter looks very promising, we were only able to make it work with the kernel side code and the commands that are reported in the tutorial.md document in ebpf-for-windows.

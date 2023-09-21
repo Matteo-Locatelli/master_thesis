@@ -17,9 +17,9 @@ Rather than diving directly into eBPF tools and low-level programming, we began 
 This choice has been made at the beginning of our work because we wanted to study the state of art of eBPF today.
 However, using eBPF based tools is the simplest way to approach the world of eBPF: for this reason, they need an honorable mention in this paper.
 
-The easiest way is to learn what tools are available on the distribution that we are using: for example, some Linux distributions are provided with a \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpfcc-tools|} package that gives a few binaries to work with eBPF.
+The easiest way is to learn what tools are available on the distribution that we are using: for example, some Linux distributions are provided with a \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpfcc-tools|} package that gives a few binaries to work with eBPF.
 It is a collection of command-line tools and utilities that leverage the extended eBPF technology which are designed to simplify the process of working with eBPF programs, allowing users to gain insights into various aspects of system behavior, networking and security.
-The \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpfcc-tools|} package is built on top of the \textit{BPF Compiler Collection} (\raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpfcc|}), which offers a suite of tools for developing, deploying and managing eBPF programs. 
+The \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpfcc-tools|} package is built on top of the \textit{BPF Compiler Collection} (\colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpfcc|}), which offers a suite of tools for developing, deploying and managing eBPF programs. 
 It also provides pre-built and ready-to-use tools that cover a wide range of tracing and analysis use cases. 
 
 Another list of raw observability tools to get started with eBPF can be found in the book \textit{BPF Performance Tools: Linux System and Application Observability} \cite{BPFToolsBookWebsite}, written by Brendan Gregg in 2019, and in its official GitHub repository \cite{BPFToolsBookGitHubRepo}: by presenting the utility, the capabilities and the value of different eBPF tools, the author hopes that the book can help the reader to improve performance, reduce costs and solve software issues of systems and applications.
@@ -30,9 +30,9 @@ eBPF tools are easy to use and very powerful, but there are a few characteristic
 	\item 
 		They are commands that have to be invoked on the command line and they need to be provided with some options and arguments (e.g. the events to which the tool has to react);
 	\item 
-		We will be likely need to be root when we run the tools because the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf()|} system call checks for the appropriate capability;
+		We will be likely need to be root when we run the tools because the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf()|} system call checks for the appropriate capability;
 	\item 
-		To stop the tool from running we have to press \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|CTRL+C|} or run them with the timeout command, specifying the time in seconds;
+		To stop the tool from running we have to press \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|CTRL+C|} or run them with the timeout command, specifying the time in seconds;
 	\item 
 		To write or use a tool a certain familiarity with kernel data structures or functions may be required because, as we have already mentioned in the portability problem, data structures can change based not only on kernel version, but also on kernel configuration and this may make the tool no longer work.
 \end{itemize}
@@ -101,7 +101,7 @@ This library encapsulates various functionalities:
 	\item 
 		Ease in the managements of eBPF maps;
 	\item 
-		Abstracts the interaction with the \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf()|} system call by providing easy to use library APIs for applications.
+		Abstracts the interaction with the \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf()|} system call by providing easy to use library APIs for applications.
 \end{itemize}
 
 Moreover, libbpf is the canonical implementation of eBPF CO-RE, the approach of writing eBPF application that solved the problem of portability of eBPF programs that we have already discussed: in fact, it does not require Clang-LLVM runtime being deployed to target servers, it does not rely on kernel-devel headers being available and it does not introduce overhead of performing compilation in runtime on the target host, but it does only rely on kernel to be built with BTF type information.
@@ -123,9 +123,9 @@ Building libbpf-based eBPF application using eBPF CO-RE consists of few steps:
 
 \begin{itemize}
 	\item 
-		Generate \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|vmlinux.h|} (as we saw earlier) and include it in the eBPF program file with a few libbpf helper headers to add some missing macros; 
+		Generate \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|vmlinux.h|} (as we saw earlier) and include it in the eBPF program file with a few libbpf helper headers to add some missing macros; 
 	\item 
-		Compile the eBPF program source code with Clang into an object file with extension \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|.o|};
+		Compile the eBPF program source code with Clang into an object file (which has \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|.o|} extension);
 	\item 
 		Generate the eBPF skeleton header file (which we are going to present later) from the compiled eBPF object file;
 	\item 
@@ -172,7 +172,7 @@ By doing so, since skeletons files abstract away kernel-specific details, such a
 Actually, the generated eBPF program is designed to be portable and compatible with various kernel versions, allowing developers to distribute the compiled eBPF program and expect it to work on different systems without modification.
 The result is that just a single source code has to be maintained for eBPF programs while the compatibility across different kernels is ensured.
 
-The skeleton header file (a file with extension \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|.skel.h|}) for a specific object file can be generated by passing the eBPF object file to bpftool:
+The skeleton header file (a file with extension \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|.skel.h|}) for a specific object file can be generated by passing the eBPF object file to bpftool:
 
 \begin{lstlisting}[style=commandline, language=bash, caption={bpftool command syntax.}]
 	bpftool [Options] gen COMMAND
@@ -188,15 +188,15 @@ In addition to what we have said so far about the portability of eBPF programs, 
 
 \begin{itemize}
 	\item 
-		\raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|<name>__open()|} creates and opens eBPF application;
+		\colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|<name>__open()|} creates and opens eBPF application;
 	\item 
-		\raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|<name>__load()|} instantiates, loads, and verifies eBPF application parts;
+		\colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|<name>__load()|} instantiates, loads and verifies eBPF application parts;
 	\item 
-		\raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|<name>__attach()|} attaches all auto-attachable eBPF programs;
+		\colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|<name>__attach()|} attaches all auto-attachable eBPF programs;
 	\item 	
-		\raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|<name>__detach()|} detaches all eBPF programs and frees up all used resources.
+		\colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|<name>__detach()|} detaches all eBPF programs and frees up all used resources.
 \end{itemize}
 
 Furthermore, the skeleton code makes the memory mapping of global variables as a struct into user space easier, offering a structured interface that enables user space programs to initialize eBPF programs ahead of the eBPF load phase and subsequently manipulate data from user space.
 Actually, the skeleton file reflects the object file structure by listing out the available maps, programs, etc., and provides direct access to all the eBPF maps and eBPF programs as struct fields. 
-This eliminates the need for string-based lookups with \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_object_find_map_by_name()|} and \raggedright\colorbox{backcolour}{\lstinline[style=commandline, language=bash]|bpf_object_find_program_by_name()|} APIs (two methods whose function can be guessed from the name), reducing errors due to disparities between the eBPF source code and the user space code.
+This eliminates the need for string-based lookups with \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_object_find_map_by_name()|} and \colorbox{backcolour}{\lstinline[style=commandline, language=bash, breaklines=true]|bpf_object_find_program_by_name()|} APIs (two methods whose function can be guessed from the name), reducing errors due to disparities between the eBPF source code and the user space code.

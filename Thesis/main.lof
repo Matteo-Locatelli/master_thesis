@@ -7,11 +7,11 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Type 2 (or hosted) hypervisor architecture \blx@tocontentsinit {0}\cite {HypervisorsArchitectures}.\relax }}{63}{figure.caption.10}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Output of the first program generated with BumbleBee.\relax }}{74}{figure.caption.11}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Output of the first program generated with BumbleBee with a few modifications.\relax }}{75}{figure.caption.12}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Output of a program generated with BumbleBee that has been modified to show some data.\relax }}{78}{figure.caption.13}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Type 2 (or hosted) hypervisor architecture \blx@tocontentsinit {0}\cite {HypervisorsArchitectures}.\relax }}{59}{figure.caption.10}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Output of the first program generated with BumbleBee.\relax }}{69}{figure.caption.11}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Output of the first program generated with BumbleBee with a few modifications.\relax }}{70}{figure.caption.12}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Output of a program generated with BumbleBee that has been modified to show some data.\relax }}{74}{figure.caption.13}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Type 1 (or bare metal) hypervisor architecture \blx@tocontentsinit {0}\cite {HypervisorsArchitectures}.\relax }}{100}{figure.caption.14}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Windows debugger interface: (a) after starting WinDbg on our host machine; (b) after rebooting the virtual machine twice.\relax }}{103}{figure.caption.15}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Type 1 (or bare metal) hypervisor architecture \blx@tocontentsinit {0}\cite {HypervisorsArchitectures}.\relax }}{96}{figure.caption.14}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Windows debugger interface: (a) after starting WinDbg on our host machine; (b) after rebooting the virtual machine twice.\relax }}{99}{figure.caption.15}%
 \addvspace {10\p@ }
