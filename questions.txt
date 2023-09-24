@@ -1,4 +1,0 @@
-Code:
-- syscalls in windows and linux (list)
-- problem with test sign the virtual network adapter of virtual machine runned in test mode (windows development environment)
-- problem with main.cpp in user space program (windows)
